@@ -1,21 +1,20 @@
 #include <rk4.h>
-#define K1 1
-#define SIGMA 2
+#define R 28
+#define B 2.6667
+#define SIGMA 10
 #define K2 1.5
-
+#define N 3
 
 using namespace std;
 
 void f(double t, vec x, vec *out) 
 {
-	double args[3],x0,x1,x2;
-	args[0]=(x.arr[1]-x.arr[0])*SIGMA;
+	double x0,x1,x2;
+	out->arr[0]=(x.arr[1]-x.arr[0])*SIGMA;
 
-	args[1]=x.arr[0]*(R-x.arr[2])-x.arr[1];
+	out->arr[1]=x.arr[0]*(R-x.arr[2])-x.arr[1];
 
-	args[2]=(x.arr[0])*(x.arr[1])-(x.arr[2])*B;
-
-	out->arr=args;
+	out->arr[2]=(x.arr[0])*(x.arr[1])-(x.arr[2])*B;
 }
 
 
@@ -28,10 +27,8 @@ int main(int argc , char *argv[])
 	tmax=atof(argv[1+i]);
 	t=0;
 	
-	vec x;	
-	x=vec(tmp);
+	vec x(N,tmp);	
 
-	x.show();
 	while (t<tmax)
 	{
 		x.show();

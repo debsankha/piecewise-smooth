@@ -5,8 +5,6 @@ vec::vec(int N)
 {
 	len=N;
 	arr=(double*)calloc(len,sizeof(double));
-//	double newarr[3];
-//	arr=&newarr[0];};
 }
 vec::vec(int N, double arg[])
 {
@@ -29,9 +27,35 @@ vec::vec(const vec& other)	//COPY CONST
 	for (int i=0;i<len;i++) {*(arr+i)=other.arr[i];}
 }
 
+
+//void vec::swap(vec& first, vec& second) // nothrow
+//{
+//	// enable ADL (not necessary in our case, but good practice)
+//	// by swapping the members of two classes,
+//	// the two classes are effectively swapped
+//	
+//	double *temp;
+//	temp=(double*)calloc(first.len,sizeof(double));
+//	for (int i=0;i<len;i++) {*(temp+i)=first.arr[i];}
+//	for (int i=0;i<len;i++) {first.arr[i]=second.arr[i];}
+//	for (int i=0;i<len;i++) {second.arr[i]=*(temp+i);}
+////	swap(first.arr, second.arr);
+//	free(temp);
+//}
+//
+
 vec& vec::operator =(const vec& other)
 {
-	for (int i=0;i<len;i++) {arr[i]=other.arr[i];}
+	if (this!=&other)
+	{
+	double *temp;
+	temp=(double*)calloc(len,sizeof(double));
+	
+	for (int i=0;i<len;i++) {*(temp+i)=other.arr[i];}
+	free(arr);
+
+	arr=temp;
+	}
 	return *this;
 }
 
@@ -67,8 +91,10 @@ void rk4(double t, vec *x)
 	vec k2(N);
 	vec k3(N);
 	vec k4(N);
+	vec k7(N);
 	f(t,*x,&k1);
-	k1=k1%h;
+	k7=k1%h;
+	k1=k7;
 	f(t+h/2,*x+k1/2,&k2);k2=k2%h;
 	f(t+h/2,*x+k2/2,&k3);k3=k3%h;
 	f(t+h,*x+k3,&k4);k4=k4%h;
