@@ -1,18 +1,22 @@
 #include<iostream>
 #include<stdlib.h>
 #include<cmath>
-#define N 3
 #define h 0.01
 class vec
 {
 	public:
 		double *arr;
-		vec();
-		vec(double arg[]);
-		vec operator +(vec other);
-		vec operator %(double other);
-		vec operator /(double other);
+		int len;
+		vec(int N);
+		vec(int N, double arg[]);
+		vec(const vec& other);	//COPY CONST
+
+		vec& operator =(const vec& other);
+		vec operator +(const vec other);
+		vec operator %(const double other);
+		vec operator /(const double other);
 		void show();
+		~vec();
 };
 
 void f(double, vec, vec*);	
