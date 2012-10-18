@@ -1,6 +1,5 @@
 #include<iostream>
 #include<stdlib.h>
-#include<cmath>
 #define h 0.01
 class vec
 {

@@ -27,24 +27,7 @@ vec::vec(const vec& other)	//COPY CONST
 	for (int i=0;i<len;i++) {*(arr+i)=other.arr[i];}
 }
 
-
-//void vec::swap(vec& first, vec& second) // nothrow
-//{
-//	// enable ADL (not necessary in our case, but good practice)
-//	// by swapping the members of two classes,
-//	// the two classes are effectively swapped
-//	
-//	double *temp;
-//	temp=(double*)calloc(first.len,sizeof(double));
-//	for (int i=0;i<len;i++) {*(temp+i)=first.arr[i];}
-//	for (int i=0;i<len;i++) {first.arr[i]=second.arr[i];}
-//	for (int i=0;i<len;i++) {second.arr[i]=*(temp+i);}
-////	swap(first.arr, second.arr);
-//	free(temp);
-//}
-//
-
-vec& vec::operator =(const vec& other)
+vec& vec::operator =(const vec& other)		//overloaded assignment
 {
 	if (this!=&other)
 	{

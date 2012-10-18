@@ -1,20 +1,22 @@
 #include <rk4.h>
-#define R 28
-#define B 2.6667
-#define SIGMA 10
-#define K2 1.5
-#define N 3
+#include <cmath>
+#define N 2
+#define Sigma 5
+#define K1 4
+#define K2 3
+#define G 0
+#define F 0
+#define W 2
 
 using namespace std;
 
 void f(double t, vec x, vec *out) 
 {
-	double x0,x1,x2;
-	out->arr[0]=(x.arr[1]-x.arr[0])*SIGMA;
-
-	out->arr[1]=x.arr[0]*(R-x.arr[2])-x.arr[1];
-
-	out->arr[2]=(x.arr[0])*(x.arr[1])-(x.arr[2])*B;
+	//SHM hitting with a bouncy wall 
+	out->arr[0]=x.arr[1];
+	out->arr[1]=-K1*x.arr[0]-G*x.arr[1];
+	if (x.arr[0]>Sigma) out->arr[1]-=K2*x.arr[0];
+//	out->arr[2]=1;	
 }
 
 
@@ -31,6 +33,7 @@ int main(int argc , char *argv[])
 
 	while (t<tmax)
 	{
+		cout<<t<<'\t';
 		x.show();
 		rk4(t,&x);
 		t+=h;
