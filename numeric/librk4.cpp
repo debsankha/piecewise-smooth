@@ -20,6 +20,14 @@ vec vec::operator +(const vec other)
 	return temp;
 }
 
+vec vec::operator -(const vec other)
+{
+	vec temp(len);
+	for (int i=0;i<len;i++) {temp.arr[i]=arr[i]-other.arr[i];}
+	return temp;
+}
+
+
 vec::vec(const vec& other)	//COPY CONST
 {
 	len=other.len;
@@ -74,12 +82,9 @@ void rk4(double t, vec *x)
 	vec k2(N);
 	vec k3(N);
 	vec k4(N);
-	vec k7(N);
-	f(t,*x,&k1);
-	k7=k1%h;
-	k1=k7;
+	f(t,*x,&k1);k1=k1%h;
 	f(t+h/2,*x+k1/2,&k2);k2=k2%h;
 	f(t+h/2,*x+k2/2,&k3);k3=k3%h;
 	f(t+h,*x+k3,&k4);k4=k4%h;
-	*x=*x+(k1+k2%2+k3%2+k4)/6;	
+	*x=*x+(k1+k2%2+k3%2+k4)/6;
 }

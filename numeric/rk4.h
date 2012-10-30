@@ -1,6 +1,7 @@
 #include<iostream>
 #include<stdlib.h>
 #define h 0.01
+
 class vec
 {
 	public:
@@ -12,6 +13,7 @@ class vec
 		
 		vec& operator =(const vec& other);
 		vec operator +(const vec other);
+		vec operator -(const vec other);
 		vec operator %(const double other);
 		vec operator /(const double other);
 		void show();

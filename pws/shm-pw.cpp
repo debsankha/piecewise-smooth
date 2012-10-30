@@ -1,12 +1,13 @@
 #include <rk4.h>
 #include <cmath>
-#define N 2
-#define Sigma 5
-#define K1 4
-#define K2 3
-#define G 0
-#define F 0
-#define W 2
+#define N 3		//dimensionality of system
+#define Sigma 1		//the boundary: x=5
+#define K1 1		
+#define K2 1000
+#define G 0.00062		//damping
+#define G2 6.2			//extra damping
+#define F 1.4881		//forcing amplitude
+#define W 2.176		//forcing freq: sin(W*t)
 
 using namespace std;
 
@@ -14,9 +15,9 @@ void f(double t, vec x, vec *out)
 {
 	//SHM hitting with a bouncy wall 
 	out->arr[0]=x.arr[1];
-	out->arr[1]=-K1*x.arr[0]-G*x.arr[1];
-	if (x.arr[0]>Sigma) out->arr[1]-=K2*x.arr[0];
-//	out->arr[2]=1;	
+	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*x.arr[2]);
+	if (x.arr[0]>Sigma) {out->arr[1]-=K2*(x.arr[0]-Sigma);out->arr[1]-=G2*x.arr[1];}
+	out->arr[2]=1;	
 }
 
 
@@ -33,9 +34,8 @@ int main(int argc , char *argv[])
 
 	while (t<tmax)
 	{
-		cout<<t<<'\t';
-		x.show();
 		rk4(t,&x);
 		t+=h;
+		cout<<t<<'\t';x.show();
 	}
 }
