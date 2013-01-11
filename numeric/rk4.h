@@ -1,23 +1,24 @@
 #include<iostream>
 #include<stdlib.h>
-#define h 0.01
+#define h 0.001
 
-class vec
+class vec			//a vector class: contains just an array
 {
 	public:
-		double *arr;
-		int len;
+		double *arr;				//R1. DYNAMIC ALLOCATION
+		int len;	//the length
 		vec(int N);
-		vec(int N, double arg[]);
-		vec(const vec& other);	//COPY CONST
+		vec(int N, double arg[]);	//deepcopies arg to arrr 
+		vec(const vec& other);			//R2. COPY CONST
 		
-		vec& operator =(const vec& other);
+		vec& operator =(const vec& other);	//R3. ASSIGNMENT OVERLOADED
 		vec operator +(const vec other);
 		vec operator -(const vec other);
-		vec operator %(const double other);
+		vec operator %(const double other);//scalar multiplication
 		vec operator /(const double other);
 		void show();
-		~vec();
+		double norm();
+		~vec();					//R4. DESTRUCTOR
 };
 
 void f(double, vec, vec*);	

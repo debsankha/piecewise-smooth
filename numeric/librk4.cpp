@@ -1,12 +1,12 @@
 #include <rk4.h>
 
 using namespace std;
-vec::vec(int N)
+vec::vec(int N)		
 {
 	len=N;
 	arr=(double*)calloc(len,sizeof(double));
 }
-vec::vec(int N, double arg[])
+vec::vec(int N, double arg[])	
 {
 	len=N;
 	arr=(double*)calloc(len,sizeof(double));
@@ -36,7 +36,7 @@ vec::vec(const vec& other)	//COPY CONST
 }
 
 vec& vec::operator =(const vec& other)		//overloaded assignment
-{
+{	//A reasonably fail-safe deepcopy, can meddle with no-throw swap for better security
 	if (this!=&other)
 	{
 	double *temp;
@@ -51,7 +51,7 @@ vec& vec::operator =(const vec& other)		//overloaded assignment
 }
 
 
-vec vec::operator %(const double other)
+vec vec::operator %(const double other)		//Scalar multiplication. 
 {
 	vec temp(len);
 	for (int i=0;i<len;i++) {temp.arr[i]=arr[i]*other;}
@@ -70,13 +70,21 @@ void vec::show()
 	cout<<endl;
 }
 
+double vec::norm()
+{
+	double res=0;
+	for (int i=0;i<len;i++) {res+=(*(arr+i))*(*(arr+i));}
+	return res;
+}
+
+
 vec::~vec()
 {
 	free(arr);
 }
 
 void rk4(double t, vec *x)
-{
+{	//Normal RK4 stuff
 	int N=(*x).len;
 	vec k1(N);
 	vec k2(N);
