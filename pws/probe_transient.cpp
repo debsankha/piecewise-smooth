@@ -28,8 +28,8 @@ int main(int argc, char **argv)
 			tmp[1]=pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);
 
 			vec x(2,tmp);
-
 			cout<<F<<'\t'<<time_to_stabilize(x, tmax)<<endl;
+			cerr<<"\tstarting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
 		}
 	}
 }
@@ -39,8 +39,10 @@ int main(int argc, char **argv)
 double time_to_stabilize(vec x, double tmax)
 {
 	double t=0;
+	double time_to_stable=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
+	double poinc_t[ORB];							//array to store poincare x vals in to detect period
 	int i=0;
 	int period=0;
 			
@@ -58,21 +60,21 @@ double time_to_stabilize(vec x, double tmax)
 		if ((oldvel<0) && (x.arr[1]>0))
 		{
 			poinc_x[i]=x.arr[0];
+			poinc_t[i]=t;
 			i++;
-		} 
 		
-		if (i==ORB)
-		{
-			period=detect_period(&poinc_x[0]);
-			
-			if (period>0)
+			if (i==ORB)
 			{
-				cerr<<"#F: "<<F<<"\tPeriod: "<<period<<endl;
-				return t;
+				period=detect_period(&poinc_x[0],&poinc_t[0], &time_to_stable);
+				
+				if (period>0)
+				{
+					cerr<<"#F: "<<F<<"\tPeriod: "<<period<<endl;
+					return time_to_stable;
+				}
+				i=0;
 			}
-			i=0;
 		}
-		
 		t+=h;
 	}
 	return 0;		//Remember: you'd get t=0 if chaotic orb or periodicity >48

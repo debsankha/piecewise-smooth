@@ -25,7 +25,7 @@ int main(int argc , char *argv[])
 	
 		tmax=atof(argv[1+i]);
 		F=atof(argv[2+i]);
-		plotpoincare(x,0,tmax);
+		plotpoincare(x,0,tmax,tmax*0.9);
 	}
 
 	if (strcmp(argv[1],"plotbifurc")==0)

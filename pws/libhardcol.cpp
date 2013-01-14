@@ -8,7 +8,7 @@ float F=4.43741; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
-
+float time_to_stable=0;
 
 void f(double t, vec x, vec *out) 
 {
@@ -20,8 +20,10 @@ void f(double t, vec x, vec *out)
 int plottraj(vec x, float tmax)
 {
 	double t;
+	double time_to_stable=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
+	double poinc_t[ORB];
 	int i=0;
 	int period=0;
 			
@@ -42,22 +44,22 @@ int plottraj(vec x, float tmax)
 		{
 			cerr<<t<<'\t'<<x.arr[0]<<endl;				//outputs the poincare mappings to stderr
 			poinc_x[i]=x.arr[0];
+			poinc_t[i]=t;
 			i++;
-		} 
-		
-		if (i==ORB)
-		{
-			i=0;
-			period=detect_period(&poinc_x[0]);
-			
-			if (period>0)
+		 
+			if (i==ORB)
 			{
-				cerr<<"# Period: "<<period<<endl;
-				cerr<<"time to stabilize: "<<t<<endl;
-				return period;
+				i=0;
+				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+				
+				if (period>0)
+				{
+					cerr<<"# Period: "<<period<<endl;
+					cerr<<"time to stabilize: "<<time_to_stable<<endl;
+					return period;
+				}
 			}
-		}
-		
+		}	
 		t+=h;
 	}
 	return 0;
@@ -119,13 +121,36 @@ int plotbifurc_F(float minF, float maxF, int npts)
 }
 
 
-int detect_period(double *arr)
+int detect_period(double *arr, double *t_arr, double *time_to_stable)
 {
-	for (int i=1;i<ORB-1;i++)
+	double inc;
+	int stretch;
+	bool stillthere;
+
+	for (int per=1;per<ORB/2;per++)	//per==periodicity to detect
 	{
-		if (abs(arr[i]-arr[0])<0.001)
+		stretch=0;
+		stillthere=0;
+		for (int startpt=0;startpt<ORB-per;startpt++)
 		{
-			if (abs(arr[i+1]-arr[1])<0.001) return i;
+			inc=abs(arr[startpt]-arr[startpt+per]);
+			if (inc<0.001)
+			{
+				stillthere=1;
+				stretch++;
+			}
+			else
+			{
+				stillthere=0;
+				stretch=0;		
+			}
+		}
+
+		if (stillthere && (stretch>4))
+		{
+			*time_to_stable=t_arr[ORB-stretch*per];
+			cerr<<"stretch: "<<stretch<<endl;
+			return per;
 		}
 	}
 	return 0;
