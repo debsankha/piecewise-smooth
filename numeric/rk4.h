@@ -1,3 +1,6 @@
+#ifndef RK4_H_included
+#define RK4_H_included
+
 #include<iostream>
 #include<stdlib.h>
 #define h 0.001
@@ -23,3 +26,6 @@ class vec			//a vector class: contains just an array
 
 void f(double, vec, vec*);	
 void rk4(double t, vec *x);
+
+#endif
+
