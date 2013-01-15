@@ -1,7 +1,10 @@
 #include <hardcol.h>
+#define NPTSEACHF 100	//Number of points for each F value
+
 
 using namespace std;
 
+double time_to_stable=0;
 extern float Sigma,G,F,W,m,K1;
 double time_to_stabilize(vec, double);
 
@@ -21,11 +24,11 @@ int main(int argc, char **argv)
 
 	for (F=F_graz-F_range;F<F_graz;F+=dF)
 	{
-		for (int cnt=0;cnt<10;cnt++)
+		for (int cnt=0;cnt<NPTSEACHF;cnt++)
 		{
 			double tmp[2];
-			tmp[0]=randdouble(-Sigma*1.1,-Sigma*0.8);
-			tmp[1]=pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);
+			tmp[0]=randdouble(-Sigma*1.1,-Sigma*0.8);		//This choice of initial pts will have same impact 
+			tmp[1]=pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);//velocity, barring impacts
 
 			vec x(2,tmp);
 			cout<<F<<'\t'<<time_to_stabilize(x, tmax)<<endl;
@@ -39,7 +42,6 @@ int main(int argc, char **argv)
 double time_to_stabilize(vec x, double tmax)
 {
 	double t=0;
-	double time_to_stable=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
 	double poinc_t[ORB];							//array to store poincare x vals in to detect period
@@ -47,6 +49,7 @@ double time_to_stabilize(vec x, double tmax)
 	int period=0;
 			
 	t=0;
+	time_to_stable=0;
 	while (t<tmax)
 	{
 		oldvel=x.arr[1];

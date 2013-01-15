@@ -13,7 +13,7 @@
 #define randdouble(min,max) min+rand()*(max-min)*1.0/RAND_MAX
 
 
-extern float Sigma,G,F,W,m,K1,time_to_stable;
+extern float Sigma,G,F,W,m,K1;
 
 int plottraj(vec, float);	//returns period :P
 int plotpoincare(vec, double, double, double);

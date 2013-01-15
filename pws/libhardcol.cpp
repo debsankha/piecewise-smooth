@@ -8,7 +8,6 @@ float F=4.43741; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
-float time_to_stable=0;
 
 void f(double t, vec x, vec *out) 
 {
