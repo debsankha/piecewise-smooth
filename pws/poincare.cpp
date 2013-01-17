@@ -31,13 +31,15 @@ int main(int argc, char **argv)
 	float dF=F_range/NPTS;
 	float Fmax=F_graz+F_range/2;
 	float Fmin=F_graz-F_range/2;
+	
+	cerr<<"dt"<<"xhcol"<<"vhcol"<<"vpcol"<<endl;
 
 	for (F=Fmin;F<Fmax;F+=dF)
 	{
 		for (int n=0;n<NPTSEACHX;n++)
 		{
 			//poincare all the way
-			double tmp[]={randdouble(-0.01,0.01),randdouble(-0.01,0.01)};
+			double tmp[]={randdouble(-0.001,0.001),randdouble(-0.001,0.001)};
 			vec x(2,tmp);
 			int n_iter=0;
 
@@ -60,15 +62,14 @@ void poinc_x(vec *x)
 	vec xhcol(2);
 	mtintox(Tau,*x, &xhcol);
 	
-	cerr<<"xhcol: "<<xhcol.arr[0]<<'\t'<<xhcol.arr[1]<<endl;
-
 	double delta_t=-1*xhcol.arr[0]/xhcol.arr[1];
 	
-	double vcol=xhcol.arr[1]*(1-G*delta_t)+delta_t*(F*(W*W-K1)/pow(W*W*G*G+(W*W-K1)*(W*W-K1),0.5)-K1*(Sigma+xhcol.arr[0]));
+	double vhcol=xhcol.arr[1]*(1-G*delta_t)-K1*delta_t*xhcol.arr[0];
+	double vpcol=-F*W/pow((K1-W*W)*(K1-W*W)+W*W*G*G,0.5)*sin(delta_t);
 	
 	vec extra_x(2);
 	extra_x.arr[0]=0;
-	extra_x.arr[1]=-2*vcol;
+	extra_x.arr[1]=-2*(vhcol+vhcol);
 	
 	vec firstterm(2),secondterm(2);
 
@@ -76,8 +77,6 @@ void poinc_x(vec *x)
 
 	mtintox(2*M_PI/W,*x,&firstterm);
 	*x=firstterm+secondterm;
-
-	cerr<<"dt: "<<delta_t<<" vcol: "<<vcol<<" secondterm: "<<secondterm.arr[0]<<", "<<secondterm.arr[1]<<endl;
 }
 
 
