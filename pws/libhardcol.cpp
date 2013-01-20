@@ -69,19 +69,45 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 	double t=tmin;
 	double T=2*M_PI/W;
 	double oldvel=0;
-
+	int i=0;	
+	double poinc_x[ORB], poinc_t[ORB], time_to_stable;
+	int period=0;
+		
 	t=0;
 	while (t<t_startprint)
 	{
+		oldvel=x.arr[1];
 		rk4(t,&x);
 		if (x.arr[0]>Sigma)		//The reset map on hard collision
 		{
 			x.arr[0]=Sigma;
 			x.arr[1]*=-1;
 		}
+
+
+		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
+		{
+			poinc_x[i]=x.arr[i];
+			i++;
+			if (i==ORB)
+			{
+				i=0;
+				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+				
+				if (period>0)
+				{
+
+					cout<<"#period: "<<period<<endl;
+					for (int j=ORB;j>0;j--) cout<<F<<'\t'<<poinc_x[ORB-j]<<endl;
+					break;
+				}
+			}
+		}
+	
 		t+=h;
 	}//discarding the transient
-
+	
+	i=0;
 	while (t<tmax)
 	{
 		oldvel=x.arr[1];
@@ -91,14 +117,26 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 			x.arr[0]=Sigma;
 			x.arr[1]*=-1;
 		}
-		t+=h;
 		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
 		{
-			cout<<F<<'\t'<<t<<'\t'<<x.arr[0]<<endl;			//responsible for the output
+			poinc_x[i]=x.arr[i];
+			i++;
+			if (i==ORB)
+			{
+				i=0;
+				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+				
+				if (period>0)
+				{
+					cerr<<"#period: "<<period<<endl;
+					break;
+				}
+			}
 		}
+		t+=h;
+		cout<<F<<'\t'<<x.arr[0]<<endl;			//responsible for the output
 	}
 	return 0;
-
 }
 
 int plotbifurc_F(float minF, float maxF, int npts)

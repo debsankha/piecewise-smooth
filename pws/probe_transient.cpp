@@ -1,5 +1,5 @@
 #include <hardcol.h>
-#define NPTSEACHF 100	//Number of points for each F value
+#define NPTSEACHF 10	//Number of points for each F value
 
 
 using namespace std;
@@ -80,5 +80,5 @@ double time_to_stabilize(vec x, double tmax)
 		}
 		t+=h;
 	}
-	return 0;		//Remember: you'd get t=0 if chaotic orb or periodicity >48
+	return tmax;		//Remember: you'd get t=0 if chaotic orb or periodicity >48
 }
