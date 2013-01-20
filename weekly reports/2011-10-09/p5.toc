@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.20pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Monodromy matrix}{2}{0}{1}
+\beamer@sectionintoc {2}{Saltation matrix}{4}{0}{2}
+\beamer@sectionintoc {3}{Poincare map after border collision}{9}{0}{3}

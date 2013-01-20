@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.20pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Scenarios}{2}{0}{1}
+\beamer@sectionintoc {2}{Bifurcation of equillibria}{4}{0}{2}
+\beamer@sectionintoc {3}{Grazing}{7}{0}{3}

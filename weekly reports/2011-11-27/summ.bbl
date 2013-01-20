@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{paper:classify-pws-bif}
+Soumitro Banerjee, Priya Ranjan, and Celso Grebogi.
+\newblock Bifurcations in two-dimensional piecewise smooth maps - theory and
+  applications in switching circuits, 2000.
+
+\bibitem{paper:classf-eqbm-bf}
+M.~Di~Bernardo, F.~Garofalo, L.~Iannelli, and F.~Vasca.
+\newblock Bifurcations in piecewise-smooth feedback systems.
+\newblock {\em International Journal of Control}, 75(16-17):1243--1259, 2002.
+
+\bibitem{paper:sob-trace-sing}
+Yue Ma, James Ing, Soumitro Banerjee, Marian Wiercigroch, and Ekaterina
+  Pavlovskaia.
+\newblock The nature of the normal form map for soft impacting systems.
+\newblock {\em International Journal of Non-Linear Mechanics}, 43(6):504 --
+  513, 2008.
+\newblock <ce:title>Non-linear Dynamics of Engineering Systems</ce:title>.
+
+\bibitem{paper:nordmark-sqrt}
+A.B. Nordmark.
+\newblock Non-periodic motion caused by grazing incidence in an impact
+  oscillator.
+\newblock {\em Journal of Sound and Vibration}, 145(2):279 -- 297, 1991.
+
+\end{thebibliography}
