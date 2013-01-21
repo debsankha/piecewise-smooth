@@ -1,15 +1,12 @@
 #ifndef HARDCOL_H_INCLUDED
 #define HARDCOL_H_INCLUDED
 
-#include <mpi.h>
-#include <fstream>
 #include <rk4.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <string.h>
 #include <limits>
 #define TMAX 1000	//Time to evolve for bifurc diagrams
-#define NPTS 10		//# of pts to take for each param velue in bifurc diagram
 #define ORB  50		//set it to 2+max periodicity that we'll attempt to detect.(extra 1 for redundancy)
 #define N 2		//dimensionality of system
 #define randdouble(min,max) min+rand()*(max-min)*1.0/RAND_MAX

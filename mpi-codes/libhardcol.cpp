@@ -1,5 +1,5 @@
 #include <hardcol.h>
-
+#define NPTS 10		//# of pts to take for each param velue in bifurc diagram
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
@@ -185,10 +185,11 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 
 		if (stillthere && (stretch>4))
 		{
-			*time_to_stable=t_arr[ORB-stretch*per];
-			cerr<<"stretch: "<<stretch<<endl;
+			*time_to_stable=t_arr[ORB-stretch-1];
+			cout<<"#stretch: "<<stretch<<endl;
 			return per;
 		}
 	}
+	*time_to_stable=-1;	//Just some absurd value: should never be accepted by the calling function
 	return 0;
 }

@@ -1,11 +1,10 @@
 #include <hardcol.h>
-#define NPTSEACHX 10	//Number of points for each F value
-#define NPTS 50	//Number of x values
-
-
+#define NPTSEACHX 100	//Number of points for each F value
+#define NPTS 500	//Number of x values
+#include <mpi.h>
+//time negative for some conditions. FIX ASAP
 using namespace std;
 
-double time_to_stable=0;
 extern float Sigma,G,F,W,m,K1;
 double time_to_stabilize(vec, double);
 
@@ -18,15 +17,10 @@ int main(int argc, char **argv)
 
 	//Look at time to stabilize, while F is changed gradually to grazing
 	
-	char fname[100];
-	sprintf(fname,"probe_transient_F_%d.dat",rank);
 
-	ofstream outfile;
-	outfile.open(fname);
-
-	outfile<<"#F"<<'\t'<<"time_to_stabilize"<<endl;
+	cout<<"#F"<<'\t'<<"time_to_stabilize"<<endl;
 	float F_graz=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
-	outfile<<"#F_graz: "<<F_graz<<endl;
+	cout<<"#F_graz: "<<F_graz<<endl;
 
 	double F_range=atof(argv[1]);
 	double tmax=atof(argv[2]);
@@ -35,7 +29,7 @@ int main(int argc, char **argv)
 	double startF=F_graz-rank*F_range/size;
 	double stopF=F_graz-(rank+1)*F_range/size;
 
-	for (F=startF;F<stopF;F+=dF)
+	for (F=startF;F>stopF;F-=dF)
 	{
 		for (int cnt=0;cnt<NPTSEACHX;cnt++)
 		{
@@ -44,13 +38,12 @@ int main(int argc, char **argv)
 			tmp[1]=pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);//velocity, barring impacts
 
 			vec x(2,tmp);
-			outfile<<F<<'\t'<<time_to_stabilize(x, tmax)<<endl;
-			outfile<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
+			cout<<F<<'\t'<<time_to_stabilize(x, tmax)<<endl;
+			cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
 		}
 	}
 
 	MPI::Finalize();
-	outfile.close();
 	return 0;
 }
 
@@ -58,6 +51,7 @@ int main(int argc, char **argv)
 
 double time_to_stabilize(vec x, double tmax)
 {
+	double time_to_stable=0;
 	double t=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
@@ -89,7 +83,7 @@ double time_to_stabilize(vec x, double tmax)
 				
 				if (period>0)
 				{
-					outfile<<"#F: "<<F<<"\tPeriod: "<<period<<endl;
+					cout<<"#F: "<<F<<"\tPeriod: "<<period<<endl;
 					return time_to_stable;
 				}
 				i=0;
