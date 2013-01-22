@@ -3,3 +3,8 @@
 *.o
 *.out
 *.out
+*.nav
+*.toc
+*.aux
+*.log
+

@@ -2,6 +2,7 @@
 #define NPTSEACHX 100	//Number of points for each F value
 #define NPTS 500	//Number of x values
 #include <mpi.h>
+#include <ctime>
 //time negative for some conditions. FIX ASAP
 using namespace std;
 
@@ -10,6 +11,7 @@ double time_to_stabilize(vec, double);
 
 int main(int argc, char **argv)
 {
+	srand(time(NULL));
 	int rank,size;	//roughly speaking, #instance,#totalinstances
 	MPI::Init(argc, argv);
 	rank = MPI::COMM_WORLD.Get_rank();

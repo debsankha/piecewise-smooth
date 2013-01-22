@@ -20,6 +20,5 @@ while True:
 			freq=1
 		oldx=linex
 	except:
-		if freq>0:
-			print linex,yval/freq
+		print linex,yval/freq
 		break
