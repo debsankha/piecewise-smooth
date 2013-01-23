@@ -4,7 +4,7 @@ using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
 float G=0.062;	//damping
-float F=4.43741; //1.4881;		//forcing amplitude
+float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;

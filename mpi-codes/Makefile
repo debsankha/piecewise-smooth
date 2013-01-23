@@ -7,8 +7,11 @@ hardcol: ../numeric/librk4.o ../numeric/rk4.h hardcol.cpp libhardcol.o
 libhardcol.o: libhardcol.cpp hardcol.h ../numeric/rk4.h
 	$(CC) $(CCFLAGS) -c libhardcol.cpp 
 
-probe-transient: probe_transient.cpp libhardcol.o ../numeric/librk4.o ../numeric/rk4.h
-	$(CC) $(CCFLAGS) -o probe-transient.out probe_transient.cpp libhardcol.o ../numeric/librk4.o 
+probe-transient-F: probe_transient-F.cpp libhardcol.o ../numeric/librk4.o ../numeric/rk4.h
+	$(CC) $(CCFLAGS) -o probe-transient-F.out probe_transient-F.cpp libhardcol.o ../numeric/librk4.o 
+
+probe-transient-G: probe_transient-G.cpp libhardcol.o ../numeric/librk4.o ../numeric/rk4.h
+	$(CC) $(CCFLAGS) -o probe-transient-G.out probe_transient-G.cpp libhardcol.o ../numeric/librk4.o 
 
 poincare: poincare.cpp 
 	$(CC) $(CCFLAGS) -o poincare.out poincare.cpp ../numeric/librk4.o
