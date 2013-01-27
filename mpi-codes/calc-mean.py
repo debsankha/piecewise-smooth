@@ -1,7 +1,8 @@
 #!/usr/bin/python
-import re
+import re,sys
 freq=0
 yval=0
+ysqval=0
 oldx=0
 
 while True:
@@ -14,13 +15,18 @@ while True:
 
 		if freq==0 or abs(linex-oldx)<10e-5:
 			yval+=liney
+			ysqval+=liney**2
 			freq+=1
 		else:	
-			print oldx,yval/freq
+			mean=yval/freq
+			sys.stderr.write(str(freq)+"\n")
+			print oldx,mean,(ysqval/freq-mean**2)**(0.5)
 			yval=liney
+			ysqval=liney**2
 			freq=1
 		oldx=linex
 
 	except EOFError:
-		print oldx,yval/freq
+		mean=yval/freq
+		print oldx,mean,(ysqval/freq-mean**2)**(0.5)
 		break
