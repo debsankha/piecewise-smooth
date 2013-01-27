@@ -28,6 +28,23 @@ int main(int argc , char *argv[])
 		plotpoincare(x,0,tmax,tmax*0.9);
 	}
 
+
+	if (strcmp(argv[1],"plotmap")==0)
+	{
+		int i;	
+		double tmax,tmp[N];
+	
+		for (i=1;i<N+1;i++) { tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
+		vec x(N,tmp);
+	
+		tmax=atof(argv[1+i]);
+		float newF=atof(argv[2+i]);
+		F=atof(argv[1+i]);
+		F=atof(argv[2+i]);
+		plotmap(x,tmax,newF);
+	}
+
+
 	if (strcmp(argv[1],"plotbifurc")==0)
 	{
 		float F_graz=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
