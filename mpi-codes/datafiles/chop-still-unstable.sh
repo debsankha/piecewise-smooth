@@ -3,6 +3,6 @@
 #Assumes datafiles are going from grazing to non-grazing 
 #If otherwise, add a reverse
 
-Start=`grep -nE "	1000$" $1 | awk '{FS=":"};{print $1}' | tail -n 1 `
+Start=`grep -nE "	2000$" $1 | awk '{FS=":"};{print $1}' | tail -n 1 `
 
 tail -n +$((Start+1)) $1 | grep -v "#"

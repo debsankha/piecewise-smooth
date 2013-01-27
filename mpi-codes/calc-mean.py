@@ -20,7 +20,11 @@ while True:
 		else:	
 			mean=yval/freq
 			sys.stderr.write(str(freq)+"\n")
-			print oldx,mean,(ysqval/freq-mean**2)**(0.5)
+			try:
+				sd=(ysqval/freq-mean**2)**(0.5)	#sometimes ysqval/freq-mean**2 gets <0, ~10e-13. flotaing pt error?
+				print oldx,mean,sd
+			except:
+				print oldx, mean, 0	
 			yval=liney
 			ysqval=liney**2
 			freq=1
@@ -28,5 +32,10 @@ while True:
 
 	except EOFError:
 		mean=yval/freq
-		print oldx,mean,(ysqval/freq-mean**2)**(0.5)
+		try:
+			sd=(ysqval/freq-mean**2)**(0.5)
+			print oldx,mean,sd
+		except:
+			print oldx, mean, 0	
+
 		break
