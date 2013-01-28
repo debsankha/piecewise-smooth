@@ -7,7 +7,8 @@
 \usepackage{wrapfig}
 \usepackage{hyperref}
 \usepackage{fancybox}
-
+\usetikzlibrary{arrows}
+\tikzstyle{block}=[draw opacity=0.7,line width=1.4cm]
 \usetikzlibrary{decorations.fractals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -30,17 +31,22 @@
 \setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
 \setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
 
-\newsavebox{\selvestebox}
-\newenvironment{colbox}[1]
-  {\newcommand\colboxcolor{#1}%
-   \begin{lrbox}{\selvestebox}%
-   \begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}}
-  {\end{minipage}\end{lrbox}%
-   \begin{center}
-   \colorbox[HTML]{\colboxcolor}{\usebox{\selvestebox}}
-   \end{center}}
 
-\newenvironment{fminipage}{\begin{Sbox}\begin{minipage}}{\end{minipage}\end{Sbox}\fbox{\TheSbox}}
+\newenvironment<>{problock}[1]{%
+  \begin{actionenv}#2%
+      \def\insertblocktitle{#1}%
+      \par%
+      \mode<presentation>{%
+        \setbeamercolor{block title}{fg=white,bg=DeepSkyBlue4}
+       \setbeamercolor{block body}{fg=black,bg=black!10}
+       \setbeamercolor{itemize item}{fg=blue!20!black}
+       \setbeamertemplate{itemize item}[triangle]
+     }%
+      \usebeamertemplate{block begin}}
+    {\par\usebeamertemplate{block end}\end{actionenv}}
+
+
+\useinnertheme[shadow=true]{rounded}
 
 
 \renewcommand{\(}{\begin{columns}}
@@ -73,6 +79,9 @@
 \section{Transient chaos}
 
 \begin{frame}{Hard impact in an oscillating system}
+
+
+
 \begin{figure}
 \caption{}
 \begin{center}
@@ -239,18 +248,18 @@ no emergence of higher periodic orbit.
 \begin{frame}{In existing literature}
 Celso Grebogi, Edward Ott, James A.   Yorke ,`` Fractal Basin 
 Boundaries, Long-Lived Chaotic Transients, and Unstable-Unstable Pair 
-Bifurcation'', Phys.   Rev.   Lett.   50, 935–938 (1983):\\
+Bifurcation'', Phys.   Rev.   Lett.   50, 935–938 (1983).
 
 
 
-\begin{colbox}{E6E6E6}{}
+\begin{problock}{Their results:}
 Just after chaotic orbit vanishes due to boundary crisis in a 2-D map, chaotic transients 
 can be very long lived. Average lifetime decays as:
 \[
 \ln{\tau}\sim\exp{(\alpha-\alpha_*)^{-1/2}}
 \]
 (However, no proof given)
-\end{colbox}
+\end{problock}
 
 \end{frame}
 
@@ -260,7 +269,7 @@ Celso Grebogi, Edward Ott, James A.   Yorke, Critical Exponent of
 Chaotic Transients in Nonlinear Dynamical Systems, Phys.   Rev.   Lett.   57, 
 1284–1287 (1986):
 
-\begin{colbox}{E6E6E6}{}
+\begin{problock}{Their results:}
 \begin{enumerate}
 \item For many initial conditions, $\tau\sim e^{-\lambda(\tau-T)}/T$.  
 \item $\tau\sim(\alpha-\alpha_*)^{-\gamma}$, $\gamma$ the ``critical 
@@ -274,7 +283,7 @@ points at collision.
 %Secondly, proof assumes fingers map to fingers.   WHY should it be?
 
 \end{enumerate}
-\end{colbox}
+\end{problock}
 
 Is our system of this type or the previous (exponentially decaying) type?
 
