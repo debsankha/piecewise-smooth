@@ -87,7 +87,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 
 		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
 		{
-			poinc_x[i]=x.arr[i];
+			poinc_x[i]=x.arr[0];
 			i++;
 			if (i==ORB)
 			{
@@ -119,7 +119,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 		}
 		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
 		{
-			poinc_x[i]=x.arr[i];
+			poinc_x[i]=x.arr[0];
 			i++;
 			if (i==ORB)
 			{
@@ -138,6 +138,68 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 	}
 	return 0;
 }
+
+
+
+
+
+int plotmap(vec x,double tmax,float newF)
+{
+	double t=0;
+	double T=2*M_PI/W;
+	double oldvel=0;
+	int i=0;	
+	double poinc_x[ORB], poinc_t[ORB], time_to_stable;
+	int period=0;
+		
+	t=0;
+	while (t<tmax)
+	{
+		oldvel=x.arr[1];
+		rk4(t,&x);
+		if (x.arr[0]>Sigma)		//The reset map on hard collision
+		{
+			x.arr[0]=Sigma;
+			x.arr[1]*=-1;
+		}
+
+
+		if (fmod(t,T)<h) //((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
+		{
+			poinc_x[i]=x.arr[0];
+
+			if (i==0) //One flaw: will print bogus value at first run
+			{
+				cout<<poinc_x[ORB-1]<<'\t'<<poinc_x[0]<<endl;	//prints out the poincare map
+			}
+			else
+			{
+				cout<<poinc_x[i-1]<<'\t'<<poinc_x[i]<<endl;
+			}
+
+			i++;
+			if (i==ORB)
+			{
+				i=0;
+				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+				
+				if (period>0)
+				{
+
+					cerr<<"#period: "<<period<<endl;
+					for (int j=ORB;j>0;j--) cerr<<F<<'\t'<<poinc_x[ORB-j]<<endl;
+					break;
+				}
+			}
+		}
+	
+		t+=h;
+	}//discarding the transient
+	return 0;
+}
+
+
+
 
 int plotbifurc_F(float minF, float maxF, int npts)
 {
