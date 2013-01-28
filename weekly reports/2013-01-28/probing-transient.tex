@@ -6,6 +6,7 @@
 \usepackage{tikz}
 \usepackage{wrapfig}
 \usepackage{hyperref}
+\usepackage{fancybox}
 
 \usetikzlibrary{decorations.fractals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,6 +29,19 @@
  
 \setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
 \setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+
+\newsavebox{\selvestebox}
+\newenvironment{colbox}[1]
+  {\newcommand\colboxcolor{#1}%
+   \begin{lrbox}{\selvestebox}%
+   \begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}}
+  {\end{minipage}\end{lrbox}%
+   \begin{center}
+   \colorbox[HTML]{\colboxcolor}{\usebox{\selvestebox}}
+   \end{center}}
+
+\newenvironment{fminipage}{\begin{Sbox}\begin{minipage}}{\end{minipage}\end{Sbox}\fbox{\TheSbox}}
+
 
 \renewcommand{\(}{\begin{columns}}
 \renewcommand{\)}{\end{columns}}
@@ -160,7 +174,7 @@ The system should have settled down to the period-1 limit cycle long ago.  \\
 
 \begin{frame}
 \begin{figure}
-\caption{With errorbars}%head chopped as well
+\caption{$\gamma$ dependence with errorbars}%head chopped as well
 \begin{center}
 \includegraphics[width=0.9\columnwidth]{probeG-t-2000}
 \end{center}
@@ -173,8 +187,8 @@ The system should have settled down to the period-1 limit cycle long ago.  \\
 \begin{frame}{Points to note:}
 \begin{enumerate}
 \item We let the system evolve and determined how much time it takes for an 
-orbit to settle down to a periodic orbit.  When no such orbit emerged till $t=1000s$, we set 
-the time to be $1000s$ itself.  For each $\gamma$ value, $200$ 
+orbit to settle down to a periodic orbit.  When no such orbit emerged till $t=2000s$, we set 
+the time to be $2000s$ itself.  For each $\gamma$ value, $300$ 
 points were taken and the averages plotted.  
 \item We saw that the time taken to reach stability increased rapidly (insert 
 analysis here), until $\gamma=0.178$.  After that the orbit seemed to settle 
@@ -201,7 +215,7 @@ range, there exists a period-1 orbit.
 
 \begin{frame}
 \begin{figure}
-\caption{With errorbars}%head chopped as well
+\caption{F dependence With errorbars}%head chopped as well
 \begin{center}
 \includegraphics[width=0.9\columnwidth]{probeF-t-2000}
 \end{center}
@@ -216,13 +230,85 @@ range, there exists a period-1 orbit.
 approaches grazing value.  
 \item There is a small bump in the range  $0.281<F<0.326$.  Although there is 
 no emergence of higher periodic orbit.  
+\item Remark: You must set higher time cutoff.  
 \end{enumerate}
 \end{frame}
 
 
+
+\begin{frame}{In existing literature}
+Celso Grebogi, Edward Ott, James A.   Yorke ,`` Fractal Basin 
+Boundaries, Long-Lived Chaotic Transients, and Unstable-Unstable Pair 
+Bifurcation'', Phys.   Rev.   Lett.   50, 935–938 (1983):\\
+
+
+
+\begin{colbox}{E6E6E6}{}
+Just after chaotic orbit vanishes due to boundary crisis in a 2-D map, chaotic transients 
+can be very long lived. Average lifetime decays as:
+\[
+\ln{\tau}\sim\exp{(\alpha-\alpha_*)^{-1/2}}
+\]
+(However, no proof given)
+\end{colbox}
+
+\end{frame}
+
+
+\begin{frame}
+Celso Grebogi, Edward Ott, James A.   Yorke, Critical Exponent of 
+Chaotic Transients in Nonlinear Dynamical Systems, Phys.   Rev.   Lett.   57, 
+1284–1287 (1986):
+
+\begin{colbox}{E6E6E6}{}
+\begin{enumerate}
+\item For many initial conditions, $\tau\sim e^{-\lambda(\tau-T)}/T$.  
+\item $\tau\sim(\alpha-\alpha_*)^{-\gamma}$, $\gamma$ the ``critical 
+exponent'' depends on the system.  
+\item Derives expression for $\gamma$ in terms of the eigenvalues of the fixed 
+points at collision.  
+%\item ``In experiments, the eigenvalues and hence $\tau$ can be deduced by an 
+%examination of experimental time series at the 
+%end of the chaotic transient.  '' What do they mean?
+
+%Secondly, proof assumes fingers map to fingers.   WHY should it be?
+
+\end{enumerate}
+\end{colbox}
+
+Is our system of this type or the previous (exponentially decaying) type?
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\caption{$\tau$ vs.  $\gamma$}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{fit-gaussian-G-probe}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\caption{Standard deviation of $\tau$ distribution vs.  the mean}
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{plot-sd-G-probe}
+\end{center}
+\end{figure}
+
+$\tau$'s could be exponentially distributed: for exponential distribution, 
+$\text{mean}\sim \text{standard deviation}$
+
+\end{frame}
+
+
 \begin{frame}{Intermittency: Similar Phenomena?}
+Yves Pomeau and Paul Manneville, 
 ``Intermittent Transition to Turbulence
-in Dissipative Dynamical Systems'' by Yves Pomeau and Paul Manneville,
+in Dissipative Dynamical Systems'' ,
 Commun.   Math.   Phys.   74, 189---197 (1980)
 
 \begin{figure}
@@ -237,12 +323,28 @@ Commun.   Math.   Phys.   74, 189---197 (1980)
 \begin{frame}{Explanation}
 %Remember this is only ``Type 1'' intermittency, there are 2 other
 \begin{figure}
-\caption{}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{intermit-lorenz-expl}
+\includegraphics[width=0.8\columnwidth]{intermit-lorenz-expl}
 \end{center}
 \end{figure}
 \end{frame}
+
+
+
+
+\begin{frame}{To Do}
+\begin{enumerate}
+\item Transience lifetime analysis does not seem to be covered in existing 
+literature for either piecewise smooth systems or continuous time systems. 
+Although \cite{greboji-coalesce} mention that their method is valid for 
+differential equations, no further work seems to be published.  
+\item Can we transform the problem of hard collision to a suitable poincare 
+map and check if it's a boundary crisis that's happening at grazing? If yes, 
+existing work predicts power law or exponential law for decay.  How to explain 
+the peak in the $\tau$vs.$F$  plot?
+\end{enumerate}
+\end{frame}
+
 
 \begin{frame}
 
@@ -254,7 +356,7 @@ long-lived chaotic transients, Physica D: Nonlinear Phenomena, Volume 17,
 Issue 1, August 1985, Pages 75-86, ISSN 0167-2789, 10.1016/0167-2789(85)90135-6.
 (Contains a proof of exponential decay)
 
-\bibitem{} Celso Grebogi, Edward Ott, James A.   Yorke , Fractal Basin 
+\bibitem{greboji-coalesce} Celso Grebogi, Edward Ott, James A.   Yorke , Fractal Basin 
 Boundaries, Long-Lived Chaotic Transients, and Unstable-Unstable Pair 
 Bifurcation, Phys.   Rev.   Lett.   50, 935–938 (1983)
 (Chaotic transients associated with the coalescence of unstable-unstable pair 
@@ -266,6 +368,7 @@ Chaotic Transients in Nonlinear Dynamical Systems, Phys.   Rev.   Lett.   57,
 (The average lifetime of a chaotic transient versus a system parameter is 
 studied for the case wherein a chaotic attractor is converted into a chaotic 
 transient upon collision with its basin boundary)
+
 
 \bibitem{} Yves Pomeau and Paul Manneville, Intermittent Transition to Turbulence
 in Dissipative Dynamical Systems, Commun.   Math.   Phys.   74, 189---197 (1980)
