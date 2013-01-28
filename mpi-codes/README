@@ -1,0 +1,4 @@
+#typical commands
+
+lamboot -v 2> boot.log && grep -oE "10\.0\.[0-9]+\.[0-9]+" boot.log > myhostfile && rm boot.log
+mpirun -np 14 --hostfile myhostfile -outfile-pattern outFprobe-rank-%r-machine-%h.dat -errfile-pattern logFprobe-rank-%r-machine-%h.da   ./probe-transient.out 0.2 1000

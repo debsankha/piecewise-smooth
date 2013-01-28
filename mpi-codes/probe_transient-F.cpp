@@ -1,6 +1,6 @@
 #include <hardcol.h>
-#define NPTSEACHX 100	//Number of points for each F value
-#define NPTS 500	//Number of x values
+#define NPTSEACHX 300	//Number of points for each F value
+#define NPTS 200	//Number of x values
 #include <mpi.h>
 #include <ctime>
 //time negative for some conditions. FIX ASAP
