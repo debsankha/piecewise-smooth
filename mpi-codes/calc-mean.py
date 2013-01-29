@@ -29,6 +29,9 @@ while True:
 			ysqval=liney**2
 			freq=1
 		oldx=linex
+	
+	except ValueError:
+		continue
 
 	except EOFError:
 		mean=yval/freq
