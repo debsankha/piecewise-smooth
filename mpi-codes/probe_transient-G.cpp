@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
 			if (tau>0)
 			{
-				cout<<G<<'\t'<<time_to_stabilize(x, tmax)<<endl;
+				cout<<G<<'\t'<<tau<<endl;
 				cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
 			}
 			else timeceilreached=1;
@@ -104,5 +104,5 @@ double time_to_stabilize(vec x, double tmax)
 		}
 		t+=h;
 	}
-	return tmax;		//Remember: you'd get t=0 if chaotic orb or periodicity >48
+	return -1;		//Remember: you'd get -1 if chaotic orb or periodicity >48
 }
