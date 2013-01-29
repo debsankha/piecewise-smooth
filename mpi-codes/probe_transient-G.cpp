@@ -28,20 +28,31 @@ int main(int argc, char **argv)
 	double tmax=atof(argv[2]);
 
 	double dG=G_range/NPTS;
-	double startG=G_graz+rank*G_range/size;
-	double stopG=G_graz+(rank+1)*G_range/size;
+	double stopG=G_graz+rank*G_range/size;
+	double startG=G_graz+(rank+1)*G_range/size;
 
-	for (G=startG;G<stopG;G+=dG)
+	bool timeceilreached=0;
+	double tau;
+
+	for (G=startG;(G>stopG) && (timeceilreached==0);G-=dG)
 	{
-		for (int cnt=0;cnt<NPTSEACHX;cnt++)
+		for (int cnt=0;(cnt<NPTSEACHX) && (timeceilreached==0);cnt++)
 		{
 			double tmp[2];
 			tmp[0]=randdouble(-Sigma*1.1,-Sigma*0.8);		//This choice of initial pts will have same impact 
 			tmp[1]=pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);//velocity, barring transients
 
 			vec x(2,tmp);
-			cout<<G<<'\t'<<time_to_stabilize(x, tmax)<<endl;
-			cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
+
+			tau=time_to_stabilize(x, tmax);
+
+			if (tau>0)
+			{
+				cout<<G<<'\t'<<time_to_stabilize(x, tmax)<<endl;
+				cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
+			}
+			else timeceilreached=1;
+
 		}
 	}
 

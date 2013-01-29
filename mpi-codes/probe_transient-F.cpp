@@ -28,20 +28,30 @@ int main(int argc, char **argv)
 	double tmax=atof(argv[2]);
 
 	double dF=F_range/NPTS;
-	double startF=F_graz-rank*F_range/size;
-	double stopF=F_graz-(rank+1)*F_range/size;
+	double stopF=F_graz-rank*F_range/size;
+	double startF=F_graz-(rank+1)*F_range/size;
+	
+	bool timeceilreached=0;
+	double tau;
 
-	for (F=startF;F>stopF;F-=dF)
+
+	for (F=startF;(F<stopF) && (timeceilreached==0);F+=dF)
 	{
-		for (int cnt=0;cnt<NPTSEACHX;cnt++)
+		for (int cnt=0;(cnt<NPTSEACHX) && (timeceilreached==0);cnt++)
 		{
 			double tmp[2];
 			tmp[0]=randdouble(-Sigma*1.1,-Sigma*0.8);		//This choice of initial pts will have same impact 
 			tmp[1]=pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);//velocity, barring impacts
 
 			vec x(2,tmp);
-			cout<<F<<'\t'<<time_to_stabilize(x, tmax)<<endl;
-			cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
+			tau=time_to_stabilize(x, tmax);
+
+			if (tau>0)
+			{
+				cout<<F<<'\t'<<time_to_stabilize(x, tmax)<<endl;
+				cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
+			}
+			else timeceilreached=1;
 		}
 	}
 
