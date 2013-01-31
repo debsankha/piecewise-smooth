@@ -1,5 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
+#define EPSILON 0.0001
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
@@ -8,6 +9,7 @@ float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
+
 
 void f(double t, vec x, vec *out) 
 {
@@ -171,7 +173,7 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 		for (int startpt=0;startpt<ORB-per;startpt++)
 		{
 			inc=abs(arr[startpt]-arr[startpt+per]);
-			if (inc<0.001)
+			if (inc<EPSILON)
 			{
 				stillthere=1;
 				stretch++;
