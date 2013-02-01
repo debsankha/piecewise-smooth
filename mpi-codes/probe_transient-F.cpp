@@ -31,8 +31,8 @@ int main(int argc, char **argv)
 	double F_range=F_max-F_min;
 
 	double dF=F_range/NPTS;
-	double stopF=F_graz-rank*F_range/size;
-	double startF=F_graz-(rank+1)*F_range/size;
+	double stopF=F_max-rank*F_range/size;
+	double startF=F_max-(rank+1)*F_range/size;
 	
 	bool timeceilreached=0;
 	double tau;
