@@ -89,7 +89,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 
 		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
 		{
-			poinc_x[i]=x.arr[i];
+			poinc_x[i]=x.arr[0];
 			i++;
 			if (i==ORB)
 			{
@@ -121,7 +121,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 		}
 		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
 		{
-			poinc_x[i]=x.arr[i];
+			poinc_x[i]=x.arr[0];
 			i++;
 			if (i==ORB)
 			{
