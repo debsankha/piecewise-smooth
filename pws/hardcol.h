@@ -18,5 +18,6 @@ int plottraj(vec, float);	//returns period :P
 int plotpoincare(vec, double, double, double);
 int plotbifurc_F(float minF, float maxF, int npts);
 int detect_period(double *, double *, double *);
+double time_to_stabilize(vec x, double tmax);
 
 #endif

@@ -4,9 +4,7 @@
 
 using namespace std;
 
-double time_to_stable=0;
 extern float Sigma,G,F,W,m,K1;
-double time_to_stabilize(vec, double);
 
 int main(int argc, char **argv)
 {
@@ -39,46 +37,3 @@ int main(int argc, char **argv)
 
 
 
-double time_to_stabilize(vec x, double tmax)
-{
-	double t=0;
-	double oldvel=0;
-	double poinc_x[ORB];							//array to store poincare x vals in to detect period
-	double poinc_t[ORB];							//array to store poincare x vals in to detect period
-	int i=0;
-	int period=0;
-			
-	t=0;
-	time_to_stable=0;
-	while (t<tmax)
-	{
-		oldvel=x.arr[1];
-		rk4(t,&x);
-		if (x.arr[0]>Sigma)						//The reset map on hard collision
-		{
-			x.arr[0]=Sigma;
-			x.arr[1]*=-1;
-		}
-
-		if ((oldvel<0) && (x.arr[1]>0))
-		{
-			poinc_x[i]=x.arr[0];
-			poinc_t[i]=t;
-			i++;
-		
-			if (i==ORB)
-			{
-				period=detect_period(&poinc_x[0],&poinc_t[0], &time_to_stable);
-				
-				if (period>0)
-				{
-					cerr<<"#F: "<<F<<"\tPeriod: "<<period<<endl;
-					return time_to_stable;
-				}
-				i=0;
-			}
-		}
-		t+=h;
-	}
-	return tmax;		//Remember: you'd get t=0 if chaotic orb or periodicity >48
-}
