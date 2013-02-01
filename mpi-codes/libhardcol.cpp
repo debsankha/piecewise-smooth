@@ -189,6 +189,7 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 		{
 			*time_to_stable=t_arr[ORB-stretch-1];
 			cout<<"#stretch: "<<stretch<<endl;
+			cerr<<"#Period:"<<per<<endl;
 			for (int i=0; i<per; i++) cerr<<F<<'\t'<<G<<'\t'<<arr[ORB-i-1]<<endl;//get a bifurcation giadram for free
 			return per;
 		}
