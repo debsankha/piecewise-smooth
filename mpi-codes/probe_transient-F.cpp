@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTSEACHX 300	//Number of points for each F value
-#define NPTS 200	//Number of x values
+#define NPTS 50	//Number of x values
 #include <mpi.h>
 #include <ctime>
 //time negative for some conditions. FIX ASAP
@@ -24,8 +24,11 @@ int main(int argc, char **argv)
 	float F_graz=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
 	cout<<"#F_graz: "<<F_graz<<endl;
 
-	double F_range=atof(argv[1]);
-	double tmax=atof(argv[2]);
+	double F_min=atof(argv[1]);
+	double F_max=atof(argv[2]);
+	double tmax=atof(argv[3]);
+	
+	double F_range=F_max-F_min;
 
 	double dF=F_range/NPTS;
 	double stopF=F_graz-rank*F_range/size;
