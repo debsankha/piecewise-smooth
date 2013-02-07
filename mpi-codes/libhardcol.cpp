@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0001
+#define EPSILON 0.0000001
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma

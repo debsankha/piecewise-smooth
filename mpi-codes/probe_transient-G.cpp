@@ -3,7 +3,6 @@
 #define NPTS 200	//Number of x values
 #include <mpi.h>
 #include <ctime>
-//time negative for some conditions. FIX ASAP
 using namespace std;
 
 extern float Sigma,G,F,W,m,K1;
@@ -23,13 +22,16 @@ int main(int argc, char **argv)
 	cout<<"#G"<<'\t'<<"time_to_stabilize"<<endl;
 	double G_graz=pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W;
 	cout<<"#G_graz: "<<G_graz<<endl;
-
-	double G_range=atof(argv[1]);
-	double tmax=atof(argv[2]);
+	double G_min=atof(argv[1]);
+	double G_max=atof(argv[2]);
+	double tmax=atof(argv[3]);
+	
+	double G_range=G_max-G_min;
 
 	double dG=G_range/NPTS;
-	double stopG=G_graz+rank*G_range/size;
-	double startG=G_graz+(rank+1)*G_range/size;
+	double startG=G_max-rank*G_range/size;
+	double stopG=G_max-(rank+1)*G_range/size;
+
 
 	bool timeceilreached=0;
 	double tau;
