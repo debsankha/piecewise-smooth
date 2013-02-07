@@ -4,6 +4,13 @@ using namespace std;
 int main(int argc , char *argv[])
 {
 	srand(time(NULL));
+
+	if (strcmp(argv[1],"plotmap")==0)
+	{
+		plotmap(atoi(argv[2]),atof(argv[3]),atof(argv[4]));
+	}
+	
+
 	if (strcmp(argv[1],"traj")==0)
 	{
 		int i;	

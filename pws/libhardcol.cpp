@@ -67,6 +67,52 @@ int plottraj(vec x, float tmax)
 	return 0;
 }
 
+
+int plotmap(int npts, float newF, float newG)
+{
+	F=newF;
+	G=newG;
+
+	double t=0;
+	double oldvel=0;
+	int i=0;	
+	int period=0;
+	vec x(2);
+	
+	double xini;
+
+	while (i<npts)
+	{
+		t=0;
+		xini=randdouble(-8,1);
+		x.arr[0]=xini;
+		x.arr[1]=0;
+
+		while(1)
+		{
+			oldvel=x.arr[1];
+			rk4(t,&x);
+			if (x.arr[0]>Sigma)		//The reset map on hard collision
+			{
+				x.arr[0]=Sigma;
+				x.arr[1]*=-1;
+			}
+	
+	
+			if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
+			{
+				cout<<xini<<'\t'<<x.arr[0]<<endl;
+				break;
+				
+			}
+			t+=h;
+		}
+		i++;
+	}
+	return 0;
+}
+
+
 int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 {
 	double t=tmin;
