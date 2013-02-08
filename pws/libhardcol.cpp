@@ -90,9 +90,10 @@ int plotmap(int npts, int n, float newF, float newG)
 		numpoint=0;
 		t=0;//(M_PI-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
 		x.arr[0]=xini;
-		x.arr[1]=0.4;
+		x.arr[1]=0;
 
-		while(numpoint<n+1)
+		cout<<x.arr[0]<<'\t';
+		while(t<n*T)
 		{
 			oldvel=x.arr[1];
 			rk4(t,&x);
@@ -102,12 +103,6 @@ int plotmap(int npts, int n, float newF, float newG)
 				x.arr[1]*=-1;
 			}
 	
-	
-			if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
-			{
-				if (numpoint==0) cout<<x.arr[0]<<'\t';
-				numpoint++;
-			}
 			t+=h;
 		}
 		cout<<x.arr[0]<<endl;
