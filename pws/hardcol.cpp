@@ -7,7 +7,7 @@ int main(int argc , char *argv[])
 
 	if (strcmp(argv[1],"plotmap")==0)
 	{
-		plotmap(atoi(argv[2]),atof(argv[3]),atof(argv[4]));
+		plotmap(atoi(argv[2]),atoi(argv[3]),atof(argv[4]),atof(argv[5]));
 	}
 	
 

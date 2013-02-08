@@ -68,27 +68,31 @@ int plottraj(vec x, float tmax)
 }
 
 
-int plotmap(int npts, float newF, float newG)
+int plotmap(int npts, int n, float newF, float newG)
 {
 	F=newF;
 	G=newG;
 
-	double t=0;
+	double t;
+	double T=2*M_PI/W;
 	double oldvel=0;
-	int i=0;	
-	int period=0;
 	vec x(2);
 	
 	double xini;
+	//Suposing interesting things happen only in th interval (-8,1)
+	double xinincr=9*1.0/npts;
+	
+	int numpoint;
 
-	while (i<npts)
+	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<endl;
+	for (xini=-8;xini<1;xini+=xinincr)
 	{
-		t=0;
-		xini=randdouble(-8,1);
+		numpoint=0;
+		t=0;//(M_PI-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
 		x.arr[0]=xini;
-		x.arr[1]=0;
+		x.arr[1]=0.4;
 
-		while(1)
+		while(numpoint<n+1)
 		{
 			oldvel=x.arr[1];
 			rk4(t,&x);
@@ -101,13 +105,12 @@ int plotmap(int npts, float newF, float newG)
 	
 			if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
 			{
-				cout<<xini<<'\t'<<x.arr[0]<<endl;
-				break;
-				
+				if (numpoint==0) cout<<x.arr[0]<<'\t';
+				numpoint++;
 			}
 			t+=h;
 		}
-		i++;
+		cout<<x.arr[0]<<endl;
 	}
 	return 0;
 }
