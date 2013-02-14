@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0001
+#define EPSILON 0.00000001
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
@@ -17,6 +17,61 @@ void f(double t, vec x, vec *out)
 	out->arr[0]=x.arr[1];
 	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*t);
 }
+
+
+int plotmap(int npts, int n, float newF, float newG)
+{
+	F=newF;
+	G=newG;
+
+	double t;
+	double T=2*M_PI/W;
+	double oldvel=0;
+	vec x(2);
+	
+	double xini;
+	//Suposing interesting things happen only in th interval (-8,1)
+	double xinincr=9*1.0/npts;
+	
+	int numpoint;
+	double initphase;
+	double Amp=-F/pow(pow(W*W-K1,2)+W*W*G*G,0.5);
+
+	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<'\t'<<"Amp\t"<< Amp <<endl;
+
+	for (xini=-8;xini<1;xini+=xinincr)
+	{
+		numpoint=0;
+		initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
+		t=initphase;
+		x.arr[0]=xini;
+		x.arr[1]=0;
+
+		cout<<x.arr[0]<<'\t';
+
+		while (t<n*T+initphase)
+		{
+			oldvel=x.arr[1];
+			rk4(t,&x);
+			if (x.arr[0]>Sigma)		//The reset map on hard collision
+			{
+				x.arr[0]=Sigma;
+				x.arr[1]*=-1;
+			}
+	
+			t+=h;
+
+		}
+		cout<<x.arr[0]<<endl;
+		if (abs(xini-Amp)<0.25) 
+		{
+			xinincr=9*0.5/npts;		//look more closely near the f.p.
+		}
+		else xinincr=9*1.0/npts;	
+	}
+	return 0;
+}
+
 
 int plottraj(vec x, float tmax)
 {
@@ -68,50 +123,8 @@ int plottraj(vec x, float tmax)
 }
 
 
-int plotmap(int npts, int n, float newF, float newG)
-{
-	F=newF;
-	G=newG;
 
-	double t;
-	double T=2*M_PI/W;
-	double oldvel=0;
-	vec x(2);
-	
-	double xini;
-	//Suposing interesting things happen only in th interval (-8,1)
-	double xinincr=9*1.0/npts;
-	
-	int numpoint;
-
-	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<endl;
-	for (xini=-8;xini<1;xini+=xinincr)
-	{
-		numpoint=0;
-		t=0;//(M_PI-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
-		x.arr[0]=xini;
-		x.arr[1]=0;
-
-		cout<<x.arr[0]<<'\t';
-		while(t<n*T)
-		{
-			oldvel=x.arr[1];
-			rk4(t,&x);
-			if (x.arr[0]>Sigma)		//The reset map on hard collision
-			{
-				x.arr[0]=Sigma;
-				x.arr[1]*=-1;
-			}
-	
-			t+=h;
-		}
-		cout<<x.arr[0]<<endl;
-	}
-	return 0;
-}
-
-
-int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
+int plotpoincare(vec x, double tmin, double tmax)
 {
 	double t=tmin;
 	double T=2*M_PI/W;
@@ -119,44 +132,14 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 	int i=0;	
 	double poinc_x[ORB], poinc_t[ORB], time_to_stable;
 	int period=0;
-		
-	t=0;
-	while (t<t_startprint)
-	{
-		oldvel=x.arr[1];
-		rk4(t,&x);
-		if (x.arr[0]>Sigma)		//The reset map on hard collision
-		{
-			x.arr[0]=Sigma;
-			x.arr[1]*=-1;
-		}
-
-
-		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
-		{
-			poinc_x[i]=x.arr[0];
-			i++;
-			if (i==ORB)
-			{
-				i=0;
-				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
-				
-				if (period>0)
-				{
-
-					cout<<"#period: "<<period<<endl;
-					for (int j=ORB;j>0;j--) cout<<F<<'\t'<<poinc_x[ORB-j]<<endl;
-					break;
-				}
-			}
-		}
-	
-		t+=h;
-	}//discarding the transient
 	
 	i=0;
+	
+	double oldx=x.arr[0];
+
 	while (t<tmax)
 	{
+		cerr<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
 		oldvel=x.arr[1];
 		rk4(t,&x);
 		if (x.arr[0]>Sigma)		//The reset map on hard collision
@@ -164,7 +147,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 			x.arr[0]=Sigma;
 			x.arr[1]*=-1;
 		}
-		if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t,T)<h)  DOES NOT WORK well due to non-zero time step
+		if (fmod(t-tmin,T)<h) //((oldvel<0) && (x.arr[1]>0)) 
 		{
 			poinc_x[i]=x.arr[0];
 			i++;
@@ -179,9 +162,13 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 					break;
 				}
 			}
+
+			cout<<oldx<<'\t'<<x.arr[0]<<endl;
+			cout<<x.arr[0]<<'\t'<<x.arr[0]<<endl;		//for cobweb
+			oldx=x.arr[0];
+
 		}
 		t+=h;
-		cout<<F<<'\t'<<x.arr[0]<<endl;			//responsible for the output
 	}
 	return 0;
 }
@@ -198,7 +185,7 @@ int plotbifurc_F(float minF, float maxF, int npts)
 			x.arr[0]=-Sigma+randdouble(-0.01,Sigma);	
 			x.arr[1]=1.1*pow(K1*(Sigma+x.arr[0])*(Sigma-x.arr[0]),0.5);	
 			cout<<"#Starting from: "<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
-			plotpoincare(x,t,TMAX,TMAX*0.9);
+			plotpoincare(x,t,TMAX);
 			cout<<endl;				//Crucial for block detection by gnuplot
 		}
 	}

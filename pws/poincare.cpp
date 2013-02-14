@@ -92,8 +92,8 @@ void poinc_x(vec *x)
 
 	if (D>0)
 	{
-		if (vh>0) delta_t=(-vh+pow(vh*vh+2*Amp*W*W*(xh+Amp-Sigma),0.5))/(-Amp*W*W);
-		else delta_t=(-vh-pow(vh*vh+2*Amp*W*W*(xh+Amp-Sigma),0.5))/(-Amp*W*W);
+		if (vh>0) delta_t=(-vh+pow(D,0.5))/(-Amp*W*W);
+		else delta_t=(-vh-pow(D,0.5))/(-Amp*W*W);
 
 		double vhcol=vh*(1-G*delta_t)-K1*delta_t*xh;
 		double vpcol=-Amp*W*sin(W*delta_t);

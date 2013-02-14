@@ -39,15 +39,18 @@ int main(int argc , char *argv[])
 	}
 	if (strcmp(argv[1],"poincare")==0)
 	{
-		int i;	
 		double tmax,tmp[N];
 	
-		for (i=1;i<N+1;i++) { tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
+		tmp[0]=atof(argv[2]);	//take x from stdin
+		tmp[1]=0;
 		vec x(N,tmp);
-	
-		tmax=atof(argv[1+i]);
-		F=atof(argv[2+i]);
-		plotpoincare(x,0,tmax,tmax*0.9);
+		tmax=atof(argv[3]);
+		F=atof(argv[4]);
+		G=atof(argv[5]);
+		
+		cerr<<"F_graz="<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<endl;
+		double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
+		plotpoincare(x,initphase,tmax);
 	}
 
 	if (strcmp(argv[1],"plotbifurc")==0)

@@ -21,7 +21,7 @@ showdiff: ../numeric/librk4.o showdiff.cpp ../numeric/rk4.h
 testrk4: ../numeric/librk4.o testrk4.cpp ../numeric/rk4.h
 	g++ $(CCFLAGS) -o testrk4.out ../numeric/librk4.o testrk4.cpp 
 
-../numeric/librk4.o: ../numeric/librk4.cpp
+../numeric/librk4.o: ../numeric/librk4.cpp ../numeric/rk4.h
 	g++ $(CCFLAGS) -c -o ../numeric/librk4.o  ../numeric/librk4.cpp
 
 shm-pw.o: shm-pw.cpp
