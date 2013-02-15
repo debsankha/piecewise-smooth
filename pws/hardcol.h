@@ -14,12 +14,11 @@
 
 extern float Sigma,G,F,W,m,K1;
 
-int plottraj(vec, float);	//returns period :P
 int plotpoincare(vec, double, double);
-int plotbifurc_F(float minF, float maxF, int npts);
 int detect_period(double *, double *, double *);
 double time_to_stabilize(vec x, double tmax);
-
+int plotmap3d(int npts, int n, float newF, float newG);
 int plotmap(int npts, int n, float newF, float newG);
+int plotbasin(int npts,double tmax);
 
 #endif

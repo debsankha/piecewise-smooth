@@ -1,10 +1,16 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.00000001
+#define EPSILON 0.001
+
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
-float G=0.062;	//damping
+float G=0.08;	//damping
 float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
@@ -73,51 +79,59 @@ int plotmap(int npts, int n, float newF, float newG)
 }
 
 
-int plottraj(vec x, float tmax)
+int plotmap3d(int npts, int n, float newF, float newG)
 {
-	double t;
-	double time_to_stable=0;
-	double oldvel=0;
-	double poinc_x[ORB];							//array to store poincare x vals in to detect period
-	double poinc_t[ORB];
-	int i=0;
-	int period=0;
-			
-	t=0;
-	cerr<<"F="<<F<<endl;	
-	cerr<<"G="<<G<<endl;	
-	while (t<tmax)
-	{
-		oldvel=x.arr[1];
-		cout<<t<<'\t';x.show();						//responsible for the output to stdout
-		rk4(t,&x);
-		if (x.arr[0]>Sigma)						//The reset map on hard collision
-		{
-			x.arr[0]=Sigma;
-			x.arr[1]*=-1;
-		}
+	F=newF;
+	G=newG;
 
-		if ((oldvel<0) && (x.arr[1]>0))
+	double t;
+	double T=2*M_PI/W;
+	double oldvel=0;
+	vec x(2);
+	
+	double xini,vini;
+	//Suposing interesting things happen only in th interval (-8,1)
+	double xinincr=9*1.0/npts;
+	
+	int numpoint;
+	double initphase;
+	double Amp=-F/pow(pow(W*W-K1,2)+W*W*G*G,0.5);
+
+	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<'\t'<<"Amp\t"<< Amp <<endl;
+	
+
+	for (vini=-8;vini<8;vini+=xinincr)
+	{	
+	for (xini=-8;xini<1;xini+=xinincr)
+	{
+		numpoint=0;
+		initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
+		t=initphase;
+		x.arr[0]=xini;
+		x.arr[1]=vini;
+
+		cout<<x.arr[0]<<'\t'<<x.arr[1]<<'\t';
+
+		while (t<n*T+initphase)
 		{
-			cerr<<t<<'\t'<<x.arr[0]<<endl;				//outputs the poincare mappings to stderr
-			poinc_x[i]=x.arr[0];
-			poinc_t[i]=t;
-			i++;
-		 
-			if (i==ORB)
+			oldvel=x.arr[1];
+			rk4(t,&x);
+			if (x.arr[0]>Sigma)		//The reset map on hard collision
 			{
-				i=0;
-				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
-				
-				if (period>0)
-				{
-					cerr<<"# Period: "<<period<<endl;
-					cerr<<"time to stabilize: "<<time_to_stable<<endl;
-					return period;
-				}
+				x.arr[0]=Sigma;
+				x.arr[1]*=-1;
 			}
-		}	
-		t+=h;
+	
+			t+=h;
+
+		}
+		cout<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
+//		if (abs(xini-Amp)<0.25) 
+//		{
+//			xinincr=9*0.5/npts;		//look more closely near the f.p.
+//		}
+//		else xinincr=9*1.0/npts;	
+	}
 	}
 	return 0;
 }
@@ -139,7 +153,8 @@ int plotpoincare(vec x, double tmin, double tmax)
 
 	while (t<tmax)
 	{
-		cerr<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
+		cerr<<t<<'\t'<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
+
 		oldvel=x.arr[1];
 		rk4(t,&x);
 		if (x.arr[0]>Sigma)		//The reset map on hard collision
@@ -158,8 +173,9 @@ int plotpoincare(vec x, double tmin, double tmax)
 				
 				if (period>0)
 				{
+					cerr<<"#time to stabilize: "<<time_to_stable<<endl;
 					cerr<<"#period: "<<period<<endl;
-					break;
+					return period;
 				}
 			}
 
@@ -170,24 +186,33 @@ int plotpoincare(vec x, double tmin, double tmax)
 		}
 		t+=h;
 	}
-	return 0;
+	return -1;
 }
 
-int plotbifurc_F(float minF, float maxF, int npts)
+
+
+int plotbasin(int npts,double tmax)
 {
-	double dF=(maxF-minF)/npts;
-	double  t=0;
-	vec x(N);
-	for (F=minF;F<maxF;F+=dF)
+	int i,period;
+	char fname[20],command[30];
+	vec x(2);
+	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
+
+	FILE *outf;
+
+	for (i=0;i<npts;i++)
 	{
-		for (int cnt=0;cnt<NPTS;cnt++)
-		{
-			x.arr[0]=-Sigma+randdouble(-0.01,Sigma);	
-			x.arr[1]=1.1*pow(K1*(Sigma+x.arr[0])*(Sigma-x.arr[0]),0.5);	
-			cout<<"#Starting from: "<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
-			plotpoincare(x,t,TMAX);
-			cout<<endl;				//Crucial for block detection by gnuplot
-		}
+		x.arr[0]=randdouble(-8,1);
+		x.arr[1]=randdouble(-8,8);
+		
+		//dup	cerr to some file and cout to /dev/null
+		sprintf(fname, "basindat%d.dat",i);
+		outf=freopen(fname, "w", stderr );
+		period=plotpoincare(x,initphase,tmax);
+		
+		sprintf(command,"cat %s >>period%d.dat && rm %s",fname,period,fname);
+		system(command);
+		fclose(outf);
 	}
 }
 
