@@ -5,6 +5,19 @@ int main(int argc , char *argv[])
 {
 	srand(time(NULL));
 
+	if (strcmp(argv[1],"traj")==0)
+	{
+		int i;	
+		double tmax,tmp[N];
+	
+		for (i=1;i<N+1;i++) { tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
+		vec x(N,tmp);	
+		tmax=atof(argv[1+i]);
+		F=atof(argv[2+i]);
+		G=atof(argv[3+i]);
+		plottraj(x,tmax);
+	}
+
 	if (strcmp(argv[1],"plotmap")==0)
 	{
 		plotmap(atoi(argv[2]),atoi(argv[3]),atof(argv[4]),atof(argv[5]));
@@ -35,6 +48,8 @@ int main(int argc , char *argv[])
 	{
 		int npts=atoi(argv[2]);
 		double tmax=atof(argv[3]);
-		plotbasin(npts,tmax);
+		double f=atof(argv[4]);
+		double g=atof(argv[5]);
+		plotbasin(npts,tmax,f,g);
 	}
 }
