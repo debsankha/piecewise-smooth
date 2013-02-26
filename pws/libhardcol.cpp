@@ -22,6 +22,54 @@ void f(double t, vec x, vec *out)
 	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*t);
 }
 
+int plottraj(vec x, float tmax)
+{
+	double t;
+	double time_to_stable=0;
+	double oldvel=0;
+	double poinc_x[ORB];							//array to store poincare x vals in to detect period
+	double poinc_t[ORB];
+	int i=0;
+	int period=0;
+			
+	t=0;
+	cerr<<"F="<<F<<endl;	
+	while (t<tmax)
+	{
+		oldvel=x.arr[1];
+		cout<<t<<'\t';x.show();						//responsible for the output to stdout
+		rk4(t,&x);
+		if (x.arr[0]>Sigma)						//The reset map on hard collision
+		{
+			x.arr[0]=Sigma;
+			x.arr[1]*=-1;
+		}
+
+		if ((oldvel<0) && (x.arr[1]>0))
+		{
+			cerr<<t<<'\t'<<x.arr[0]<<endl;				//outputs the poincare mappings to stderr
+			poinc_x[i]=x.arr[0];
+			poinc_t[i]=t;
+			i++;
+		 
+			if (i==ORB)
+			{
+				i=0;
+				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+				
+				if (period>0)
+				{
+					cerr<<"# Period: "<<period<<endl;
+					cerr<<"time to stabilize: "<<time_to_stable<<endl;
+					return period;
+				}
+			}
+		}	
+		t+=h;
+	}
+	return 0;
+}
+
 
 int plotmap(int npts, int n, float newF, float newG)
 {
