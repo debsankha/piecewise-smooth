@@ -8,6 +8,7 @@ using namespace std;
 
 extern float Sigma,G,F,W,m,K1;
 double time_to_stabilize(vec, double);
+int period;
 
 int main(int argc, char **argv)
 {
@@ -27,7 +28,7 @@ int main(int argc, char **argv)
 	double F_min=atof(argv[1]);
 	double F_max=atof(argv[2]);
 	double tmax=atof(argv[3]);
-	
+		
 	double F_range=F_max-F_min;
 
 	double dF=F_range/NPTS;
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
 	bool timeceilreached=0;
 	double tau;
 
-
+	G=0.062;
 	for (F=startF;(F<stopF) && (timeceilreached==0);F+=dF)
 	{
 		for (int cnt=0;(cnt<NPTSEACHX) && (timeceilreached==0);cnt++)
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
 			vec x(2,tmp);
 			tau=time_to_stabilize(x, tmax);
 
-			if (tau>0)
+			if ((tau>0) && (period==1))
 			{
 				cout<<F<<'\t'<<tau<<endl;
 				cout<<"#starting from: "<<tmp[0]<<'\t'<<tmp[1]<<endl;
