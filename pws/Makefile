@@ -1,4 +1,4 @@
-CCFLAGS=-I./ -O3 -I../numeric
+CCFLAGS=-I./ -O3 -I../numeric -ggdb
 
 hardcol: ../numeric/librk4.o ../numeric/rk4.h hardcol.cpp libhardcol.o
 	g++ $(CCFLAGS) -o hardcol.out hardcol.cpp ../numeric/librk4.o libhardcol.o 

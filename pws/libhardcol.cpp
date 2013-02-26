@@ -2,11 +2,9 @@
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
 #define EPSILON 0.001
 
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <complex>
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
@@ -144,13 +142,13 @@ int plotpoincare(vec x, double tmin, double tmax)
 	double T=2*M_PI/W;
 	double oldvel=0;
 	int i=0;	
-	double poinc_x[ORB], poinc_t[ORB], time_to_stable;
 	int period=0;
 	
 	i=0;
 	
 	double oldx=x.arr[0];
 
+	double poinc_x[ORB], poinc_t[ORB], time_to_stable;
 	while (t<tmax)
 	{
 		cerr<<t<<'\t'<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
@@ -191,28 +189,163 @@ int plotpoincare(vec x, double tmin, double tmax)
 
 
 
-int plotbasin(int npts,double tmax)
+int plotbasin(int npts,double tmax,double newf,double newg)
 {
-	int i,period;
-	char fname[20],command[30];
-	vec x(2);
+	F=newf;
+	G=newg;
+
+	float minx=-8;
+	float maxx=-1;
+	float miny=-8;
+	float maxy=8;
+	
+	double T=2*M_PI/W;
 	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
+	double t,time_to_stable;
 
-	FILE *outf;
+	int i,period,boxxind,boxyind;
 
-	for (i=0;i<npts;i++)
+	vec x(2);
+
+	int numxdiv=npts;
+	int numydiv=npts;
+
+	short int basin[numydiv][numxdiv];
+	bool tempbasin[numxdiv][numydiv];
+
+	for (int xind=0;xind<numxdiv;xind++)
 	{
-		x.arr[0]=randdouble(-8,1);
-		x.arr[1]=randdouble(-8,8);
+		for (int yind=0;yind<numydiv;yind++)
+		{
+			basin[yind][xind]=2;
+		}
+	}
+	
+	double poinc_x[ORB], poinc_t[ORB];
+	for (int xptco=0;xptco<npts+1;xptco++)
+	{
+	for (int yptco=0;yptco<npts+1;yptco++)
+	{
+	
+		i=0;
+		t=0;
+
+		x.arr[0]=minx+(maxx-minx)*xptco*1.0/npts;
+		x.arr[1]=miny+(maxy-miny)*yptco*1.0/npts;
+
+//		cerr<<"starting from: "<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
+		for (int xind=0;xind<numxdiv;xind++)
+		{
+			for (int yind=0;yind<numydiv;yind++)
+			{
+				tempbasin[yind][xind]=0;
+			}
+		}
+
 		
-		//dup	cerr to some file and cout to /dev/null
-		sprintf(fname, "basindat%d.dat",i);
-		outf=freopen(fname, "w", stderr );
-		period=plotpoincare(x,initphase,tmax);
+		while (t<tmax)
+		{
+			boxxind=(x.arr[0]-minx)*numxdiv/(maxx-minx);
+			boxyind=(x.arr[1]-miny)*numydiv/(maxy-miny);
+
+			rk4(t,&x);
+			if (x.arr[0]>Sigma)		//The reset map on hard collision
+			{
+				x.arr[0]=Sigma;
+				x.arr[1]*=-1;
+			}
+			
+			
+
+			
+			if ((boxxind>-1) && (boxxind<numxdiv) && (boxyind>-1) && (boxyind<numydiv))
+			{
+				tempbasin[boxyind][boxxind]=1;
+				switch (basin[boxyind][boxxind])
+				{
+					case 1:
+					{
+						period=1;
+						break;
+					}
+					case 0:
+					{
+						period=3;
+						break;
+					}
+						
+						
+					case -1:
+					{
+						//point not on any basin drawn so far	
+					}
+				}
+			}
+
+
+			if (fmod(t-initphase,T)<h) //((oldvel<0) && (x.arr[1]>0)) 
+			{
+				poinc_x[i]=x.arr[0];
+				i++;
+				if (i==ORB)
+				{
+					i=0;
+					period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+					
+					if (period>0)
+					{
+						break;
+					}
+				}
+	
+			}
+			t+=h;
+		}
 		
-		sprintf(command,"cat %s >>period%d.dat && rm %s",fname,period,fname);
-		system(command);
-		fclose(outf);
+		cerr<<"period: "<<period<<endl;
+
+		switch (period)
+		{
+			case 1:
+			{
+				for (int xind=0;xind<numxdiv;xind++)
+				{
+					for (int yind=0;yind<numydiv;yind++)
+					{
+						if (tempbasin[yind][xind]==1) basin[yind][xind]=1;
+					}
+				}
+				break;
+			}
+
+			default:
+			{
+				for (int xind=0;xind<numxdiv;xind++)
+				{
+					for (int yind=0;yind<numydiv;yind++)
+					{
+						if (tempbasin[yind][xind]==1) basin[yind][xind]=0;
+					}
+				}
+
+				break;
+
+			}
+
+		}
+	
+	}
+	}
+
+	for (int yind=0;yind<numydiv;yind++)
+	{
+		for (int xind=0;xind<numxdiv;xind++)
+		{
+			if (basin[yind][xind]==1) cout<<"\\filled;& ";
+			else if (basin[yind][xind]==0)  cout<<"\\unfilled;& ";
+			else cout<<"\\undef;& ";
+		}
+		cout<<"\\\\\n";
 	}
 }
 
@@ -245,7 +378,7 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 		if (stillthere && (stretch>4))
 		{
 			*time_to_stable=t_arr[ORB-stretch-1];
-			cout<<"#stretch: "<<stretch<<endl;
+			cerr<<"#stretch: "<<stretch<<endl;
 //			for (int i=0; i<per; i++) cerr<<F<<'\t'<<G<<'\t'<<arr[ORB-i-1]<<endl;//get a bifurcation giadram for free
 			return per;
 		}

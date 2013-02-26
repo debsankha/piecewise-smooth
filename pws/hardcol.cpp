@@ -35,6 +35,8 @@ int main(int argc , char *argv[])
 	{
 		int npts=atoi(argv[2]);
 		double tmax=atof(argv[3]);
-		plotbasin(npts,tmax);
+		double f=atof(argv[4]);
+		double g=atof(argv[5]);
+		plotbasin(npts,tmax,f,g);
 	}
 }
