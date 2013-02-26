@@ -1,9 +1,23 @@
 #include <hardcol.h>
+#include <mpi.h>
 using namespace std;
 
 int main(int argc , char *argv[])
 {
-	srand(0);
+	int rank,size;	//roughly speaking, #instance,#totalinstances
+	srand(time(NULL));
+	MPI::Init(argc, argv);
+	rank = MPI::COMM_WORLD.Get_rank();
+	size = MPI::COMM_WORLD.Get_size();
+
+	if (strcmp(argv[1],"plotbasin")==0)
+	{
+		int npts=atoi(argv[2]);
+		double tmax=atof(argv[3]);
+		plotbasin(npts,tmax,rank);
+	}
+
+
 	if (strcmp(argv[1],"traj")==0)
 	{
 		int i;	

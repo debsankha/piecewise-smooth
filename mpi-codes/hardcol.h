@@ -18,5 +18,6 @@ int plottraj(vec, float);	//returns period :P
 int plotpoincare(vec, double, double, double);
 int plotbifurc_F(float minF, float maxF, int npts);
 int detect_period(double *, double *, double *);
+int plotbasin(int npts,double tmax, int rank);
 
 #endif

@@ -1,10 +1,15 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0000001
+#define EPSILON 0.001
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
-float G=0.062;	//damping
+float G=0.08;	//damping
 float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
@@ -78,6 +83,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 	t=0;
 	while (t<t_startprint)
 	{
+		cerr<<t<<'\t'<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
 		oldvel=x.arr[1];
 		rk4(t,&x);
 		if (x.arr[0]>Sigma)		//The reset map on hard collision
@@ -101,7 +107,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 
 					cout<<"#period: "<<period<<endl;
 					for (int j=ORB;j>0;j--) cout<<F<<'\t'<<poinc_x[ORB-j]<<endl;
-					break;
+					return period;
 				}
 			}
 		}
@@ -112,6 +118,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 	i=0;
 	while (t<tmax)
 	{
+		cerr<<t<<'\t'<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
 		oldvel=x.arr[1];
 		rk4(t,&x);
 		if (x.arr[0]>Sigma)		//The reset map on hard collision
@@ -131,7 +138,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 				if (period>0)
 				{
 					cerr<<"#period: "<<period<<endl;
-					break;
+					return period;
 				}
 			}
 		}
@@ -156,6 +163,32 @@ int plotbifurc_F(float minF, float maxF, int npts)
 			plotpoincare(x,t,TMAX,TMAX*0.9);
 			cout<<endl;				//Crucial for block detection by gnuplot
 		}
+	}
+}
+
+int plotbasin(int npts,double tmax, int rank)
+{
+	int i,period;
+	char fname[20],command[30];
+	sprintf(fname, "basindat%d.dat",rank);
+	vec x(2);
+	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
+
+	FILE *outf;
+
+	for (i=0;i<npts;i++)
+	{
+		x.arr[0]=randdouble(-8,1);
+		x.arr[1]=randdouble(-8,8);
+		
+		//dup cerr to some file and cout to /dev/null
+		outf=freopen(fname, "w", stderr );
+		period=plotpoincare(x,initphase,tmax, tmax+1);
+		
+		sprintf(command,"cat %s >>period%d.dat",fname,period);
+		system(command);
+
+		fclose(outf);
 	}
 }
 
@@ -188,9 +221,9 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 		if (stillthere && (stretch>4))
 		{
 			*time_to_stable=t_arr[ORB-stretch-1];
-			cout<<"#stretch: "<<stretch<<endl;
+			cerr<<"#stretch: "<<stretch<<endl;
 			cerr<<"#Period:"<<per<<endl;
-			for (int i=0; i<per; i++) cerr<<F<<'\t'<<G<<'\t'<<arr[ORB-i-1]<<endl;//get a bifurcation giadram for free
+//			for (int i=0; i<per; i++) cerr<<F<<'\t'<<G<<'\t'<<arr[ORB-i-1]<<endl;//get a bifurcation giadram for free
 			return per;
 		}
 	}
