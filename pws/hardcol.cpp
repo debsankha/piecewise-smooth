@@ -14,6 +14,7 @@ int main(int argc , char *argv[])
 		vec x(N,tmp);	
 		tmax=atof(argv[1+i]);
 		F=atof(argv[2+i]);
+		G=atof(argv[3+i]);
 		plottraj(x,tmax);
 	}
 

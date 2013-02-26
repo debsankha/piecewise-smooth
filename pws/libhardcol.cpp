@@ -24,17 +24,17 @@ void f(double t, vec x, vec *out)
 
 int plottraj(vec x, float tmax)
 {
-	double t;
+	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
+	double t=initphase;
 	double time_to_stable=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
 	double poinc_t[ORB];
 	int i=0;
 	int period=0;
-			
-	t=0;
+	
 	cerr<<"F="<<F<<endl;	
-	while (t<tmax)
+	while (t<tmax+initphase)
 	{
 		oldvel=x.arr[1];
 		cout<<t<<'\t';x.show();						//responsible for the output to stdout
@@ -85,7 +85,6 @@ int plotmap(int npts, int n, float newF, float newG)
 	//Suposing interesting things happen only in th interval (-8,1)
 	double xinincr=9*1.0/npts;
 	
-	int numpoint;
 	double initphase;
 	double Amp=-F/pow(pow(W*W-K1,2)+W*W*G*G,0.5);
 
@@ -93,8 +92,7 @@ int plotmap(int npts, int n, float newF, float newG)
 
 	for (xini=-8;xini<1;xini+=xinincr)
 	{
-		numpoint=0;
-		initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
+		initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
 		t=initphase;
 		x.arr[0]=xini;
 		x.arr[1]=0;
@@ -132,27 +130,23 @@ int plotmap3d(int npts, int n, float newF, float newG)
 
 	double t;
 	double T=2*M_PI/W;
-	double oldvel=0;
 	vec x(2);
 	
-	double xini,vini;
+	double xini,vini,initphase;
 	//Suposing interesting things happen only in th interval (-8,1)
-	double xinincr=9*1.0/npts;
+	double inincr=9*1.0/npts;
 	
-	int numpoint;
-	double initphase;
 	double Amp=-F/pow(pow(W*W-K1,2)+W*W*G*G,0.5);
 
 	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<'\t'<<"Amp\t"<< Amp <<endl;
 	
 
-	for (vini=-8;vini<8;vini+=xinincr)
+	for (vini=-8;vini<8;vini+=inincr)
 	{	
-	for (xini=-8;xini<1;xini+=xinincr)
+	for (xini=-8;xini<1;xini+=inincr)
 	{
-		numpoint=0;
-		initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map: rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
-		t=initphase;
+		initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;//Doesn't really matter in the new way of getting the map:
+		t=initphase;				// rely on suucessive stroboscopic points and map strob_pt[0] to strobe_pt[1]
 		x.arr[0]=xini;
 		x.arr[1]=vini;
 
@@ -160,7 +154,6 @@ int plotmap3d(int npts, int n, float newF, float newG)
 
 		while (t<n*T+initphase)
 		{
-			oldvel=x.arr[1];
 			rk4(t,&x);
 			if (x.arr[0]>Sigma)		//The reset map on hard collision
 			{
@@ -172,11 +165,6 @@ int plotmap3d(int npts, int n, float newF, float newG)
 
 		}
 		cout<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
-//		if (abs(xini-Amp)<0.25) 
-//		{
-//			xinincr=9*0.5/npts;		//look more closely near the f.p.
-//		}
-//		else xinincr=9*1.0/npts;	
 	}
 	}
 	return 0;
@@ -249,7 +237,7 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 	
 	double T=2*M_PI/W;
 	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
-	double t,time_to_stable;
+	double t,time_to_stable,oldvel;
 
 	int i,period,boxxind,boxyind;
 
@@ -274,6 +262,7 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 	{
 	for (int yptco=0;yptco<npts+1;yptco++)
 	{
+		cerr<<xptco*npts+yptco<<" out of "<<npts*npts<<endl;
 	
 		i=0;
 		t=0;
@@ -290,12 +279,12 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 			}
 		}
 
-		
 		while (t<tmax)
 		{
 			boxxind=(x.arr[0]-minx)*numxdiv/(maxx-minx);
 			boxyind=(x.arr[1]-miny)*numydiv/(maxy-miny);
-
+			
+			oldvel=x.arr[1];
 			rk4(t,&x);
 			if (x.arr[0]>Sigma)		//The reset map on hard collision
 			{
@@ -305,7 +294,7 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 			
 			
 
-			
+			//Check if the point is in a box already coloured black or white	
 			if ((boxxind>-1) && (boxxind<numxdiv) && (boxyind>-1) && (boxyind<numydiv))
 			{
 				tempbasin[boxyind][boxxind]=1;
@@ -329,9 +318,9 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 					}
 				}
 			}
-
-
-			if (fmod(t-initphase,T)<h) //((oldvel<0) && (x.arr[1]>0)) 
+			
+			//period detection algo
+			if ((oldvel<0) && (x.arr[1]>0)) //(fmod(t-initphase,T)<h) 
 			{
 				poinc_x[i]=x.arr[0];
 				i++;
@@ -351,7 +340,8 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 		}
 		
 		cerr<<"period: "<<period<<endl;
-
+		
+		//depending on period, color boxes
 		switch (period)
 		{
 			case 1:
