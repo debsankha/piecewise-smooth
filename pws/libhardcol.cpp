@@ -11,7 +11,7 @@ float Sigma=1;		//the boundary: x=Sigma
 float G=0.08;	//damping
 float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
-float m=2.3556;
+float m=2.3556;	//2*w_damped/w_forcing
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 
 
@@ -33,7 +33,6 @@ int plottraj(vec x, float tmax)
 	int i=0;
 	int period=0;
 	
-	cerr<<"F="<<F<<endl;	
 	while (t<tmax+initphase)
 	{
 		oldvel=x.arr[1];
@@ -229,6 +228,7 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 {
 	F=newf;
 	G=newg;
+	
 
 	float minx=-8;
 	float maxx=-1;
@@ -245,9 +245,15 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 
 	int numxdiv=npts;
 	int numydiv=npts;
+	
+	short int **basin=new short int*[numydiv];
+	bool **tempbasin=new bool*[numydiv];
 
-	short int basin[numydiv][numxdiv];
-	bool tempbasin[numxdiv][numydiv];
+	for (int j=0;j<numydiv;j++)
+	{
+		basin[j]=new short int[numxdiv];
+		tempbasin[j]=new bool[numxdiv];
+	}
 
 	for (int xind=0;xind<numxdiv;xind++)
 	{
@@ -258,19 +264,19 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 	}
 	
 	double poinc_x[ORB], poinc_t[ORB];
-	for (int xptco=0;xptco<npts+1;xptco++)
+	for (int xptco=0;xptco<npts;xptco++)
 	{
-	for (int yptco=0;yptco<npts+1;yptco++)
+	for (int yptco=0;yptco<npts;yptco++)
 	{
 		cerr<<xptco*npts+yptco<<" out of "<<npts*npts<<endl;
 	
 		i=0;
 		t=0;
 
-		x.arr[0]=minx+(maxx-minx)*xptco*1.0/npts;
-		x.arr[1]=miny+(maxy-miny)*yptco*1.0/npts;
+		x.arr[0]=minx+(maxx-minx)*xptco*1.0/(npts-1);
+		x.arr[1]=miny+(maxy-miny)*yptco*1.0/(npts-1);
 
-//		cerr<<"starting from: "<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
+		cerr<<"starting from: "<<x.arr[0]<<'\t'<<x.arr[1]<<endl;
 		for (int xind=0;xind<numxdiv;xind++)
 		{
 			for (int yind=0;yind<numydiv;yind++)
@@ -312,7 +318,7 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 					}
 						
 						
-					case -1:
+					case 2:
 					{
 						//point not on any basin drawn so far	
 					}
@@ -374,17 +380,17 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 	
 	}
 	}
+	
+	writepbm(basin,npts);
 
-	for (int yind=0;yind<numydiv;yind++)
+	for (int j=0;j<numydiv;j++)
 	{
-		for (int xind=0;xind<numxdiv;xind++)
-		{
-			if (basin[yind][xind]==1) cout<<"\\filled;& ";
-			else if (basin[yind][xind]==0)  cout<<"\\unfilled;& ";
-			else cout<<"\\undef;& ";
-		}
-		cout<<"\\\\\n";
+		delete [] basin[j];
+		delete [] tempbasin[j];
 	}
+
+	delete basin;
+	delete tempbasin;
 }
 
 
@@ -470,3 +476,22 @@ double time_to_stabilize(vec x, double tmax)
 	}
 	return tmax;		//Remember: you'd get t=0 if chaotic orb or periodicity >48
 }
+
+
+
+void writepbm(short int **basin, int npts)
+{
+	cout<<"P1\n";
+	cout<<npts<<" "<<npts<<endl;
+	for (int yind=0;yind<npts;yind++)
+	{
+		for (int xind=0;xind<npts;xind++)
+		{
+			if (basin[yind][xind]==1) cout<<"1 ";
+			else if (basin[yind][xind]==0)  cout<<"0 ";
+			else cout<<"\\undef;& ";
+		}
+		cout<<"\n";
+	}
+}
+

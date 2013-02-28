@@ -21,5 +21,6 @@ double time_to_stabilize(vec x, double tmax);
 int plotmap3d(int npts, int n, float newF, float newG);
 int plotmap(int npts, int n, float newF, float newG);
 int plotbasin(int npts,double tmax,double newF, double newG);
+void writepbm(short int **basin, int npts);
 
 #endif
