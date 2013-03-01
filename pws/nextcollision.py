@@ -1,7 +1,7 @@
 from math import *
 import sys
 
-F=0.393
+F=0.29
 m=1
 gamma=0.062
 sigma=1
@@ -13,29 +13,45 @@ w_g=n_val*w/2
 
 
 Ast=F/(m*sqrt((w**2-w_0**2)**2+(gamma*w)**2))
-C=lambda v:atan(((gamma/2*(Ast+sigma)-v)/w_g)/(Ast+sigma))
-B=lambda v:sqrt((Ast+sigma)**2+((gamma/2*(Ast+sigma)-v)/w_g)**2)
 
-def t_c(v):
-	res=(pi-C(v))/(w_g-w)
-	if w_g<w:
-		res=res*-1
-	return res
+C=lambda x,v:-atan(((gamma/2*x+v)/w_g)/x)
 
-def maxnext(v):
-	tc=t_c(v)
-#	return -Ast*cos(w*tc)+exp(-gamma*tc/2)*B(v)*cos(w_g*tc+C(v))
-	return Ast+exp(-gamma*tc/2)*B(v)
+B=lambda x,v:sqrt(x**2+((gamma/2*x+v)/w_g)**2)
 
+def nextcol(x,v):
+	c=C(x,v)
+	b=B(x,v)
 
-v=float(sys.argv[1])
-vmax=float(sys.argv[2])
+	res=(pi-c)/(w_g-w) if w_g>w else (pi+c)/(w-w_g) 
 
-dv=(vmax-v)/200
+	nextpeak_height=(Ast+b*exp(-gamma*res/2))
+	heightnow=-Ast+b*cos(c)#(Ast+b)*sin(c/2)
 
-sys.stderr.write("Ast: "+str(Ast)+" B: "+str(B(v))+" t_c: "+str(t_c(v))+"\n")
+	if nextpeak_height>heightnow:	#max height reached at the next peak of the envelope
+		tc=res
+		max_height=nextpeak_height
 
-while v<vmax:
-	print v, maxnext(v), t_c(v), B(v)
-	v+=dv
+		return max_height,tc,1
+	else:				#max height reached at next peak itself, problem with calc
+		tc=(2*pi)/(w+w_g)		#very rough estimate
+		max_height=-Ast+b*exp(-gamma*tc/2)
+		return max_height,tc,0
+	
+	
+
+x=float(sys.argv[1])
+xmax=float(sys.argv[2])
+
+v=0
+#v=float(sys.argv[3])
+#vmax=float(sys.argv[4])
+
+dx=(xmax-x)/200
+
+sys.stderr.write("Ast: "+str(Ast)+" B: "+str(B(x,v))+"\n")
+
+while x<xmax:
+	nexthei,col_time,boo=nextcol(x,v)
+	print x, nexthei,col_time, B(x,v), C(x,v), boo
+	x+=dx
 
