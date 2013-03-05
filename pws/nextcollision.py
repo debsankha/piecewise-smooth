@@ -1,9 +1,13 @@
 from math import *
 import sys
 
-F=0.29
+NPTS=300
+x=float(sys.argv[1])
+xmax=float(sys.argv[2])
+
+F=float(sys.argv[3])
+gamma=float(sys.argv[4])
 m=1
-gamma=0.062
 sigma=1
 w=1
 n_val=2.3556
@@ -39,19 +43,16 @@ def nextcol(x,v):
 	
 	
 
-x=float(sys.argv[1])
-xmax=float(sys.argv[2])
 
-v=0
+v=3.0
 #v=float(sys.argv[3])
 #vmax=float(sys.argv[4])
 
-dx=(xmax-x)/200
+dx=(xmax-x)/NPTS
 
 sys.stderr.write("Ast: "+str(Ast)+" B: "+str(B(x,v))+"\n")
 
 while x<xmax:
 	nexthei,col_time,boo=nextcol(x,v)
-	print x, nexthei,col_time, B(x,v), C(x,v), boo
+	print x, nexthei,boo, col_time, B(x,v), C(x,v)
 	x+=dx
-
