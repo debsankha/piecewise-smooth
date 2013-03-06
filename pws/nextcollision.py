@@ -38,13 +38,11 @@ def nextcol(x,v):
 		return max_height,tc,1
 	else:				#max height reached at next peak itself, problem with calc
 		tc=(2*pi)/(w+w_g)		#very rough estimate
-		max_height=-Ast+b*exp(-gamma*tc/2)
+		max_height=Ast+b*exp(-gamma*tc/2)
 		return max_height,tc,0
 	
-	
 
-
-v=3.0
+v=0
 #v=float(sys.argv[3])
 #vmax=float(sys.argv[4])
 
