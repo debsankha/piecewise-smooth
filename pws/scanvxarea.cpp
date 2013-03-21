@@ -21,6 +21,7 @@ float w_0=sqrt(K1/m);
 float w_g=n_val*w/2;	//sqrt(w_0**2-Gamma**2/4)
 float Ast=0;
 float bigbox_area=0;
+float bigellipse_area=0;
 
 inline float C(float x, float v);
 inline float B(float x, float v);
@@ -72,9 +73,10 @@ float nextcol(float x,float v)
 
 	}
 	else
-	{				//max height reached at next peak of the high freq. signal itself, problem with calc
+	{
+		cerr<<"oh no!\n";				//max height reached at next peak of the high freq. signal itself, problem with calc
 		tc=(2*M_PI)/(w+w_g);		//very rough estimate
-		return Ast+b*exp(-Gamma*tc/2);
+		return Ast+b*exp(-Gamma*tc/2)*abs(sin((c+(w_g-w)*tc)/2.0));
 	}
 }	
 
@@ -88,12 +90,18 @@ float  vx_area(float f,float g)
 
 	if (Ast>sigma) return 0;
 
-	float chi=(sigma-Ast)*exp(3*Gamma*M_PI/(2*(w_g-w)));
+	float chi_far=(sigma-Ast)*exp(3*Gamma*M_PI/(2*(w_g-w)));	//assume next peak at next envelope
+	float chi_near=(sigma-Ast)*exp(2*Gamma*M_PI/(w_g+w));	//assume next peak at same envelope
+	float chi_avg=(sigma-Ast)*exp(Gamma*M_PI/(2*(w_g-w)));	//(cmax+cmin)/2
 	
+	float chi=chi_avg;	
 	float xmin=-1*chi;
 	float xmax=(chi<1)?chi:1;
 	
 	bigbox_area=(xmax-xmin)*2*chi*w_g;
+//	bigellipse_area=M_PI*w_g*pow(chi,2);
+	bigellipse_area=w_g*((xmax*pow(chi*chi-xmax*xmax,0.5)+chi*chi*atan(xmax/pow(chi*chi-xmax*xmax,0.5))) 
+			+chi*chi*M_PI/2);
 
 	int sofar=0;
 	int istrue=0;
@@ -128,7 +136,7 @@ void scan_f(float fmin,float fmax,float g,int npts)
 	while (f<fmax)
 	{
 		area=vx_area(f,g);
-		cout<<f<<'\t'<<area<<'\t'<<bigbox_area<<endl;
+		cout<<f<<'\t'<<area<<'\t'<<bigellipse_area<<endl;
 		f+=dF;
 		cerr<<"F: "<<f<<endl;
 	}
@@ -144,7 +152,7 @@ void scan_g(float gmin,float gmax,float f,int npts)
 	while (g<gmax)
 	{
 		area=vx_area(f,g);
-		cout<<g<<'\t'<<area<<'\t'<<bigbox_area<<endl;
+		cout<<g<<'\t'<<area<<'\t'<<bigellipse_area<<endl;
 		g+=dg;
 		cerr<<"G: "<<g<<endl;
 	}
