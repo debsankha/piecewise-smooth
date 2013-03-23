@@ -3,6 +3,7 @@
 #define NPTS 50	//Number of x values
 #include <mpi.h>
 #include <ctime>
+#define ORB 4
 //time negative for some conditions. FIX ASAP
 using namespace std;
 
@@ -97,7 +98,7 @@ double time_to_stabilize(vec x, double tmax)
 			{
 				period=detect_period(&poinc_x[0],&poinc_t[0], &time_to_stable);
 				
-				if (period>0)
+				if (period==1)
 				{
 					cout<<"#F: "<<F<<"\tPeriod: "<<period<<endl;
 					return time_to_stable;
