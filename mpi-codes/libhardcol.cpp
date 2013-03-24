@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0001
+#define EPSILON 0.001
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
