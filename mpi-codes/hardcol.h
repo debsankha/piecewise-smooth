@@ -9,7 +9,7 @@
 #define TMAX 1000	//Time to evolve for bifurc diagrams
 #define ORB  50		//set it to 2+max periodicity that we'll attempt to detect.(extra 1 for redundancy)
 #define N 2		//dimensionality of system
-#define randdouble(min,max) min+rand()*(max-(min))*1.0/RAND_MAX
+#define randdouble(min,max) min+(rand()*(max-(min))*1.0)/RAND_MAX
 
 
 extern float Sigma,G,F,W,m,K1;
