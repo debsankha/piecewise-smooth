@@ -15,7 +15,7 @@ int main(int argc , char *argv[])
 		tmax=atof(argv[1+i]);
 		F=atof(argv[2+i]);
 		G=atof(argv[3+i]);
-		plottraj(x,tmax);
+		cout<<"period: "<<plottraj(x,tmax)<<endl;
 	}
 
 	if (strcmp(argv[1],"plotmap")==0)

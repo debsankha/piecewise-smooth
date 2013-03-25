@@ -4,7 +4,7 @@
 #include<cstdlib>
 #include<ctime>
 #include<cstring>
-#define randdouble(min,max) min+(max-(min))*(rand()*1.0/RAND_MAX)
+#define randdouble(min,max) min+(max-(min))*((float) rand())/RAND_MAX
 using namespace std;
 
 

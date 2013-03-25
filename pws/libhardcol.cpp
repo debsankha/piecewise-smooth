@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.001
+#define EPSILON 0.0001
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,7 +17,7 @@ float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 
 void f(double t, vec x, vec *out) 
 {
-	//SHM hitting with a hard wall , x=(x,v)
+	//SHM hitting a hard wall , x=(x,v)
 	out->arr[0]=x.arr[1];
 	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*t);
 }

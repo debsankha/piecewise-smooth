@@ -1,7 +1,6 @@
 #include<iostream>
 #include<stdlib.h>
-#define randdouble(min,max) min+rand()*(max-(min))*1.0/RAND_MAX
-
+#include<hardcol.h>
 using namespace std;
 
 main(int argc, char **argv)
