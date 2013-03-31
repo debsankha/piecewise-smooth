@@ -15,7 +15,7 @@ float Sigma=1;		//the boundary: x=Sigma
 float G=0.062;	//damping
 float F=4.43741; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
-float m=2.3556;
+float m=2.336;
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 double Tau=M_PI/W;	//time when stable orbit grazes
 double Amp;

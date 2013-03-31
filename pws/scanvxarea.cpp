@@ -15,7 +15,7 @@ float Gamma=0.062;	//only a default value
 float m=1;	//mass
 float sigma=1;	//switching manifold
 float w=1;	//force freq
-float n_val=2.3556;	//2*w_g/w
+float n_val=0.1;//12.3556;	//2*w_g/w
 float K1=(w*n_val/2)*(w*n_val/2.0)+Gamma*Gamma/4.0;
 float w_0=sqrt(K1/m);
 float w_g=n_val*w/2;	//sqrt(w_0**2-Gamma**2/4)
@@ -27,18 +27,18 @@ inline float C(float x, float v);
 inline float B(float x, float v);
 float nextcol(float x,float v);
 float  vx_area(float f,float g);
-void scan_f(float fmin,float fmax,float g,int npts);
-void scan_g(float fmin,float fmax,float g,int npts);
+void scan_f(float fmin,float g,int npts);
+void scan_g(float gmax,float f,int npts);
 
 
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
 
-	if (strcmp(argv[1],"f")==0) scan_f(atof(argv[2]),atof(argv[3]),atof(argv[4]),atoi(argv[5]));
+	if (strcmp(argv[1],"f")==0) scan_f(atof(argv[2]),atof(argv[3]),atoi(argv[4]));
 	else
 	{
-		if (strcmp(argv[1],"g")==0) scan_g(atof(argv[2]),atof(argv[3]),atof(argv[4]),atoi(argv[5]));
+		if (strcmp(argv[1],"g")==0) scan_g(atof(argv[2]),atof(argv[3]),atoi(argv[4]));
 		else cerr<<"invalid option, 1st argument must be f or g"<<endl;
 	}
 
@@ -90,9 +90,26 @@ float  vx_area(float f,float g)
 
 	if (Ast>sigma) return 0;
 
-	float chi_far=(sigma-Ast)*exp(3*Gamma*M_PI/(2*(w_g-w)));	//assume next peak at next envelope
-	float chi_near=(sigma-Ast)*exp(2*Gamma*M_PI/(w_g+w));	//assume next peak at same envelope
-	float chi_avg=(sigma-Ast)*exp(Gamma*M_PI/(2*(w_g-w)));	//(cmax+cmin)/2
+//	float chi_far=(sigma-Ast)*exp(3*Gamma*M_PI/(2*(w_g-w)));	//assume next peak at next envelope
+//	float chi_near=(sigma-Ast)*exp(2*Gamma*M_PI/(w_g+w));	//assume next peak at same envelope
+
+	
+	float chi_avg;
+
+
+//beats or amplitude modulation depending on n_val	
+	if (n_val<2.0/3) 
+	{
+		chi_avg=(sigma-Ast)*exp(Gamma*M_PI/(2*w_g));	//(cmax+cmin)/2
+	}
+	else if (n_val>5) 
+	{
+		chi_avg=(sigma-Ast)*exp(Gamma*M_PI/(2*w));	//(cmax+cmin)/2
+	}
+	else chi_avg=(sigma-Ast)*exp(Gamma*M_PI/(2*abs(w_g-w)));	//(cmax+cmin)/2
+
+
+	//chi_avg=(sigma-Ast)*exp(Gamma*M_PI/(2*(w_g-w)));	//(cmax+cmin)/2
 	
 	float chi=chi_avg;	
 	float xmin=-1*chi;
@@ -127,9 +144,11 @@ float  vx_area(float f,float g)
 }
 
 
-void scan_f(float fmin,float fmax,float g,int npts)
+void scan_f(float fmin,float g,int npts)
 {
 	float f=fmin;
+	float fmax=sigma*pow(pow(w*w-K1,2)+w*Gamma*w*Gamma,0.5);
+
 	float dF=(fmax-fmin)/npts;
 	
 	float area;
@@ -143,8 +162,9 @@ void scan_f(float fmin,float fmax,float g,int npts)
 
 }
 
-void scan_g(float gmin,float gmax,float f,int npts)
+void scan_g(float gmax,float f,int npts)
 {
+	float gmin=pow(F*F/(sigma*sigma)-(K1-w*w)*(K1-w*w),0.5)/w;
 	float g=gmin;
 	float dg=(gmax-gmin)/npts;
 	

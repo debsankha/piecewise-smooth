@@ -4,7 +4,7 @@ import sys
 import random
 #The constants needed
 NPTS=300
-mcpts=10000000
+mcpts=100000
 
 F=0.29	#only a default value
 Gamma=0.062	#only a default value
@@ -87,7 +87,7 @@ def scan_f(fmin,fmax,g,npts):
 
 	while f<fmax:
 		area=vx_area(f,g)
-		print F,area[0],area[1]
+		print f,area[0],area[1]
 		f+=dF
 		sys.stderr.write(str(f)+'\n')
 
