@@ -44,6 +44,7 @@ int main(int argc , char *argv[])
 
 	if (strcmp(argv[1],"plotbifurc")==0)
 	{
+		float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 		float F_graz=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
 		cerr<<"F_graz="<<F_graz<<endl;
 		plotbifurc_F(F_graz-atof(argv[2]),F_graz+atof(argv[3]),atoi(argv[4]));
