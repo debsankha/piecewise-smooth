@@ -8,7 +8,11 @@
 //time negative for some conditions. FIX ASAP
 using namespace std;
 
+<<<<<<< HEAD
 extern float Sigma,G,F,W,m;
+=======
+extern float Sigma,G,F,W,m,K1;
+>>>>>>> 891ac1e3d951fca45ce5ad384c6ed7798cd5f0f9
 double time_to_stabilize(vec, double, int *);
 
 int main(int argc, char **argv)

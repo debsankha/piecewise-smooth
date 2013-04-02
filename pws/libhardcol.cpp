@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.001
+#define EPSILON 0.0001
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,19 +12,19 @@ float G=0.08;	//damping
 float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;	//2*w_damped/w_forcing
-float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 
 
 void f(double t, vec x, vec *out) 
 {
-	//SHM hitting with a hard wall , x=(x,v)
+	//SHM hitting a hard wall , x=(x,v)
+	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	out->arr[0]=x.arr[1];
-	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*t);
+	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*cos(W*t);
 }
 
 int plottraj(vec x, float tmax)
 {
-	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
+	double initphase=0;//(-M_PI/2-atan(G*W/(W*W-K1)))/W;
 	double t=initphase;
 	double time_to_stable=0;
 	double oldvel=0;
@@ -33,6 +33,9 @@ int plottraj(vec x, float tmax)
 	int i=0;
 	int period=0;
 	
+	cout<<"#F: "<<F<<endl;
+	cout<<"#G: "<<G<<endl;
+		
 	while (t<tmax+initphase)
 	{
 		oldvel=x.arr[1];
@@ -44,7 +47,7 @@ int plottraj(vec x, float tmax)
 			x.arr[1]*=-1;
 		}
 
-		if ((oldvel<0) && (x.arr[1]>0))
+		if (fmod(t,2*M_PI/W)<h)//((oldvel<0) && (x.arr[1]>0))
 		{
 			cerr<<t<<'\t'<<x.arr[0]<<endl;				//outputs the poincare mappings to stderr
 			poinc_x[i]=x.arr[0];
@@ -85,6 +88,7 @@ int plotmap(int npts, int n, float newF, float newG)
 	double xinincr=9*1.0/npts;
 	
 	double initphase;
+	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	double Amp=-F/pow(pow(W*W-K1,2)+W*W*G*G,0.5);
 
 	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<'\t'<<"Amp\t"<< Amp <<endl;
@@ -135,6 +139,7 @@ int plotmap3d(int npts, int n, float newF, float newG)
 	//Suposing interesting things happen only in th interval (-8,1)
 	double inincr=9*1.0/npts;
 	
+	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	double Amp=-F/pow(pow(W*W-K1,2)+W*W*G*G,0.5);
 
 	cerr<<"#G_graz\t"<<pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W<<'\t'<<"F_graz\t"<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<'\t'<<"Amp\t"<< Amp <<endl;
@@ -235,6 +240,7 @@ int plotbasin(int npts,double tmax,double newf,double newg)
 	float miny=-8;
 	float maxy=8;
 	
+	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	double T=2*M_PI/W;
 	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
 	double t,time_to_stable,oldvel;
