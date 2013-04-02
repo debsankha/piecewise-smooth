@@ -8,7 +8,7 @@
 
 using namespace std;
 
-extern float Sigma,G,F,W,m;
+extern float Sigma,G,F,W,m,K1;
 double time_to_stabilize(vec, double, int *);
 
 int main(int argc, char **argv)
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 
 	cout<<"#G"<<'\t'<<"time_to_stabilize"<<endl;
 
-	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
+	K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	double G_graz=pow(F*F/(Sigma*Sigma)-(K1-W*W)*(K1-W*W),0.5)/W;
 	cout<<"#G_graz: "<<G_graz<<endl;
 	double G_min=atof(argv[1]);
@@ -38,15 +38,16 @@ int main(int argc, char **argv)
 	double stopG=G_max-(rank+1)*G_range/size;
 
 
-	bool timeceilreached=0;
 	double tau;
 	int period;
 
-	for (G=startG;(G>stopG) && (timeceilreached==0);G-=dG)
+	for (G=startG;G>stopG;G-=dG)
 	{
+		cerr<<"F\tG\tK1\tW\n";
+		cerr<<F<<'\t'<<G<<'\t'<<K1<<'\t'<<W<<'\n';
+
 		for (int cnt=0;(cnt<NPTSEACHX) && (timeceilreached==0);cnt++)
 		{
-	
 			double tmp[2];
 			tmp[0]=randdouble(-8,1);//randdouble(-Sigma*1.1,-Sigma*0.8);		//This choice of initial pts will have same impact 
 			tmp[1]=randdouble(-8,8);//pow(K1*(Sigma*1.1+tmp[0])*(Sigma*1.1-tmp[0]),0.5);//velocity, barring impacts
