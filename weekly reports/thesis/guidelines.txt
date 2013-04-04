@@ -1,0 +1,10 @@
+document class: report or book
+chapter 1: introduction
+section 1: what is the area, what kind of problem
+section 2: literature survey, point out the holes in the knowledge
+section 3: scope of present work
+section 4: methodology, how will you probe it?
+chapter 2: the physical system and Smodel
+
+each chapter except introduction has to have a conclusion
+last chapter for thesis conclusion
