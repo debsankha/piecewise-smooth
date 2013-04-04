@@ -156,7 +156,7 @@ def probe_stability_vs_n(nmin,nmax):
 	n=nmin
 	
 	pval=4
-
+	Amp=sigma
 	while n<nmax:
 		wg=n*w/2.0
 		k=wg**2+(gamma/2.0)**2
@@ -190,7 +190,7 @@ def probe_stability_vs_n(nmin,nmax):
 		print n,fx,fv,abseigs[0],abseigs[1],Sign
 
 			
-		n+=0.1
+		n+=0.001
 	
 
 if __name__=='__main__':
