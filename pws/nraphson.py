@@ -1,6 +1,8 @@
 from math import *
 import numpy as np
 import numpy.linalg as linalg
+import commands
+import sys
 
 sigma=1
 gamma=0.062
@@ -90,7 +92,11 @@ def G(y):
 
 
 
-def nraphsonsolve(y0,tol,maxstep):
+def nraphsonsolve(y0,tol,maxstep,f,g):
+	global F,gamma
+	F=f
+	gamma=g
+
 	y=y0
 	dmody=1
 	
@@ -106,87 +112,43 @@ def nraphsonsolve(y0,tol,maxstep):
 		[x0,v0,x1,v1,t1]=[float(i[0]) for i in y]
 		Mdt=M(t1)
 		nexty=np.matrix([[1,0],[0,-1]])*phi(t1,0,x0,v0,Mdt)
-		print "should be sigma: ",nexty[0]
+#		print "should be sigma: ",nexty[0]
 		Mdt=M(T-t1)
 		nexty=phi(T,t1,float(nexty[0]),float(nexty[1]),Mdt)
 		diff=np.matrix([x0,v0]).transpose()-nexty
 		dmody=float(diff.transpose()*diff)
-		print "y"
-		print y
+#		print "y"
+#		print y
 
-		print "nexty"
-		print nexty
+#		print "nexty"
+#		print nexty
 
-		print "dmody"
-		print dmody
+#		sys.stderr.write("dmody\n"+str(dmody)+"\n")
 
 
 #desperate attempt end
 
 		step+=1
-	return 	y
+	if dmody<tol*tol:
+		return 	y
+	else:
+		return None
 
-def test_funcs():
-	print "M(1)"
-	print M(1)
-	print "Mdot(1)"
-	print Mdot(1)
 
-	Mdt=M(2)
-	Mdotdt=Mdot(2)
+def nextxv(x,v,t):
+	result=commands.getoutput("./hardcol.out traj %f %f %f %f %f 2>/dev/null | tail -n 2 | grep -v '#' | awk '{print $2\"\t\"$3}'"%(x,v,t,F,gamma))
+	return np.matrix([float(i) for i in result.split('\t')]).transpose()
 
-	print "phi(2,0,-1,0,Mdt)"
-	print phi(2,0,-1,0,Mdt)
-
-	print "delphideltf(2,0,-1,0,Mdt,Mdotdt)"
-	print delphideltf(2,0,-1,0,Mdt,Mdotdt)
-	print "delphidelti(2,0,-1,0,Mdotdt)"
-	print delphidelti(2,0,-1,0,MdtMdt,Mdotdt)
+def Jfp(x,v,f,g):
+	global F,gamma
+	F=f
+	gamma=g
+	h=0.01
+	jx1=(-nextxv(x+2*h,v,T)+8*nextxv(x+h,v,T)-8*nextxv(x-h,v,T)+nextxv(x-2*h,v,T))/(12*h)
+	jx2=(-nextxv(x,v+2*h,T)+8*nextxv(x,v+h,T)-8*nextxv(x,v-h,T)+nextxv(x,v-2*h,T))/(12*h)
 	
-	y=np.matrix([1,2,3,4,5]).transpose()
-	print "J1(y)"
-	print J1(y)
-	
-	print "G(y)"
-	print G(y)
-
-	t=0
-	while t<1000:
-		Mdt=M(t)
-		ph=phi(t,0,-1,0,Mdt)
-		print t, float(ph[0]), float(ph[1])
-		t+=0.1
+	J=np.ma.hstack((jx1,jx2))
+	return linalg.eigvals(J)
 
 
 
-def test_phi():
-	t=0
-	tmax=10
-	dt=0.01
-	
-	r=np.matrix([-1.23,0.45]).transpose()
-	x=-1.23
-	v=0.45
-
-	while t<tmax:
-		Mdt=M(t)
-		ph=phi(t,0,-1.23,0.45,Mdt)
-
-		v+=(-gamma*v-k*x+F*cos(w*t))*dt
-		x+=v*dt
-
-		print t,float(ph[0]), float(ph[1]), x,v
-		t+=dt
-
-def test_nraph():
-	y=np.matrix([-0.699318,0.738832,0.99,0.706029,1.58]).transpose()
-	y=nraphsonsolve(y,0.001,2000)
-	print "y"
-	print y
-	import commands
-	commands.getoutput("./hardcol.out traj %f %f %f %f %f > traj.dat"%(float(y[0]),float(y[1]),100,F,gamma))
-
-if __name__=='__main__':
-#	test_funcs()
-	test_nraph()
-#	test_phi()
