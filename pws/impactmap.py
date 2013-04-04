@@ -13,6 +13,7 @@ import numpy.linalg as linalg
 import commands
 import sys
 from random import uniform
+import commands
 
 sigma=None
 gamma=None
@@ -25,7 +26,7 @@ F=None
 T=None
 
 M2T=None
-Sign=None
+Signs=None
 
 Amp=None
 
@@ -41,11 +42,11 @@ def G(y):
 
 
 
-def Jackmap(y):
+def Jackmap(y,pm):
 	x=float(y[0])
 	if abs(x-sigma)<Amp:
 		return M2T*np.matrix([[1,0],\
-			[2*w*Sign*(sigma-x)/sqrt(Amp**2-(sigma-x)**2),-1]])
+			[2*w*pm*(sigma-x)/sqrt(Amp**2-(sigma-x)**2),-1]])
 	else:
 		return None
 			
@@ -79,23 +80,25 @@ def nraphsonsolve1(x,v,tol,maxsteps):
 
 
 def fp_exact():
-	global Sign
+	global Signs
 
 	a=float(M2T[0,0])
 	b=float(M2T[0,1])
 	c=float(M2T[1,0])
 	d=float(M2T[1,1])
 	
-	print "b: ",b	
 	alpha=(a-d+a*d-b*c-1)/(2*b*w)
 
 	discrim=sigma**2-(alpha**2+1)*(sigma**2-Amp**2)
 	if discrim>0:
-		fx=(sigma+sqrt(discrim))/(alpha**2+1)	#Why not -ve sign?
-		fv=(d-a*d+b*c)*fx/b
-		
-		Sign=(fx*(1-a)+b*fv)/(2*b*w*sqrt(Amp**2-(sigma-fx)**2))
-		return np.matrix([fx,fv]).transpose()
+		fx1=(sigma+sqrt(discrim))/(alpha**2+1)	#Why not -ve sign?
+		fv1=(d-a*d+b*c)*fx1/b
+
+		fx2=(sigma-sqrt(discrim))/(alpha**2+1)	#Why not -ve sign?
+		fv2=(d-a*d+b*c)*fx2/b
+
+		Signs=((fx1*(1-a)+b*fv1)/(2*b*w*sqrt(Amp**2-(sigma-fx1)**2)), (fx1*(1-a)+b*fv1)/(2*b*w*sqrt(Amp**2-(sigma-fx1)**2)))
+		return (np.matrix([fx1,fv1]).transpose(),np.matrix([fx2,fv2]).transpose())
 	else:
 		print "Aww"
 		return None	
@@ -113,23 +116,41 @@ def plot_fp_eigvals(fmin,fmax,npts):
 	while F<fmax:
 		Amp=F/sqrt((w0**2-w**2)**2+(w*gamma)**2)
 
-		yexact=fp_exact()
-		if yexact==None:
+		yexacts=fp_exact()
+		if yexacts==None:
 			F+=df		
 			continue
-		eigs=linalg.eigvals(Jackmap(yexact))
-		abseigs=[abs(i) for i in eigs]
-		abseigs.sort()
-#		print F,float(y[0]),float(y[1]),abs(eigs[0]),abs(eigs[1]), 0
-		print F,float(yexact[0]),float(yexact[1]),abseigs[0],abseigs[1],Sign
 		
+	#	abseigs=[]
+		for num in [0,1]:	
+			yexact=yexacts[num]
+			(x0,v0)=(float(i) for i in yexact)
+	
+	#	Insert code to ckeck the fixed point does not lead to orbits crossing the wall
+#			nexty=commands.getoutput("./hardcol.out traj %f %f %f %f %f %f 2>/dev/null | tail -n 1 | awk '{print $2\"\t\"$3}' "%(x0,v0,T,F,gamma,n))
+#			
+#			sys.stderr.write("yexact: %s\n"%yexact.__str__())
+#			sys.stderr.write("nexty: %s\n"%nexty.__str__())
+#
+#
+#			nextx,nextv=(float(i) for i in nexty.split('\t'))
+#			
+#			if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.001:
+#				continue
+				
+			pm=Signs[num]
+			eigs=linalg.eigvals(Jackmap(yexact,pm))
+			abseigs=[abs(i) for i in eigs]
+			abseigs.sort()
+
+			print F, abseigs[0],abseigs[1],pm
+
+	#	print F,abseigs[0][0],abseigs[0][1],abseigs[1][0],abseigs[1][1],float(yexacts[0][0]),float(yexacts[1][0]),float(yexacts[0][1]),float(yexacts[1][1]),pm
 		F+=df	
 			
 
-
-
 def probe_stability_vs_F(nval,pval):	
-	global sigma,gamma,n,w,wg,k,w0,T,M2T,Sign
+	global sigma,gamma,n,w,wg,k,w0,T,M2T,Signs
 	sigma=1
 	gamma=0.08
 	n=nval
@@ -141,14 +162,14 @@ def probe_stability_vs_F(nval,pval):
 	
 	
 	M2T=M(T)
-	Sign=1
+	Signs=(1,1)
 	
 	Fgraz=sigma*sqrt((w0**2-w**2)**2+(w*gamma)**2)
 	print "#Fgraz: ",Fgraz
 	plot_fp_eigvals(Fgraz*1.001,Fgraz*1.9,100)
 
 def probe_stability_vs_n(nmin,nmax):
-	global sigma,gamma,n,w,wg,k,w0,T,M2T,Sign,Amp,F
+	global sigma,gamma,n,w,wg,k,w0,T,M2T,Amp,F
 	sigma=1
 	gamma=0.08
 	n=nmin
@@ -164,7 +185,7 @@ def probe_stability_vs_n(nmin,nmax):
 		T=pval*pi/w
 		
 		M2T=M(T)
-		Sign=1
+
 
 		a=float(M2T[0,0])
 		b=float(M2T[0,1])
@@ -175,9 +196,9 @@ def probe_stability_vs_n(nmin,nmax):
 		fx=2*sigma/(alpha**2+1)
 		fv=(d-a*d+b*c)*fx/b
 			
-		Sign=1 if (fx*(1-a)+b*fv)*(2*b*w*sqrt(sigma**2-(sigma-fx)**2))>0 else -1
+		pm=1 if (fx*(1-a)+b*fv)*(2*b*w*sqrt(sigma**2-(sigma-fx)**2))>0 else -1
 	
-		Ja=Jackmap([fx,fv])
+		Ja=Jackmap([fx,fv],pm)
 		
 		if Ja ==None:
 			n+=0.1
@@ -187,13 +208,13 @@ def probe_stability_vs_n(nmin,nmax):
 		abseigs=[abs(i) for i in eigs]
 		abseigs.sort()
 #		print F,float(y[0]),float(y[1]),abs(eigs[0]),abs(eigs[1]), 0
-		print n,fx,fv,abseigs[0],abseigs[1],Sign
+		print n,fx,fv,abseigs[0],abseigs[1]
 
 			
 		n+=0.001
 	
 
 if __name__=='__main__':
-#	probe_stability_vs_F(float(sys.argv[1]),int(sys.argv[2]))
-	probe_stability_vs_n(float(sys.argv[1]),int(sys.argv[2]))
+	probe_stability_vs_F(float(sys.argv[1]),int(sys.argv[2]))
+#	probe_stability_vs_n(float(sys.argv[1]),int(sys.argv[2]))
 
