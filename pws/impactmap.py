@@ -20,6 +20,9 @@ w0=sqrt(k)
 F=0.39
 T=4*pi/w
 
+
+Sign=1
+
 Amp=F/sqrt((w0**2-w**2)**2+(w*gamma)**2)
 
 def M(t):
@@ -33,11 +36,6 @@ def G1(y):
 	v=float(y[1][0])
 	return M2T*np.matrix([x,-v-2*w*sqrt(Amp**2-(sigma-x)**2)]).transpose()-y
 
-def G2(y):
-	x=float(y[0][0])
-	v=float(y[1][0])
-	return M2T*np.matrix([x,-v+2*w*sqrt(Amp**2-(sigma-x)**2)]).transpose()-y
-
 
 
 def Jackmap1(y):
@@ -48,23 +46,9 @@ def Jackmap1(y):
 	else:
 		return None
 			
-def Jackmap2(y):
-	x=float(y[0])
-	if abs(x-sigma)<Amp:
-		return M2T*np.matrix([[1,0],\
-			[-2*w*(x-sigma)/sqrt(Amp**2-(sigma-x)**2),-1]])
-	else:
-		return None
 
 def Jackeqn1(y):
 	j1=Jackmap1(y)
-	if j1!=None:
-		return j1-np.matrix(np.ma.identity(2))
-	else:
-		return None	
-
-def Jackeqn2(y):
-	j1=Jackmap2(y)
 	if j1!=None:
 		return j1-np.matrix(np.ma.identity(2))
 	else:
@@ -91,68 +75,55 @@ def nraphsonsolve1(x,v,tol,maxsteps):
 		return y
 
 
-def nraphsonsolve2(x,v,tol,maxsteps):
-	y=np.matrix([x,v]).transpose()
-
-	nsteps=0
-	absdy=1
+def fp_exact():
+	global Sign
+	a=float(M2T[0,0])
+	b=float(M2T[0,1])
+	c=float(M2T[1,0])
+	d=float(M2T[1,1])
 	
-	while absdy>tol and nsteps<maxsteps:
-		Je=Jackeqn2(y)
-		if Je==None:
-			return
-		dy=-linalg.inv(Je)*G2(y)
-		absdy=float((dy.transpose()*dy)[0][0])
-		y=y+dy
-		nsteps+=1
+	alpha=(a-d+a*d-b*c-1)/(2*b*w)
+
+	discrim=sigma**2-(alpha**2+1)*(sigma**2-Amp**2)
+	if discrim>0:
+		fx=(sigma+sqrt(discrim))/(alpha**2+1)
+		fv=(d-a*d+b*c)*fx/b
 		
-	
-	if nsteps<maxsteps:
-		return y
+		Sign=(fx*(1-a)+b*fv)/(2*b*w*sqrt(Amp**2-(sigma-fx)**2))
+		return np.matrix([fx,fv]).transpose()
 
 
 
+def plot_fp_eigvals(fmin,fmax,npts,newn):
+	global F,Amp,n,wg,k,w0,Amp,M2T
 
-def plot_fp_eigvals(fmin,fmax):
-	global F,Amp
-	df=(fmax-fmin)/50
+	df=(fmax-fmin)/float(npts)
 	f=fmax
+	n=float(newn)
+	wg=n*w/2.0
+	k=wg**2+(gamma/2.0)**2
+	w0=sqrt(k)
+	Amp=F/sqrt((w0**2-w**2)**2+(w*gamma)**2)
+	M2T=M(T)
 
 	while f>fmin:
 		F=f
 		Amp=F/sqrt((w0**2-w**2)**2+(w*gamma)**2)
-		for i in range(50):
-			if uniform(0,1)<0.5:
-				xmin=sigma-Amp
-				xmax=sigma
-			else:
-				xmin=sigma
-				xmax=sigma+Amp	
 
-			y=nraphsonsolve1(uniform(xmin,xmax),uniform(0,8),0.001,5000)
-
-			if y!=None:
-			#	print "%dth attempt"%i
-				eigs=linalg.eigvals(Jackmap1(y))
-				print F,float(y[0]),float(y[1]),abs(eigs[0]),abs(eigs[1]), 0
-				break
+		yexact=fp_exact()
+		eigs=linalg.eigvals(Jackmap1(yexact))
+		abseigs=[abs(i) for i in eigs]
+		abseigs.sort()
+#		print F,float(y[0]),float(y[1]),abs(eigs[0]),abs(eigs[1]), 0
+		print F,float(yexact[0]),float(yexact[1]),abseigs[0],abseigs[1]
 		
-			y=nraphsonsolve2(uniform(xmin,xmax),uniform(0,8),0.001,5000)
-
-			if y!=None:
-			#	print "%dth attempt"%i
-				eigs=linalg.eigvals(Jackmap2(y))
-				print F,float(y[0]),float(y[1]),abs(eigs[0]),abs(eigs[1]), 1
-				break
-
-
-
 		f-=df		
 
 if __name__=='__main__':
-	Fgraz=sigma*F/Amp
+	Fgraz=sigma*sqrt((w0**2-w**2)**2+(w*gamma)**2)
 	print Fgraz
-	plot_fp_eigvals(Fgraz*1,Fgraz*1.9)
+	plot_fp_eigvals(Fgraz*1,Fgraz*1.9,100,float(sys.argv[1]))
+#	print fp_exact()
 #	for i in range(100):
 #		try:
 #			y=nraphsonsolve(uniform(sigma-Amp,sigma),uniform(0,3),0.001,5000)
