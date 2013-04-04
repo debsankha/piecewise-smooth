@@ -15,10 +15,11 @@ float Gamma=0.062;	//only a default value
 float m=1;	//mass
 float sigma=1;	//switching manifold
 float w=1;	//force freq
-float n_val=0.1;//12.3556;	//2*w_g/w
+float n_val=2.356;//12.3556;	//2*w_g/w
+float w_g=n_val*w/2;	//sqrt(w_0**2-Gamma**2/4)
+
 float K1=(w*n_val/2)*(w*n_val/2.0)+Gamma*Gamma/4.0;
 float w_0=sqrt(K1/m);
-float w_g=n_val*w/2;	//sqrt(w_0**2-Gamma**2/4)
 float Ast=0;
 float bigbox_area=0;
 float bigellipse_area=0;
@@ -84,8 +85,11 @@ float  vx_area(float f,float g)
 {
 	F=f;
 	Gamma=g;
-	K1=(w*n_val/2)*(w*n_val/2.0)+Gamma*Gamma/4.0;
-	w_0=sqrt(K1/m);
+//	K1=(w*n_val/2)*(w*n_val/2.0)+Gamma*Gamma/4.0;
+//	w_0=sqrt(K1/m);
+	w_g=pow(w_0*w_0-Gamma*Gamma/4,0.5);
+
+
 	Ast=F/(m*pow(pow((pow(w,2)-pow(w_0,2)),2)+pow(Gamma*w,2),0.5));
 
 	if (Ast>sigma) return 0;
@@ -147,7 +151,8 @@ float  vx_area(float f,float g)
 void scan_f(float fmin,float g,int npts)
 {
 	float f=fmin;
-	float fmax=sigma*pow(pow(w*w-K1,2)+w*Gamma*w*Gamma,0.5);
+
+	float fmax=sigma*pow(pow(w*w-K1,2)+w*g*w*g,0.5);
 
 	float dF=(fmax-fmin)/npts;
 	
@@ -164,13 +169,17 @@ void scan_f(float fmin,float g,int npts)
 
 void scan_g(float gmax,float f,int npts)
 {
-	float gmin=pow(F*F/(sigma*sigma)-(K1-w*w)*(K1-w*w),0.5)/w;
+	float gmin=pow(f*f/(sigma*sigma)-(K1-w*w)*(K1-w*w),0.5)/w;
+	gmin=(gmin>0)?gmin:0.01;
 	float g=gmin;
 	float dg=(gmax-gmin)/npts;
 	
+	cerr<<"gmin: "<<gmin<<endl;	
 	float area;
 	while (g<gmax)
 	{
+
+		w_g=pow(w_0*w_0-Gamma*Gamma/4,0.5);
 		area=vx_area(f,g);
 		cout<<g<<'\t'<<area<<'\t'<<bigellipse_area<<endl;
 		g+=dg;

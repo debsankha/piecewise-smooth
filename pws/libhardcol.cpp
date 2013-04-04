@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0001
+#define EPSILON 0.00001
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,7 +11,7 @@ float Sigma=1;		//the boundary: x=Sigma
 float G=0.08;	//damping
 float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
-float m=2.3556;	//2*w_damped/w_forcing
+float m=4;	//2*w_damped/w_forcing
 float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 
 
@@ -19,7 +19,7 @@ void f(double t, vec x, vec *out)
 {
 	//SHM hitting a hard wall , x=(x,v)
 	out->arr[0]=x.arr[1];
-	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*t);
+	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*cos(W*t);
 }
 
 int plottraj(vec x, float tmax)
@@ -32,7 +32,9 @@ int plottraj(vec x, float tmax)
 	double poinc_t[ORB];
 	int i=0;
 	int period=0;
-	
+	double fgraz=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
+
+	cerr<<"F_graz:"<<fgraz<<endl;
 	while (t<tmax+initphase)
 	{
 		oldvel=x.arr[1];
