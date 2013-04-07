@@ -44,9 +44,18 @@ Using the ZDM formalism, Banerjee and Kundu analyzed the soft impacting oscillat
 and predicted the onset of chaos immediately following the grazing of a limit 
 cycle \emph{except} when the ratio of the damped natural frequency of the 
 system and the forcing function frequency are in integral or half integral 
-ratios.  Experiments have borne out this prediction, except that chaos has 
-been observed to vanish in a \emph{small neighbourhood} of those 
+ratios.  Experiments have roughly borne out this prediction, except for the 
+fact that chaos has been observed to vanish in a \emph{small neighbourhood} of 
+those values predicted analytically.  Here we have used the impact map formalism to 
+derive the necessary conditions for chaos to vanish and matched the results with the 
+experimental results.  
 
+It has been reported previously that the lifetimes of transients in  systems 
+exhibiting grazing bifurcations follow a power law pattern as the parameter 
+value approaches the grazing value.  We have observed the same characteristics 
+in a simple harmonic oscillator with hard impacts.  We attempt to explain this 
+behaviour by treating the system before transients die down as an ergodic 
+system.  
 
 \tableofcontents
 
@@ -266,7 +275,7 @@ $\mu$ in the appropriate regimes.
 Consider a driven simple harmonic oscillator with a hard wall at a distance 
 $\sigma$ from its equilibrium position.   The equation of motion is:
 \begin{align}
-\label{eq-soft_impact}
+\label{eq-hard_impact}
 m\ddot{x}&=-\gamma \dot{x}-k_1x+G(t)&\mathrm{for}~~x<\sigma\\
 (x,v)&\mapsto (x,-rv)&\mathrm{for}~~x=\sigma
 \end{align}
@@ -449,48 +458,169 @@ real.
 \end{center}
 \end{figure}
 
-%\subsubsection{Period doubling at border collision of equilibria}
-%Sometimes it may happen that after a fixed point undergoes border collision, a 
-%period-2 orbit emerges.  This phenomenon was also studied in great detail by \cite{feigin-1999}.
-%Here we discuss in brief a very important necessary condition for this to 
-%happen.  
-%
-%\begin{claim}
-%
-%Consider a piecewise smooth map of the form \eqref{eq-pwmap}:
-%
-%\begin{equation}
-%x_{n+1}=f(x_n,\mu)=\begin{cases} f_1(x_n,\mu) & \mathrm{for}~~ x_n < 0 \\ \\
-%f_2(x_n,\mu)&\mathrm{for}~~ x_n\geq 0 \end{cases}
-%\end{equation}
-%
-%Suppose $\exists$ a fixed point of the map $x_1^*<0$ so long as  the parameter $\mu<0$.  
-%Suppose that when $\mu$ equals $0$, $x_1^*$ suffers border collision and on 
-%increasing $\mu$ further, a period-2 orbit becomes stable.  Then the Jacobian 
-%of the map must suffer a discontinuity at $0$, the point of border collision 
-%at the parameter value $\mu=0$
-%\end{claim}
-%
-%\begin{figure}
-%\caption{Before border collision: period 1}
-%\begin{center}
-%\includegraphics[width=0.7\columnwidth]{pw-perdoub-bef}
-%\end{center}
-%\end{figure}
-%
-%\begin{figure}
-%\caption{After border collision: period 2}
-%\begin{center}
-%\includegraphics[width=0.7\columnwidth]{pw-perdoub-after}
-%\end{center}
-%\end{figure}
-%
+\subsubsection{Period doubling at border collision of equilibria}
+Sometimes it may happen that after a fixed point undergoes border collision, a 
+period-2 orbit emerges.  This phenomenon was also studied in great detail by \cite{feigin-1999}.
+Here we discuss in brief a very important necessary condition for this to 
+happen.  
 
+\begin{claim}
+\label{claim-jacob-disc}
+Consider a piecewise smooth map of the form \eqref{eq-pwmap}:
+
+\begin{equation}
+x_{n+1}=f(x_n,\mu)=\begin{cases} f_1(x_n,\mu) & \mathrm{for}~~ x_n < 0 \\ \\
+f_2(x_n,\mu)&\mathrm{for}~~ x_n\geq 0 \end{cases}
+\end{equation}
+
+Suppose $\exists$ a fixed point of the map $x_1^*<0$ so long as  the parameter $\mu<0$.  
+Suppose that when $\mu$ equals $0$, $x_1^*$ suffers border collision and 
+increasing $\mu$ further, a period-doubling bifurcation occurs.  Then the Jacobian 
+of the map must suffer a discontinuity at $0$, the point of border collision 
+at the parameter value $\mu=0$
+\end{claim}
+
+\begin{figure}
+\caption{Before border collision: period 1}
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{pw-perdoub-bef}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption{After border collision: period 2}
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{pw-perdoub-after}
+\end{center}
+\end{figure}
+
+\begin{proof}
+
+
+Here we will consider the 1-dimensional case. A more complete proof is given 
+in \cite{feigin-1999}.
+A period doubling bifurcation occurs if on changing the parameter value of a system,
+\begin{enumerate}
+\item The fixed point of the first composition of the map either no longer 
+exists or loses stability.  
+\item A fixed point in the second composition of the map either gets created 
+or becomes stable.  
+\end{enumerate}
+
+Suppose that after border collision, this period-2 orbit is now stable:
+\begin{align*}
+f_1(x_1)&=x_2,~~x_1<0\\
+f_2(x_2)&=x_1
+\end{align*}
+
+For stability, the derivative of the second composition must be less than $1$ in magnitude:
+\begin{align*}
+\left|\frac{d}{dx}f_2(f_1(x_1))\right|&<1\\
+\left|f_1'(x_1)f_2'(x_2)\right|&<1
+\end{align*}
+
+Now, immediately after border collision, $0<\mu\ll 1$, the period-2 orbit will be 
+very close to the original period-1 fixed point: $-1\gg x_1<0, 0<x_2\ll 1$.  Therefore
+\[
+\left|f_1'(0)f_2'(0)\right|<1
+\]
+
+Now, supposing the Jacobian suffers no discontinuity, this condition can be 
+satisfied only if:
+\begin{equation}
+\label{cond-perdouble}
+\left|f_1'(0)\right|<1, \left|f_2'(0)\right|<1
+\end{equation}
+
+
+But if that is the case, then the fixed point of the \emph{first composition} 
+of the map (which was an attractor before the border collision and since the 
+map is assumed to be continuous in the parameter $\mu$, is still in a 
+neighbourhood of $0$), is still an attractor.  But this contradicts the 
+necessary condition for a period doubling bifurcation (i.e. the fixed point of 
+the first composition must lose stability). Therefore condition 
+\eqref{cond-perdouble} can only be satisfied if the Jacobian suffers a 
+discontinuity at border collision.  
+\end{proof}
 
 \subsection{Grazing bifurcation of limit cycles due to border collision}
+The phenomenon of a limit cycle grazing the switching manifold of a system is encountered 
+very frequently.  These systems have been studied extensively by Dankowicz and Nordmark\cite{dankowicz-nordmark-zdm}, Bernardo at al\cite{bernardo-grazing-prl}, Banerjee and Kundu\cite{banerjee-kundu-soft} etc.
 
-% Order of discontinuity: trace and Jacobian
+
+Consider a piecewise smooth flow as defined in \eqref{eq-pwflow}:
+
+\begin{equation}
+\label{ex-pwflow}
+\dot{x}=
+\begin{cases}
+F_1(x)&~~H(x)\le 0\\
+F_2(x)&~~H(x)> 0
+\end{cases}
+\end{equation}
+
+Suppose there exists an orbit (henceforth assumed to be period-1, for sake of 
+simplicity)  which grazes against the switching manifold defined by the 
+equation $H(x)=0$ at a point $0$.  By construction, $H(0)=0$.  Now we'd like 
+to know how initial conditions starting very close to this stable grazing 
+orbit behave.  There exists a very powerful method of analyzing the stability 
+of closed orbits of flows which goes like this:
+
+\begin{enumerate}
+\item Take a Poincáre section, which is basically a plane $P$ with dimensionality $1$ 
+less than that of the phase space. Especially in case of systems driven by an 
+external periodic force with time period $T$, this section is generally taken 
+by looking at the system at $t=nT$ (the so-called \emph{stroboscopic Poincáre section}).
+Suppose the closed orbit intersects this Poincáre plane at a point $x_0$. 
+
+\item Now choose a point $x_1$ very close to $x_0$ and see where it lands  up 
+on the Poincáre plane after time $T$. This will define a so-called 
+\bb{Poincáre map}
+\[
+\Pi:P\to P
+\]
+\item By construction, $x_0$ is a fixed point of the map $\Pi$.  Hence it can 
+be locally linearized:
+\[
+\Pi(x)-x_0\approx J(x_0)(x-x_0)
+\]
+
+Where $J=\frac{\partial \Pi}{\partial x}$.  
+\item The eigenvalues of the Jacobian determine the stability of the grazing 
+orbit.  If all the eigenvalues are $<1$ is magnitude then it is stable, 
+otherwise not.  
+
+\end{enumerate}
+\begin{figure}
+\label{fig-grazing-orbit}
+\caption{Grazing orbit}
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{graz}
+\end{center}
+\end{figure}
+
+As depicted in Fig \ref{fig-grazing-orbit}, when grazing takes place, certain 
+initial conditions close to the grazing orbit give rise to non-impacting 
+orbits and others give rise to impacting orbits.  \\
+
+
+Let a very important fact be noted here: The Poincáre map derived from a 
+piecewise smooth flow  
+will be a piecewise smooth map: the switching manifold being the points 
+$x^*\in P$ such that orbits starting from them grazes the switching manifold 
+of the actual flow.  
+
+As we showed in Claim \ref{claim-jacob-disc}, the Jacobian so obtained will 
+have to be discontinuous across the switching manifold for a period doubling 
+cascade to take place after grazing.  
+
+
+In the next section we will discuss a method for obtaining the Poincáre map 
+$\Pi$ for piecewise smooth flows called the ZDM method.  
 % ZDM approach
+
+\section{ZDM}
+% Order of discontinuity: trace and Jacobian
 % Chaos narrow band vanishing for integer n : hole: no chaos unexplained
 % Impact map.  Budd et al: hole: no damping
 % Numerical computation of fixed pt and jacobian 

@@ -30,6 +30,7 @@ Signs=None
 
 Amp=None
 
+
 def M(t):
 	return exp(-gamma*t/2)/wg*np.matrix([[wg*cos(wg*t)+gamma*sin(wg*t)/2, sin(wg*t)],\
 						[-k*sin(wg*t), wg*cos(wg*t)-gamma*sin(wg*t)/2]])
@@ -97,13 +98,44 @@ def fp_exact():
 		fx2=(sigma-sqrt(discrim))/(alpha**2+1)	#Why not -ve sign?
 		fv2=(d-a*d+b*c)*fx2/b
 
-		Signs=((fx1*(1-a)+b*fv1)/(2*b*w*sqrt(Amp**2-(sigma-fx1)**2)), (fx1*(1-a)+b*fv1)/(2*b*w*sqrt(Amp**2-(sigma-fx1)**2)))
+		Signs=((fx1*(1-a)+b*fv1)/(2*b*w*sqrt(Amp**2-(sigma-fx1)**2)), (fx2*(1-a)+b*fv2)/(2*b*w*sqrt(Amp**2-(sigma-fx2)**2)))
 		return (np.matrix([fx1,fv1]).transpose(),np.matrix([fx2,fv2]).transpose())
 	else:
 		print "Aww"
 		return None	
 
 
+def check_solution(x0,v0,pm):
+	phasediff=atan(w*gamma/(w**2-w0**2))
+	xp=sigma-x0
+	vp=-pm*w*sqrt(Amp**2-xp**2)
+
+	ph=acos(xp/Amp)
+
+	if pm<0:
+		ph=-1*ph
+	
+	tmin=(ph-phasediff)/w
+
+	nexty=commands.getoutput("./hardcol.out traj %f %f %f %f %f %f %f 2>/dev/null | tail -n 1 | awk '{print $1\"\t\"$2\"\t\"$3}' "%(sigma,v0+vp,T,F,gamma,n,tmin))
+	
+	sys.stderr.write("yexact: %f, %f\n"%(x0,v0))
+
+
+	tcol,nextx,nextv=(float(i) for i in nexty.split('\t'))
+	
+	nextx-=xp
+	nextv-=vp
+		
+	sys.stderr.write("tcol: %f, nexty: %f, %f\n"%(tcol,nextx,nextv))
+
+	if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.001:
+		return 0
+	else:
+		return 1	
+
+
+	
 
 def plot_fp_eigvals(fmin,fmax,npts):
 	global Amp,F
@@ -122,23 +154,17 @@ def plot_fp_eigvals(fmin,fmax,npts):
 			continue
 		
 	#	abseigs=[]
-		for num in [0,1]:	
+		for num in [0,1]:
+			pm=Signs[num]
+
 			yexact=yexacts[num]
 			(x0,v0)=(float(i) for i in yexact)
-	
-	#	Insert code to ckeck the fixed point does not lead to orbits crossing the wall
-#			nexty=commands.getoutput("./hardcol.out traj %f %f %f %f %f %f 2>/dev/null | tail -n 1 | awk '{print $2\"\t\"$3}' "%(x0,v0,T,F,gamma,n))
-#			
-#			sys.stderr.write("yexact: %s\n"%yexact.__str__())
-#			sys.stderr.write("nexty: %s\n"%nexty.__str__())
-#
-#
-#			nextx,nextv=(float(i) for i in nexty.split('\t'))
-#			
-#			if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.001:
-#				continue
+			
+#			check_solution(x0,v0,pm)
+
+#	Insert code to ckeck the fixed point does not lead to orbits crossing the wall
+		
 				
-			pm=Signs[num]
 			eigs=linalg.eigvals(Jackmap(yexact,pm))
 			abseigs=[abs(i) for i in eigs]
 			abseigs.sort()
@@ -210,7 +236,6 @@ def probe_stability_vs_n(nmin,nmax):
 #		print F,float(y[0]),float(y[1]),abs(eigs[0]),abs(eigs[1]), 0
 		print n,fx,fv,abseigs[0],abseigs[1]
 
-			
 		n+=0.001
 	
 
