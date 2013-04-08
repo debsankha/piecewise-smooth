@@ -78,8 +78,8 @@ its existence cannot be guaranteed everywhere in the phase space for non
 smooth systems.  
 
 \begin{figure}
-\label{fig-bouncing_ball}
 \caption{Trajectory of a bouncing ball : a piecewise smooth system}
+\label{fig-bouncing_ball}
 \begin{center}
 \includegraphics[width=0.4\columnwidth]{bounce}
 \end{center}
@@ -178,7 +178,7 @@ of singularity at that point will be $0$. \\
 
 
 We will later see that piecewise smooth maps arise naturally as a result of 
-taking Poincáre sections of \emph{piecewise smooth flows} (Something we will 
+taking Poincaré sections of \emph{piecewise smooth flows} (Something we will 
 define right now).
 
 \subsection{Piecewise smooth flows}
@@ -497,9 +497,7 @@ at the parameter value $\mu=0$
 \begin{proof}
 
 
-Here we will consider the 1-dimensional case. A more complete proof is given 
-in \cite{feigin-1999}.
-A period doubling bifurcation occurs if on changing the parameter value of a system,
+Here we will consider the 1-dimensional case. A period doubling bifurcation occurs if on changing the parameter value of a system,
 \begin{enumerate}
 \item The fixed point of the first composition of the map either no longer 
 exists or loses stability.  
@@ -520,7 +518,7 @@ For stability, the derivative of the second composition must be less than $1$ in
 \end{align*}
 
 Now, immediately after border collision, $0<\mu\ll 1$, the period-2 orbit will be 
-very close to the original period-1 fixed point: $-1\gg x_1<0, 0<x_2\ll 1$.  Therefore
+very close to the original period-1 fixed point: $-1\ll x_1<0, 0<x_2\ll 1$.  Therefore
 \[
 \left|f_1'(0)f_2'(0)\right|<1
 \]
@@ -541,6 +539,11 @@ necessary condition for a period doubling bifurcation (i.e. the fixed point of
 the first composition must lose stability). Therefore condition 
 \eqref{cond-perdouble} can only be satisfied if the Jacobian suffers a 
 discontinuity at border collision.  
+
+
+For a more rigorous proof applicable for systems of any dimensionality, please 
+refer to \cite{feigin-1999}.
+
 \end{proof}
 
 \subsection{Grazing bifurcation of limit cycles due to border collision}
@@ -567,15 +570,15 @@ orbit behave.  There exists a very powerful method of analyzing the stability
 of closed orbits of flows which goes like this:
 
 \begin{enumerate}
-\item Take a Poincáre section, which is basically a plane $P$ with dimensionality $1$ 
+\item Take a Poincaré section, which is basically a plane $P$ with dimensionality $1$ 
 less than that of the phase space. Especially in case of systems driven by an 
 external periodic force with time period $T$, this section is generally taken 
-by looking at the system at $t=nT$ (the so-called \emph{stroboscopic Poincáre section}).
-Suppose the closed orbit intersects this Poincáre plane at a point $x_0$. 
+by looking at the system at $t=nT$ (the so-called \emph{stroboscopic Poincaré section}).
+Suppose the closed orbit intersects this Poincaré plane at a point $x_0$. 
 
 \item Now choose a point $x_1$ very close to $x_0$ and see where it lands  up 
-on the Poincáre plane after time $T$. This will define a so-called 
-\bb{Poincáre map}
+on the Poincaré plane after time $T$. This will define a so-called 
+\bb{Poincaré map}
 \[
 \Pi:P\to P
 \]
@@ -591,9 +594,9 @@ orbit.  If all the eigenvalues are $<1$ is magnitude then it is stable,
 otherwise not.  
 
 \end{enumerate}
-\begin{figure}
-\label{fig-grazing-orbit}
+\begin{figure}[!htp]
 \caption{Grazing orbit}
+\label{fig-grazing-orbit}
 \begin{center}
 \includegraphics[width=0.6\columnwidth]{graz}
 \end{center}
@@ -604,9 +607,9 @@ initial conditions close to the grazing orbit give rise to non-impacting
 orbits and others give rise to impacting orbits.  \\
 
 
-Let a very important fact be noted here: The Poincáre map derived from a 
+Let a very important fact be noted here: The Poincaré map derived from a 
 piecewise smooth flow  
-will be a piecewise smooth map: the switching manifold being the points 
+will be a piecewise smooth map: the switching manifold being the collection of points 
 $x^*\in P$ such that orbits starting from them grazes the switching manifold 
 of the actual flow.  
 
@@ -615,24 +618,201 @@ have to be discontinuous across the switching manifold for a period doubling
 cascade to take place after grazing.  
 
 
-In the next section we will discuss a method for obtaining the Poincáre map 
-$\Pi$ for piecewise smooth flows called the ZDM method.  
+In the next section we will discuss a way of obtaining the Poincaré map 
+$\Pi$ for piecewise smooth flows: the ZDM method.  
 % ZDM approach
 
-\section{ZDM}
+\section{Literature survey}
+\subsection{ZDM}
+Consider the piecewise smooth flows defined by \eqref{ex-pwflow}.Suppose 
+there exists a grazing orbit in the region $H(x)>0$ that grazes the switching 
+manifold at the point $x=0$.  We impose the following restrictions on the 
+system and the grazing orbit:
+
+\begin{enumerate}
+\item $H(0)=0$ (A necessary condition for $x=0$ to be a grazing point).
+\item $\frac{dH}{dx}\neq 0$ (Ensuring $H$ varies smoothly with $x$, a property 
+to be used later).
+\item $\frac{d}{dt}\left.  H(\varphi_i(0,t))\right|_{t=0}=0$ (Assuming both 
+the vector fields are tangential to the switching manifold).\footnote{
+$\dot{\varphi}_i(x,t)|_{t=0}=F_i(x)$.  $\varphi_i(x,t)$ denotes an orbit 
+satisfying the corresponding ODE starting from the initial co-ordinate 
+$x$ at $t=0$.  }
+\item $a_i:=\frac{d^2}{dt^2}\left.  H(\varphi_i(0,t))\right|_{t=0}>0$ 
+(Ensuring that $H(x)$ attains a minimum value for any orbits close to $0$, 
+another property to be used later.)\label{crit-minH}
+\end{enumerate}
+
+\begin{figure}[!htp]
+\caption{ZDM}
+\label{fig-ZDM}
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{ZDM_eval}
+\end{center}
+\end{figure}
+
+Consider an orbit starting from a point $x_i$ which is close to a grazing 
+orbit (See Fig \ref{fig-ZDM}). Suppose the orbit spends time $\delta_0$ to hit 
+the switching manifold at the point $x_1$, then it evolves according to the 
+second vector field $F_2$.  After time $\delta$, it reaches the point with 
+minimum $H$, an occurrence guaranteed by property \ref{crit-minH}. After time 
+$\delta'$ , it hits the switching manifold again at point $x_2$
+
+
+The ZDM is defined as a map which maps $x_i$ to a point $x_3$ in zero time 
+such the time taken to go from $x_i$ to $x_2$ equals the time \emph{it would 
+have taken to go} from 
+$x_3$ to $x_2$, if the motion were governed by the vector field $F_1$.   From Fig \ref{fig-ZDM}, it is evident that \[
+ZDM(x_i)=\varphi_2(-\delta_0-\delta-\delta',x_2)
+\] 
+
+The advantage of the ZDM formalism is that any orbit starting from the point 
+$x_i$ at time $0$ and ending at a point $x_f$ at time $t$, both in the region $H(x)>0$ and involving a single foray 
+into the `other' side side of the flow can be written as:
+\begin{equation}
+\label{trajeq-ZDM}
+x_f=\varphi_1(ZDM(x_i),t)
+\end{equation}
+
+
+In particular, ZDM approach enables one to calculate the stroboscopic poincare 
+maps for orbits shown in Fig \ref{fig-grazing-orbit}:
+\begin{equation}
+\label{eq-pmap-ZDM}
+\Pi(x_i)=\varphi_1((ZDM(\varphi_1(x_i,\tau_0)),T-\tau_0)
+\end{equation}
+
+after which stability analysis becomes possible using the usual method of 
+calculating the eigenvalues of the jacobian of $\Pi$ at the fixed point.  
 % Order of discontinuity: trace and Jacobian
+\subsection{Narrow band chaos}
+Impact oscillators as described in \eqref{eq-soft_impact} and 
+\eqref{eq-hard_impact} have been studied extensively since the 1970's when 
+Feigin \cite{feigin-1970} described their bifurcation structure.  We now know 
+that they can exhibit extremely rich dynamical behaviour.  
+Using the ZDM approach, Banerjee et al \cite{banerjee-kundu-soft} investigated 
+the grazing bifurcations in such systems.  They found that the Jacobian 
+suffers a discontinuity at grazing (which, as we showed in 
+Claim \ref{claim-jacob-disc}, is a necessary condition for period doubling 
+bifurcation at grazing) \emph{unless} the damped natural frequency of the system 
+is an integral multiple of half the frequency of the external driving force:
+\begin{equation}
+\label{cond-chaos-vanish}
+n=\frac{2\omega_g}{\omega_{forcing}}\in \mathbb{N}
+\end{equation}
+
+This implies that chaos initiated by a period doubling cascade cannot take 
+place at those specific $n$-values.  Now we will describe their method.  
+
+\subsubsection{ZDM for soft impacting oscillator}
+\begin{figure}[!hbp]
+\label{fig-soft-impact}
+\caption{Oscillator with soft impact}
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{osc-pw}
+\end{center}
+\end{figure}
+
+The system is depicted in Fig \ref{fig-soft-impact}. The equations of motion are:
+\begin{equation}
+m\ddot{x}=
+\begin{cases} 
+-\gamma \dot{x}-k_1x+G(t)&\mathrm{for}~~x<\sigma
+\\ \\ 
+-\gamma \dot{x}-k_1x-k_2(x-\sigma)+G(t)&\mathrm{for}~~x\geq\sigma 
+\end{cases}
+\end{equation}
+
+Since this is a non-autonomous\footnote{i.e. explicitly depending on time} 
+system defined by a second order ODE, we can write in in an autonomous first 
+order form by 
+defining the state variable as a 3-dimensional vector:
+\begin{equation}
+\label{def-statevec}
+y=
+\begin{pmatrix}
+x\\
+v\\
+t
+\end{pmatrix}
+\end{equation}
+
+as the equations of motion then become:
+\begin{equation}
+\label{eq-softimp-3d}
+\dot{\mb{x}}=
+\begin{pmatrix}
+\dot{x}\\
+\dot{v}\\
+\dot{t}
+\end{pmatrix}
+=
+\begin{cases}
+F_1(\mb{x})=
+\begin{pmatrix}
+v\\
+(-\gamma v-k_1x+G(t))/m\\
+1
+\end{pmatrix}&\mathrm{for}~~x<\sigma\\
+F_2(\mb{x})=
+\begin{pmatrix}
+v\\
+(-\gamma v-k_1x-k_2(x-\sigma)+G(t))/m\\
+1
+\end{pmatrix}&\mathrm{for}~~x\geq\sigma\\
+\end{cases}
+\end{equation}
+
+At suitable parameter values, there will be grazing and impacting orbits as 
+depicted in Fig \ref{fig-grazing-orbit}. In that case, we can analyze the system 
+dynamics in terms of a Poincaré map taking the form:
+\begin{align}
+\label{eq-pmap-composed}
+\Pi=N_2\circ ZDM\circ N_1
+\end{align}
+
+Where $N_1$ is a state transition matrix that takes a point $x_i$ on the 
+Poincaré plane to the switching manifold and $N_2$ is the state transition 
+matrix that takes  the result of applying the ZDM back to the Poincaré plane.  
+
+$N_1$ and $N_2$ can be obtained from the solution of the driven SHO, which can 
+be analytically solved.  So ZDM is the only tricky part. 
+
+\begin{figure}
+\begin{center}
+\caption{Calculating the ZDM}
+\label{fig-ZDM-calc}
+\includegraphics[width=0.6\columnwidth]{ZDM_eval}
+\end{center}
+\end{figure} 
+
 % Chaos narrow band vanishing for integer n : hole: no chaos unexplained
+\subsection{Impact map}
 % Impact map.  Budd et al: hole: no damping
+\subsection{Numerical computation of fixed points}
 % Numerical computation of fixed pt and jacobian 
+
+\section{Scope of present work}
+Experimental results were found to match very closely this prediction based on the ZDM 
+approach.  However, chaos was seen to vanish not only when $n$ were exactly 
+integers, but in a small neighbourhood of each of them.  So far, no 
+explanation for this has been published anywhere.  In the next chapter, we will 
+take up this problem.  
+
 % Transient lifetimes : unexplored
 
 
 \chapter{Our system}
+\section{Description}
 % description
+\subsection{Solution}
 % solution x_h and x_p
+\section{Approximate Poincaré map}
 % approx poincare map
+\section{Impact map and its Jacobian}
 % impact map
 % plot of numerical poincare map
+\section{Long transients}
 % long transients
 % hypothesis
 % jacobians crossing 1
