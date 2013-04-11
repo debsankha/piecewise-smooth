@@ -1155,9 +1155,10 @@ orders of magnitude longer than what should take place in a corresponding system
 without the nonlinearity imposed by the impacts. No study on transient 
 lifetimes in impacting systems had been published so far.  It needs to be 
 checked if the results of 
-Grebogi et al. \cite{grebogi-transient} holds true for impacting systems or 
+Grebogi et al. \cite{grebogi-transient}, derived for maps,  holds true for 
+continuous time impacting systems or 
 not and if it does, whether a way to compute the critical exponent could be 
-obtained.  
+devised.  
 
 \chapter{Our system}
 As promised in the last chapter, we will now investigate two problems: the 
@@ -1557,6 +1558,324 @@ them become a saddle.
 
 
 \section{Long transients}
+It has previously been observed that in a system exhibiting grazing 
+bifurcations, the time spent by it before settling down to its attractor 
+follows a power law pattern, with a blow up at the parameter value for 
+grazing.  We have observed similar results in case of  the system investigated 
+in the last section, as depicted in Fig \ref{fig-tvsf} and Fig \ref{fig-tvsg}. 
+
+\begin{figure}[!htb]
+\caption{Average transient lifetime Vs.  $F$ in the hard impacting oscillator}
+\label{fig-tvsf}
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{avgtauvsf-wofit}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htp]
+\caption{Average transient lifetime Vs.  $\gamma$ in the hard impacting oscillator}
+\label{fig-tvsg}
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{avgtauvsg-wofit}
+\end{center}
+\end{figure}
+
+We point out here that these extra long lived transients are totally artefacts 
+of the nonlinearity imposed by the impacts.  Because without the impacts, the 
+transient solution (which we have been calling \emph{homogeneous solution} so 
+far), goes as 
+\begin{align}
+x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}
+\end{align}
+
+Consider an initial condition:\footnote{Taking a slice through the time dimension}
+\begin{align*}
+\vec{x_p}(0)&=(-A,0)\\
+\vec{x_h}(0)&=(x_0,v_0)
+\end{align*}
+
+Where $A=\frac{F}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$
+
+Starting from this point, the solution is, as usual:
+\[
+x(t)=-A\cos{\omega t}+\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}
+\]
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{beats-decaying}
+\end{center}
+\end{figure}
+
+
+
+\begin{align*}
+x(t)&=-A\cos{\omega t}+\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}\\
+&=-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
+C&=-tan^{-1}\frac{\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}}{x_0}\\
+B&=\sqrt{x_0^2+\left(\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}\right)^2}
+\end{align*}
+
+
+In general, the sum of two different sine waves differing both in amplitude 
+and frequency cannot be further simplified.  However, an approximate envelope 
+can be calculated.  
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{guess_envelope}
+\end{center}
+\end{figure}
+
+
+
+Now the job is simple:
+\begin{enumerate}
+\item Consider the $x_0\times v_0$ space.  
+\item For any point in the space, using the envelope, predict if there will be 
+any future collision or not.  
+\item Points for which there is no further collision should form a closed area 
+in the whole space.  
+\item The area must shrink as we approach grazing.  
+\item Correlate the area with transient lifetime. 
+\end{enumerate}
+
+
+
+The trajectory:
+\begin{equation}
+x(t)=-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}
+\end{equation}
+Will have an envelope:\footnote{There are some aberrations in the first bulge 
+of the envelope}
+\begin{equation}
+\label{eq-envelope}
+E(t)=\left\{A+Be^{-\gamma t/2}\right\}\sin{\left( \frac{C+(\omega_g-\omega)t}{2} \right)}
+\end{equation}
+If $\omega \approx \omega_g$
+
+
+The next peak of the envelope occurs at
+\begin{equation}
+\label{eq-tcol}
+t_c= \left\{
+\begin{matrix}
+\frac{\pi-C}{\omega_g-\omega}\hspace{1em} \text{if }\omega_g>\omega\\
+\frac{\pi+C}{\omega-\omega_g}\hspace{1em} \text{if }\omega_g<\omega
+\end{matrix}
+\right.  
+\end{equation}
+
+And has height:
+\begin{equation}
+\label{eq-nextcolheight}
+E_{m}=A+Be^{-\gamma t_c/2}
+\end{equation}
+
+
+
+\begin{definition}
+$E_m= $ height of the next peak of the envelope.  
+\end{definition}
+
+\begin{definition}
+$x_m= $ height of the next peak of the trajectory  \footnote{Except in 
+some cases, $x_m=E_m$}
+\end{definition}
+
+\begin{definition}
+$\mu_{xv}=\left\{(x,v)\in\mathbb{X\times V}:x_m(x,v)<\sigma\right\}$
+\end{definition}
+
+
+
+\begin{align}
+t_c&\leq \frac{3\pi/2}{|\omega_g-\omega|}\\
+x_m&\geq E_m\\
+E_m&\geq A+Be^{-\gamma \frac{3\pi/4}{|\omega_g-\omega|}}\\
+B&\geq max\left\{|x_0|,\left|\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g} \right|  \right\}\\
+\mu_{xv}&\leq\left\{ (x,v): B\leq (\sigma-A)e^{\gamma \frac{3\pi/4}{|\omega_g-\omega|}}=\chi\right\}\\
+&\leq\left\{ (x,v): -\chi \leq x\leq \chi, -\chi\omega_g-\frac{\gamma x}{2} \leq v\leq \chi\omega_g-\frac{\gamma x}{2}    \right\}
+\end{align}
+
+
+
+
+
+\section{No-collision area}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{scanf}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{scang}
+\end{center}
+\end{figure}
+
+
+Celso Grebogi, Edward Ott, James A.   Yorke, Critical Exponent of 
+Chaotic Transients in Nonlinear Dynamical Systems, Phys.   Rev.   Lett.   57, 
+1284–1287 (1986):
+
+\begin{itemize}
+\item $\tau\sim(\alpha-\alpha_*)^{-\gamma}$, $\gamma$ the ``critical 
+exponent'' depends on the system.  
+\item Derives expression for $\gamma$ in terms of the eigenvalues of the fixed points at collision.  
+\end{itemize}
+
+Drawing parallels between the behaviour of $\mu_{xv}$ and the previous result, we can surmise:
+\[
+\mu_{xv}\sim \frac{1}{\tau}
+\]
+
+
+So far, we have calculated $\mu_{xv}$ by means of a Monte Carlo integration: 
+we chose $N$ initial points, evaluated the number $n$ of them that does 
+not lead to collision and equated $\frac{n}{N}$ to $\mu_{xv}$.  \\
+
+Now we'll try an analytical approach.  
+
+\begin{align*}
+\mu_{xv}&=\int_{A+B(x,v)e^{-\gamma t_c(x,v)/2}<\sigma}dxdv
+\end{align*}
+
+
+Now we recall \eqref{eq-tcol}
+\begin{equation}
+t_c= \left\{
+\begin{matrix}
+\frac{\pi-C}{\omega_g-\omega}\hspace{1em} \text{if }\omega_g>\omega\\
+\frac{\pi+C}{\omega-\omega_g}\hspace{1em} \text{if }\omega_g<\omega
+\end{matrix}
+\right.  
+\end{equation}
+
+
+Where $C=-tan^{-1}\frac{\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}}{x_0}$.  
+
+Since $C$ is a rapidly varying function of both $x$ and $v$ and has range 
+$\left\{-\pi/2,\pi/2\right\}$, we can replace $C\approx 0$ without too much error.  \\
+
+Therefore 
+\begin{align*}
+\mu_{xv}&\sim\int_{A+B(x,v)e^{-\gamma \pi/(2|\omega_g-\omega|)}<\sigma}dxdv\\
+&=\int_{B(x,v)<(\sigma-A)e^{\gamma \pi/(2|\omega_g-\omega|)}}dxdv
+\end{align*}
+
+Now we recall that 
+$B=\sqrt{x_0^2+\left(\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}\right)^2}$
+.  
+
+So our integral is now of the form:
+$\int_{x^2+(ax+by)^2<\chi^2}dxdv$
+
+
+\begin{align*}
+&\int_{x^2+(ax+by)^2<\chi^2}dxdy\\
+=&\int_{-\chi}^{\chi}dx\int_{x^2+(ax+by)^2<\chi^2} dy\\
+=&\int_{-\chi}^{\chi} \frac{\sqrt{(2abx)^2-4b^2(x^2(1+a^2)-\chi^2)}}{b^2}   dx\\
+=&\frac{1}{b^2}\int_{-\chi}^{\chi}2b\sqrt{\chi^2-x^2} dx\\
+=&\frac{2}{b}\int_{-\chi}^{\chi}\sqrt{\chi^2-x^2} dx
+\end{align*}
+
+However, we have disregarded one very important restriction: $x<\sigma$, due to 
+the hard wall.  \\
+
+So, actually:
+\begin{align*}
+\mu_{xv}&=2\omega_g\int_{-\chi}^{max\{\chi,1\}} \sqrt{\chi^2-x^2}dx
+\end{align*}
+
+
+
+\begin{figure}
+\caption{$\mu_{vx}$ vs.  $F$}
+\begin{center}
+\includegraphics[width=0.75\columnwidth]{vxarea-actual-approx}
+\end{center}
+\end{figure}
+
+
+
+Recall that our calculation, both analytical and numerical, has started off 
+with an assumption.   
+Now we'll try to justify. \\
+\begin{align*}
+&\left|f(t)cos(\omega_1t)+g(t)cos(\omega_2t+C)\right|\\
+\le&\left|(f(t)+g(t))(cos(\omega_1t)+cos(\omega_2t+C))\right|\\
+=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\left|sin\left(\frac{(\omega_1+\omega_2)t+C}{2}\right)\right|
+\end{align*}
+
+Now since the last term is much more rapidly varying than the second term, we 
+replace it with its average over a full cycle without incurring too much error:
+\begin{align*}
+=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\frac{2}{\pi}\int_0^{\pi/2}cos(t)dt\\
+=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\frac{2}{\pi}
+\end{align*}
+
+
+
+\em{$\omega >> \omega_g$}
+\begin{eqnarray}
+x(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
+E(t)&=&A+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}
+\end{eqnarray}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{envelope-m-small}
+\end{center}
+\end{figure}
+
+
+\em{$\omega << \omega_g$}
+\begin{eqnarray}
+x(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
+E(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B
+\end{eqnarray}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{envelope-m-large}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}
+\caption{Transient lifetime vs.  $F$}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{trans_life_vsf_matches}
+\end{center}
+\end{figure}
+
+
+\begin{figure}
+\caption{Transient lifetime vs.  $\gamma$}
+\begin{center}
+\includegraphics[width=0.8\columnwidth]{trans_life_vsg_matches_somewhat}
+\end{center}
+\end{figure}
+
+
+\begin{enumerate}
+\item Try to squeeze the parallelogram shaped bounding box of $\mu_{xv}$.  
+\item Create a colourmap of $\mathbb{V\times X}$ space depicting the number of 
+cycles needed to reach stable period-1 orbit.  
+\item Instead of Monte Carlo integration, try a spreading-out approach.  
+\item As per Grebogi, Yorke et al, try to find out the ``critical exponent''
+\item The other extreme: $\omega_0>>\omega$ or $\omega_0<<\omega$ 
+\item Prove that the peak of $e^{-\gamma t/2}cos(\omega t)$ doesn't differ 
+markedly from that of $cos(\omega t)$
+\end{enumerate}
+
 
 
 % long transients
