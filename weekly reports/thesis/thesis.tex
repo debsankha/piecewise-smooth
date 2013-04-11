@@ -18,9 +18,12 @@
 \newcommand{\lien}[2]{\mathcal{L}_{#1}^{#2}}
 \newcommand{\lie}[1]{\mathcal{L}_{#1}}
 \newcommand{\colv}[2]{\begin{pmatrix}#1\\#2\end{pmatrix}}
+\newcommand{\colvt}[3]{\begin{pmatrix}#1\\#2\\#3\end{pmatrix}}
 \newcommand{\bb}[1]{\textbf{#1}}
 \newcommand{\mb}[1]{\mathbf{#1}}
 \newcommand{\para}{\paragraph}
+\newcommand{\subpara}{\subparagraph}
+\newcommand{\abso}[1]{\left|#1\right|}
 
 
 \newtheorem{definition}{Definition}[section]
@@ -37,8 +40,8 @@ Piecewise smooth dynamical systems are of particular interest because of their
 ubiquity and plethora of novel behaviours.  There are very elegant existing frameworks
 for analyzing different kinds of border collision bifurcations that occur in those systems.
 These include the classic work on border collision of equilibria by Feigin, analysis of grazing 
-bifurcations using the ZDM formalism developed by ?Nordmark and the impact map 
-approach developed by ?Bernardo.  
+bifurcations using the ZDM formalism developed by Nordmark et al \cite{dm-orig-nordmark} and the impact map 
+approach developed by Bernardo et al \cite[p.~10]{bernardo-book}.
 
 Using the ZDM formalism, Banerjee and Kundu analyzed the soft impacting oscillator system
 and predicted the onset of chaos immediately following the grazing of a limit 
@@ -253,7 +256,6 @@ flow at the point $x_0$.
 \begin{definition}
 A system described by a set of ODE's and a set of \bb{reset maps}:
 \begin{align}
-\label{}
 \label{def-hybrid}
 \dot{x}&=F_i(x,\mu),~~\forall x\in S_i\\
 s&\mapsto R_{ij}(x,\mu),~~\forall x\in\Sigma_{ij}=\bar{S_i}\cup\bar{S_j}
@@ -554,7 +556,6 @@ very frequently.  These systems have been studied extensively by Dankowicz and N
 Consider a piecewise smooth flow as defined in \eqref{eq-pwflow}:
 
 \begin{equation}
-\label{ex-pwflow}
 \dot{x}=
 \begin{cases}
 F_1(x)&~~H(x)\le 0\\
@@ -607,9 +608,9 @@ initial conditions close to the grazing orbit give rise to non-impacting
 orbits and others give rise to impacting orbits.  \\
 
 
-Let a very important fact be noted here: The Poincaré map derived from a 
+Let a very important fact be noted here: \emph{The Poincaré map derived from a 
 piecewise smooth flow  
-will be a piecewise smooth map: the switching manifold being the collection of points 
+will be a piecewise smooth map}: the switching manifold being the collection of points 
 $x^*\in P$ such that orbits starting from them grazes the switching manifold 
 of the actual flow.  
 
@@ -624,6 +625,7 @@ $\Pi$ for piecewise smooth flows: the ZDM method.
 
 \section{Literature survey}
 \subsection{ZDM}
+\label{prop-ZDM}
 Consider the piecewise smooth flows defined by \eqref{ex-pwflow}.Suppose 
 there exists a grazing orbit in the region $H(x)>0$ that grazes the switching 
 manifold at the point $x=0$.  We impose the following restrictions on the 
@@ -638,7 +640,7 @@ the vector fields are tangential to the switching manifold).\footnote{
 $\dot{\varphi}_i(x,t)|_{t=0}=F_i(x)$.  $\varphi_i(x,t)$ denotes an orbit 
 satisfying the corresponding ODE starting from the initial co-ordinate 
 $x$ at $t=0$.  }
-\item $a_i:=\frac{d^2}{dt^2}\left.  H(\varphi_i(0,t))\right|_{t=0}>0$ 
+\item $a_i^*:=\frac{d^2}{dt^2}\left.  H(\varphi_i(0,t))\right|_{t=0}>0$ 
 (Ensuring that $H(x)$ attains a minimum value for any orbits close to $0$, 
 another property to be used later.)\label{crit-minH}
 \end{enumerate}
@@ -705,11 +707,12 @@ This implies that chaos initiated by a period doubling cascade cannot take
 place at those specific $n$-values.  Now we will describe their method.  
 
 \subsubsection{ZDM for soft impacting oscillator}
+\label{subsec-ZDM}
 \begin{figure}[!hbp]
 \label{fig-soft-impact}
 \caption{Oscillator with soft impact}
 \begin{center}
-\includegraphics[width=0.5\columnwidth]{osc-pw}
+\includegraphics[width=0.5\columnwidth]{soft-prest}
 \end{center}
 \end{figure}
 
@@ -719,7 +722,7 @@ m\ddot{x}=
 \begin{cases} 
 -\gamma \dot{x}-k_1x+G(t)&\mathrm{for}~~x<\sigma
 \\ \\ 
--\gamma \dot{x}-k_1x-k_2(x-\sigma)+G(t)&\mathrm{for}~~x\geq\sigma 
+-\gamma \dot{x}-k_1x-k_2(x-\sigma+d)+G(t)&\mathrm{for}~~x\geq\sigma 
 \end{cases}
 \end{equation}
 
@@ -729,7 +732,7 @@ order form by
 defining the state variable as a 3-dimensional vector:
 \begin{equation}
 \label{def-statevec}
-y=
+\mb{x}=
 \begin{pmatrix}
 x\\
 v\\
@@ -757,7 +760,7 @@ v\\
 F_2(\mb{x})=
 \begin{pmatrix}
 v\\
-(-\gamma v-k_1x-k_2(x-\sigma)+G(t))/m\\
+(-\gamma v-k_1x-k_2(x-\sigma+d)+G(t))/m\\
 1
 \end{pmatrix}&\mathrm{for}~~x\geq\sigma\\
 \end{cases}
@@ -782,53 +785,786 @@ be analytically solved.  So ZDM is the only tricky part.
 \begin{center}
 \caption{Calculating the ZDM}
 \label{fig-ZDM-calc}
-\includegraphics[width=0.6\columnwidth]{ZDM_eval}
+\includegraphics[width=0.6\columnwidth]{ZDM_eval_2}
 \end{center}
 \end{figure} 
 
+As we can see  from Fig \ref{fig-ZDM-calc}, the calculation \footnote{Notice that since we are calculating 
+the ZDM of a point \emph{on} the switching manifold, calculations are simpler than the general case depicted in Fig \ref{fig-ZDM}} 
+involves deriving expressions for $\delta$ and $\delta'$ as a function of $x_1$ 
+first.   
+
+\para{Calculate $\delta$:}
+
+\begin{align*}
+x_1&=\varphi(x_5,-\delta)\\
+H(x_1)&=H(\varphi(x_5,-\delta))\\
+&\approx H(\varphi_2(x_5,0))+\frac{\partial}{\partial t}H(\varphi_2(t,x_5))\left.  
+\right|_{t=0}(-\delta)\\
+&+\frac{\partial^2}{\partial t^2}H(\varphi_2(t,x_5))\left.\right|_{t\approx0}\frac{\delta^2}{2}\\
+&\approx H(x_5)+0+\frac{\partial^2}{\partial 
+t^2}H(\varphi_2(t,0))\left.\right|_{t\approx0}\frac{\delta^2}{2}\\
+&\approx H(x_5)+a_2^*\frac{\delta^2}{2}
+\end{align*}
+
+Let $H(x_5)=H_{min}(x_i)=-y^2:$ 
+\begin{equation}
+\label{eq-d}
+\delta=y\sqrt{\frac{2}{a_2^*}}
+\end{equation}
+
+
+\para{Calculate ZDM:}
+Using identical arguments, $\delta^{\prime}=y\sqrt{\frac{2}{a_2^*}}$ \\
+Let $\delta+\delta^{\prime}=\delta_1$
+
+Then:
+\begin{align}
+\label{final}
+x_3&\approx x_2-F_1(x_2)\delta_1+\dot{F_1}(x_2)\frac{\delta_1^2}{2}-\ddot{F_1}(x_2)\frac{\delta_1^3}{6}\\
+x_1&\approx x_2-F_2(x_2)\delta_1+\dot{F_2}(x_2)\frac{\delta_1^2}{2}-\ddot{F_2}(x_2)\frac{\delta_1^3}{6}
+\end{align}
+
+\begin{align}
+\label{ZDM-final}
+x_3&=x_1-(F_1-F_2)(x_2)\delta_1+(\dot{F_1}-\dot{F_2})(x_2)\frac{\delta_1^2}{2}-(\ddot{F_1}-\ddot{F_2})(x_2)\frac{\delta_1^3}{6}\\
+&\approx x_1-(F_1-F_2)(x^*)\delta_1+\text{H.O.T.}
+\end{align}
+
+Now we go back to the definitions of $F_i$ for the impact oscillator 
+\eqref{eq-softimp-3d} and notice:
+\begin{align}
+F_2(x)-F_1(x)
+&=
+\begin{pmatrix}
+v\\
+(-\gamma v-k_1x-k_2(x-\sigma+d)+G(t))/m\\
+1
+\end{pmatrix}
+-
+\begin{pmatrix}
+v\\
+(-\gamma v-k_1x+G(t))/m\\
+1
+\end{pmatrix}
+\\
+&=
+\begin{pmatrix}
+0\\
+k_2(-x+\sigma-d)/m\\
+0
+\end{pmatrix}\end{align}
+
+Here $x^*=\sigma$.  
+Therefore $F_2(x^*)-F_1(x*)=Q\colvt{0}{1}{0}$, where $Q=-k_2d/m$.  
+
+Thus we have from \eqref{ZDM-final}:
+\begin{align}
+\label{eq-ZDM-soft}
+ZDM(\bb{x})&=\bb{x}-(F_1-F_2)(x^*)\delta_1\\
+&=\bb{x}+2Q\sqrt{\frac{-2H_{min}(x)}{a_2^*}}\colvt{0}{1}{0}
+\end{align}
+
+
+\para{Calculating the Jacobian of the Poincaré map}
+For orbits close to grazing, the total Poincaré map would be given by 
+\eqref{eq-pmap-composed}. Therefore the Jacobian $J$ of the map would be:
+\begin{align}
+\label{eq-jacob-composed}
+{J}&={J_{N_2}}\cdot{J_{ZDM}}\cdot{J_{N_1}}
+\end{align}
+
+\subpara{Jacobian of the ZDM}
+
+From \eqref{eq-ZDM-soft}, we get:
+\begin{align}
+\label{eq-jacob-soft}
+J_{ZDM}&=
+\begin{pmatrix}
+1 & 0 & 0\\
+\alpha & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\end{align}
+
+Where $\alpha=-Q\sqrt{\frac{a^*}{-2H_{min}(x)}}H_{min}'(x)$\\
+Here it should be noted that at grazing 
+$H_{min}=\sigma-\sigma=0$.  Therefore we see that the Jacobian of the ZDM will 
+have a singularity at grazing.  This singularity will be seen to be the root 
+of the discontinuity in the Jacobian, which in turn, will cause the period 
+doubling cascade.  
+
+\subpara{Jacobian of  $N_i$\\}
+
+By definition,
+\begin{align}
+\label{eq-Nmatrix}
+N_1(\bb{x})&=e^{A\tau}\bb{x}~~\left[\text{Where }A=
+\begin{pmatrix}
+0 & 1 & 0\\
+-k_1/m & -\gamma/m & 0\\
+0 & 0 & 1
+\end{pmatrix}\right]
+\\
+&=\frac{e^{-\gamma t/2}}{\omega_g}
+\begin{pmatrix}
+\omega_g\cos{\omega_g t}+\frac{\gamma}{2}\sin{\omega_g t} & \sin{\omega_g t} & 0\\
+-k\sin{\omega_g t} & \omega_g\cos{\omega_g t}-\frac{\gamma}{2}\sin{\omega_g t} 
+& 0\\
+0 & 0 & 1
+\end{pmatrix}\bb{x}
+\end{align}
+
+Where $\omega_g=\frac{\sqrt{4k-\gamma^2}}{2}$
+
+
+
+Similarly,
+\[
+N_2(\mb{x})=e^{A(T-\tau)}\mb{x}
+\]
+
+Therefore 
+\begin{align}
+\label{eq-n1-jacob}
+J_{N_1}&=e^{A\tau}
+:=e^{-\gamma\tau/2}
+\begin{pmatrix}
+n_{11} & n_{12} & 0\\
+n_{13} & n_{14} & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\end{align}
+and
+\begin{align}
+\label{eq-n2-jacob}
+J_{N_2}&=e^{A(T-\tau)}
+:=e^{-\gamma(T-\tau)/2}
+\begin{pmatrix}
+n_{21} & n_{22} & 0\\
+n_{23} & n_{24} & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\end{align}
+
+
+Now we are in a position to investigate the discontinuity of the Jacobian.  We 
+first note that the Jacobian of all three parts of the map, although 
+$3\times 3$ in dimension, behaves like identity on the third co-ordinate, the 
+time.  Hence it is essentially a $2\times 2$ determinant.  And it has been 
+shown by Banerjee and Grebogi that any $2-$D map can, by means of a suitable 
+co-ordinate transformation, be written in the form:
+\[
+M=
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}
+=
+\begin{pmatrix}
+Tr(M) & 1\\
+-det(M) & 0
+\end{pmatrix}
+\]
+
+
+From \eqref{eq-n1-jacob} and  \eqref{eq-n2-jacob}  it can be easily shown that 
+\[
+det(J_{N_1})=e^{-\gamma\tau/2}, det(J_{N_2})=e^{-\gamma(T-\tau)/2}
+\]
+
+Also, from \eqref{eq-ZDM-soft}, \[
+det(J_{ZDM})=1
+\]
+
+Therefore it is evident the determinant of the Poincaré map does not suffer 
+any discontinuity.  
+
+Now we will look at the trace.  
+
+Using \eqref{eq-jacob-composed}:
+\begin{align}
+\label{eq-ZDM-total}
+J&=e^{-\gamma T/2}
+\begin{pmatrix}
+n_{21} & n_{22} & 0\\
+n_{23} & n_{24} & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 & 0\\
+\alpha & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+n_{11} & n_{12} & 0\\
+n_{13} & n_{14} & 0\\
+0 & 0 & 1
+\end{pmatrix}\\
+&=e^{-\gamma T/2}
+\begin{pmatrix}
+n_{21} & n_{22} & 0\\
+n_{23} & n_{24} & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+n_{11} & n_{12} & )\\
+\alpha n_{11}+n_{13} & \alpha n_{12}+n_{14} & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\end{align}
+
+Therefore
+\begin{align}
+\label{eq-trace-ZDM}
+Tr(J)&=e^{-\gamma T/2}(n_{11}n_{21}+n_{13}n_{22}+\alpha(n_{11}n_{22}+n_{12}n_{24})+n_{12}n_{23}+n_{14}n_{24}+1)
+\end{align}
+
+Obviously, $\alpha$ is the only term that contains the singularity term in the 
+form of $H_{min}^{-1/2}$.  We take a closer look at the coefficient of $\alpha$.  
+
+From \eqref{eq-n1-jacob} and \eqref{eq-n2-jacob}:
+\begin{align}
+n_{11}&=\left\{\omega_g\cos{\omega_g \tau}+\frac{\gamma}{2}\sin{\omega_g \tau} \right\}/\omega_g\\
+n_{22}&=\left\{\sin{\omega_g (T-\tau)} \right\}/\omega_g\\
+n_{12}&=\left\{\sin{\omega_g \tau} \right\}/\omega_g\\
+n_{24}&=\left\{\omega_g\cos{\omega_g (T-\tau)}-\frac{\gamma}{2}\sin{\omega_g (T-\tau)} \right\}/\omega_g
+\end{align}
+
+
+Therefore the term with possible discontinuity is
+\begin{align}
+&\alpha\frac{\sin{\omega_g T}}{\omega_g}\\
+=&\alpha\frac{\sin{2\pi\frac{\omega_g}{\omega}}}{\omega_g}
+\end{align}
+
+This equation has a serious ramification: the discontinuity vanishes if 
+\begin{equation}
+\label{eq-cond-chaos-vanish}
+\frac{2\omega_g}{\omega}\in\mathbb{N}.
+\end{equation}
+
+According to our Claim \ref{claim-jacob-disc}, when the two frequencies are at these exact ratio, 
+there won't be any period doubling cascade on grazing.  
 % Chaos narrow band vanishing for integer n : hole: no chaos unexplained
 \subsection{Impact map}
+\label{subsec-impact-map}
+Consider the impact oscillator system described by \eqref{eq-hard_impact}
+\begin{align}
+m\ddot{x}&=-\gamma \dot{x}-k_1x+G(t)&\mathrm{for}~~x<\sigma\\
+(x,v)&\mapsto (x,-rv)&\mathrm{for}~~x=\sigma
+\end{align}
+Where $r$ is the coefficient of restitution.  
+
+\begin{figure}
+\caption{Oscillator with hard impacts}
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{hardcol}
+\end{center}
+\end{figure}
+
+In such a system, quite often periodic orbits are observed which involve one 
+or more impacts at the hard wall at $x=\sigma$. For simplicity, let's consider 
+orbits with only one collision. Clearly, one necessary condition 
+for such orbits to exist is:
+\[
+(\sigma,v)\phantom{.}^{nT}_{\mapsto}(\sigma,-v/r)
+\]
+
+Where $nT$ is the time period of the orbit.  This map is known as the 
+\emph{impact map}. For a stable orbit, apart from this equation, the Jacobian 
+should have eigenvalues with absolute values $<1$. This approach was used
+in \cite[Ch.~2;~p.~20]{bernardo-book}, where they obtained the necessary conditions 
+for saddle-node and period-doubling grazing bifurcations to occur in impact 
+oscillators without damping.  
 % Impact map.  Budd et al: hole: no damping
 \subsection{Numerical computation of fixed points}
-% Numerical computation of fixed pt and jacobian 
+\label{subsec-num-comp}
+The method of impact map works very well to solve for periodic orbits 
+involving only one collision per cycle (termed $PnC1$ orbits)\footnote{$n$ 
+signifies the periodicity of the orbit} with the hard wall.  But this method does not 
+work well for parameters values for which stable orbits collide multiple times 
+in a single cycle. Ma et al\cite{ma-nraphson} devised a way to 
+numerically compute any stable or unstable $PnCm$ orbit.  We explain the 
+method below. 
+
+\begin{figure}
+\caption{A $P1C1$ orbit}
+\label{fig-p1c1}
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{p1c1}
+\end{center}
+\end{figure}
+
+For simplicity, we supposing the orbit crosses the border only once, although 
+the strength of this approach is in finding more complicated orbits.  Such an 
+orbit is depicted in Fig \ref{fig-p1c1}.
+Then finding out the orbit boils down to finding out the solution to this set 
+of equations:
+\begin{align}
+x_1&=\varphi_1(x_0,0,\tau_0)\\
+H(x_1)&=0\\
+x_2&=\varphi_2(x_1,\tau_0,\tau_1)\\
+H(x_2)&=0\\
+x_0&=\varphi_1(x_2,\tau_1,T-\tau_0-\tau_1)
+\end{align}
+
+
+This is a set of $3n+2$ equations in $3n+2$ unknowns, so this can be tackled 
+with standard Newton's method of root finding:
+\[
+y_{n+1}=\frac{G(y_n)}{J(\bar{y}_n)}
+\]
+
+Here $y:=\left\{x_0,x_1,x_2,\tau_0,\tau_1\right\}$ is a $3n+2$ dimensional 
+vector.  
+
+Thus we can use the standard methods of stability analysis by evaluating the 
+eigenvalues of the Jacobian at the fixed points.  
+
+\subsection{Lifetime of transients}
+The problem of long lived transients plagues many nonlinear systems. Despite 
+the existence of a stable fixed point, trajectories starting from many initial 
+conditions are found to take a lot of time to reach the fixed point.  In case 
+of systems involving grazing, Grebogi et al.\cite{grebogi-transient} predicted 
+that in a system where grazing occurs at parameter value $\rho=\rho_c$, 
+average transient lifetimes vary as
+\begin{align}
+\label{form-transient-life}
+\tau\propto |\rho-\rho_c|^{-\gamma}
+\end{align}
+
+Where the value $\gamma$ is called the critical transient of the system.  They 
+derived an analytical expression for $\gamma$ in terms of the eigenvalues of 
+the Jacobian at the fixed points of the system.  
 
 \section{Scope of present work}
-Experimental results were found to match very closely this prediction based on the ZDM 
-approach.  However, chaos was seen to vanish not only when $n$ were exactly 
+As we described in Subsection \ref{subsec-ZDM}, Banerjee et al. predicted by 
+calculating the ZDM that 
+chaos through on border collision route should not happen in soft impacting 
+oscillators if $2\omega_g/\omega\in\mathbb{N}$.  The same analysis was found out 
+to hold for hard impacting oscillators in \cite{banerjee-kundu-hard}, Experimental results were found 
+to match this prediction very well. However, chaos was seen to vanish not only when $n$ were exactly 
 integers, but in a small neighbourhood of each of them.  So far, no 
-explanation for this has been published anywhere.  In the next chapter, we will 
+explanation for this has been published.  In the next chapter, we will 
 take up this problem.  
 
 % Transient lifetimes : unexplored
-
+During our simulations on hard impacting oscillators, we observed transients 
+orders of magnitude longer than what should take place in a corresponding system 
+without the nonlinearity imposed by the impacts. No study on transient 
+lifetimes in impacting systems had been published so far.  It needs to be 
+checked if the results of 
+Grebogi et al. \cite{grebogi-transient} holds true for impacting systems or 
+not and if it does, whether a way to compute the critical exponent could be 
+obtained.  
 
 \chapter{Our system}
+As promised in the last chapter, we will now investigate two problems: the 
+vanishing of chaos in hard impacting oscillator and the problem of long 
+transients in the same system.  
 \section{Description}
-% description
-\subsection{Solution}
+We briefly describe our system again.  
+\begin{figure}[!hbp]
+\caption{Hard impacting oscillator}
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{hardcol}
+\end{center}
+\end{figure}
+
+It consists of a driven simple harmonic oscillator with a hard wall at a distance 
+$\sigma$ from its equilibrium position.   The equation of motion is:
+\begin{align}
+\label{eq-hard_impact2}
+m\ddot{x}&=-\gamma \dot{x}-k_1x+F\cos{\omega t}&\mathrm{for}~~x<\sigma\\
+(x,v)&\mapsto (x,-rv)&\mathrm{for}~~x=\sigma
+\end{align}
+Where $r$ is the coefficient of restitution, which is $1$ for perfectly 
+elastic collisions.  In the rest of the thesis, we will assume all the 
+collisions to be perfectly elastic unless explicitly stated otherwise.  
+
+\subsection{Solution disregarding the boundary}
+If we forget the boundary for a moment, the equation of motion is a non-homogeneous 
+ODE.  As usual, its solution is a sum total of a \emph{homogeneous solution} 
+and a \emph{particular solution}:
+\begin{align}
+\label{eq-shm-sol}
+x(t)&=x_p(t)+x_h(t)\\
+x_p(t)&=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}cos(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})\\
+x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x(0) + (\sin{\omega_gt})v(0) \right\}\\
+\omega_g&=\sqrt{\omega_0^2-\frac{\gamma^2}{4}}
+\end{align}
 % solution x_h and x_p
+
+Here it should be noted that only the homogeneous solution contains the 
+dependence on the initial conditions.  
+
 \section{Approximate Poincaré map}
-% approx poincare map
-\section{Impact map and its Jacobian}
-% impact map
+In this section we will make an attempt to derive an expression for a Poincaré 
+map for our system assuming $PnC1$ orbits.  
+Suppose the parameters of the system are set such that 
+$\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}=\sigma$
+. This constitutes a steady state grazing orbit. Suppose we look at stroboscopic time slices such that the grazing orbit grazes 
+the boundary at $t=\tau$. Now we perturb the system slightly so that the system hits the boundary with 
+some non zero velocity at $t=\tau+\delta t$\\
+
+Before collision:
+\begin{eqnarray*}
+\colv{x(0)}{v(0)}&=&\colv{x_p(0)}{v_p(0)}+\colv{x_h(0)}{v_h(0)}\\
+\colv{x(\tau+\delta t)}{v(\tau+\delta t)}&=&\colv{x_p(\tau+\delta t)}{v_p(\tau+\delta t)}+\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}
+\end{eqnarray*}
+ 
+
+After collision:\\
+\begin{eqnarray*}
+\colv{x}{v}&=&\colv{x_p(\tau+\delta t)}{-v_p(\tau+\delta t)}+\colv{x_h(\tau+\delta t)}{-v_h(\tau+\delta t)}\\
+&=&\colv{x_p(\tau+\delta t)}{v_p(\tau+\delta t)}+\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}\\
+& &+\colv{0}{-2v_h(\tau+\delta t)-2v_p(\tau+\delta t)} \colv{x(T)}{v(T)}\\
+&=&\vec{x_p}(T)+M(T-\tau-\delta t)\left\{\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}\right.\\
+& &\left.+\colv{0}{-2v_h(\tau+\delta t)-2v_p(\tau+\delta t)}\right\}\\
+&=&\vec{x_p}(T)+M(T)\vec{x_h}(0)\\&&+M(T-\tau-\delta t)\colv{0}{-2v_p(\tau+\delta t)-2v_h(\tau+\delta t)}
+\end{eqnarray*}
+
+Where 
+\begin{eqnarray}
+\label{def-huge-M-matrix}
+M(t)=\frac{e^{-\gamma t/2}}{\omega_g}
+\begin{pmatrix}
+\omega_g\cos{\omega_g t}+\frac{\gamma}{2}\sin{\omega_g t} & \sin{\omega_g t}\\
+-k\sin{\omega_g t} & \omega_g\cos{\omega_g t}-\frac{\gamma}{2}\sin{\omega_g t}
+\end{pmatrix}
+\end{eqnarray}
+
+and
+$(\omega_g=\frac{\sqrt{4k-\gamma^2}}{2})$
+ 
+Therefore we have our Poincare map:
+\begin{equation}
+\label{map-poincare-hardcol}
+\vec{x'}(T)=M(T)\vec{x'}(0)+M(T-\tau-\delta t)\colv{0}{-2v_p(\tau+\delta t)-2v_h(\tau+\delta t)}
+\end{equation}
+
+$\left\{\vec{x'}(t)=\vec{x}(t)-\vec{x_p}(t)\right\}$
+
+Now we draw attention to the fact that in the Poincaré map 
+\eqref{map-poincare-hardcol} , the second term is the actual nonlinear term.  
+
+If we can find expressions for $\delta t, v_p, v_h$ in terms of $x(0),v(0)$, 
+the job will be done.  
+ 
+Let the parameters be such that the stable orbit grazes slightly:
+$x_m(\left\{parameters\right\})=\sigma+\varepsilon$.  \\
+
+Now start from an initial condition such that $\left|x'(0)\right|=0$.  
+(Exactly on the stable orbit).\\
+
+Then we have:
+\begin{align*}
+x_mcos\left(\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)&=\sigma\\
+\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}&=cos^{-1}\left(1+\frac{\varepsilon}{\sigma}\right)^{-1}\\
+&\approx2n\pi+\sqrt{\frac{2\varepsilon}{\sigma}}\\
+\tau&\approx \frac{1}{\omega}\left(2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)
+\end{align*}
+ 
+
+ 
+Now suppose $0<|x'(0)|<<1$.   
+Let the time of collision $t_c=\tau+\delta t$
+\begin{align*}
+x_mcos\left(\omega (\tau+\delta t)+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
+x_mcos\left(\left(\omega \tau+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+\omega \delta t\right)+x_h(\tau+\delta t)&=\sigma\\
+\sigma-\omega x_m\delta t sin\left(\omega \tau+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
+-\omega \delta tx_m\sqrt{1-(\sigma/x_m)^2}+x_h(\tau+\delta t)&=0\\
+\frac{x_h(\tau)}{\omega\sqrt{x_m^2-\sigma^2}-v_h(\tau)}&=\delta t
+\end{align*}
+ 
+
+ 
+\begin{align*}
+v_p(\tau+\delta t)&=-\omega x_m sin\left( \omega (\tau+\delta t)+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)\\
+&=-\omega x_m sin\left( 
+2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}+\omega \delta t + tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2} \right)\\
+&=-\omega x_m sin\left(\omega\delta t+\sqrt{\frac{2\varepsilon}{\sigma}}\right) 
+\end{align*}
 % plot of numerical poincare map
+
+
+Using this Poincaré map, we can very easily plot the bifurcation diagrams.  
+
+
+\begin{figure}[!htp]
+\begin{center}
+\caption{Bifurcation digram for $n=2.235$, notice the brief region of chaos after grazing}
+\label{fig-bif-int}
+\includegraphics[width=0.6\columnwidth]{after-graz-non-int}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htb]
+\begin{center}
+\caption{Bifurcation diagram for $n=2$, notice the absence of chaos on grazing}
+\label{fig-bif-nonint}
+\includegraphics[width=0.6\columnwidth]{after-graz-int}
+\end{center}
+\end{figure}
+
+Fig \ref{fig-bif-int} and Fig \ref{fig-bif-nonint} clearly demonstrates the 
+curious effect on grazing bifurcations of making $n=\frac{2\omega_g}{\omega}$ 
+an integer. In the non-integral case, as 
+\cite{banerjee-kundu-soft,banerjee-kundu-hard} predicts, there is a chaotic 
+region.  But for $n=2$, no such thing happens.  Instead we see two fixed 
+points immediately gaining stability. 
+
+\section{Numerical computation of the fixed points}
+We see that in case of both integral $n$ and non-integral $n$, a little bit 
+after grazing periodic orbits emerged.  We decided to take a look at the phase 
+space trajectories. One such trajectory in case of $n=2$ is plotted in Fig \ref{fig-traj-p2c1}
+\begin{figure}[!htp]
+\caption{$P2C1$ orbit after grazing}
+\label{fig-traj-p2c1}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{after-grazing-p1-traj}
+\end{center}
+\end{figure}
+
+As we can clearly see, this is a closed orbit involving a single collision.  
+The time period is $2T=2\frac{2\pi}{\omega}$.  Therefore the Newton-Raphson 
+method described in Subsection \ref{subsec-num-comp} would work fine for 
+stability analysis of such orbits.  
+
+\subsection{Numerical computation of the fixed points}
+We start by defining a 5-dim vector $y=(x_0,v_0,x_c,v_c,\tau)$, where $\tau$ 
+is the time when a trajectory starting from $(x,v)=(x_0,v_0)$ collide with the 
+hard wall and $(x,v)=(x_c,v_c)$ at that time.  
+
+Then we get a system of equations $\mb{G}(y)=\mb{0}$ where:
+\begin{align*}
+G_{1,2}(y)=\vec{x_1}-\varphi(\tau,0,\vec{x_0})&=0\\
+G_{3,4}(y)=\vec{x_0}-\varphi(2T,\tau,\vec{x_1})&=0\\
+G_5(y)=x_1-\sigma&=0
+\end{align*}
+
+Since this is a set of 5 equations in 5 unknowns, we can solve the equation $G(y)=0$ using Newton-Raphson method:
+\[
+y_{n+1}=y_n+J(y)^{-1}G(y)
+\]
+
+
+\begin{figure}[!htp]
+\caption{Modulus Eigenvalues of the fixed points vs. the amplitude of the driving 
+force for $n=2.235$}
+\label{fig-eig-F-crude}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{eigvals}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htp]
+\caption{Modulus Eigenvalues of the fixed points vs. the amplitude of the driving 
+force for $n=2$}
+\label{fig-eig-F-n2-crude}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{eigvals_n2}
+\end{center}
+\end{figure}
+
+The solution will provide us with a $P2C1$ orbit.  It should be noted that 
+this method will give \emph{stable and unstable} orbits, unlike normal 
+simulations which will never give us unstable orbits.  However, in order to 
+get all existing orbits, one must run the program with many initial conditions 
+to ensure that the Newton-Raphson iteration scheme 'finds' all the solutions.  
+
+In Fig \ref{fig-eig-F-crude}, we plot the results of such numerical 
+calculation in the case of $n=2.235$.  We can easily see that when $F$ is 
+quite larger than the grazing condition ($0.3903$, to be exact), all the 
+eigenvalues are $<1$ in magnitude.  But as the $F$ value 
+approaches grazing , the absolute value of one or more eigenvalues of the 
+fixed point exceeds $1$.  We know from basic dynamical systems theory that 
+this signifies the transition of the fixed point from attractor to repeller 
+(if the magnitudes of both eigenvalues turn $>1$) or saddle (if the magnitude 
+of only one  eigenvalue turn $>1$). 
+
+
+However, in Fig \ref{fig-eig-F-n2-crude}, we plot the results of such numerical 
+calculation in the case of $n=2$. As opposed to the previous case, no 
+transition of the fixed point from an attractor to saddle/repeller takes place 
+here: the eigenvalue stays put $<1$ throughout the range of parameter values. 
+This again, provides a justification for the vanishing of chaos as predicted 
+in \cite{banerjee-kundu-soft} . 
+
+However, there are a few problems in the Newton-Raphson approach of stability 
+analysis.  First of all, the numerically computed eigenvalues fluctuate a lot 
+near grazing, possibly due to numerical errors in the Newton-Raphson iteration 
+scheme.  Secondly, it does not provide us with analytical expressions for 
+either the fixed points or the eigenvalues, making the task of gaining 
+physical insights into the problem much more difficult.  
+
+Therefore we decide to explore another approach for studying the same 
+phenomena.  
+
+\section{Impact map and its Jacobian}
+We had talked about the concept of impact maps in subsection 
+{subsec-impact-map}. Now we will apply it in order to tackle the problem of 
+stability analysis of single collision orbits in hard impacting oscillators.  
+
+\begin{figure}[!hbp]
+\caption{Impact map in case of $PnC1$ orbit}
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{impactmap}
+\end{center}
+\end{figure}
+
+Suppose the oscillator collides against the hard wall at time $\tau$ and the 
+state vector immediately before collision be $\colv{x^-(\tau)}{v^-(\tau)}$.  
+Just after the collision, the state vector becomes
+\[
+\colv{x^+(\tau)}{v^+(\tau)}=\colv{x^+(\tau)}{-v^+(\tau)}
+\]
+
+By construction, $x^-(\tau)=x^+(\tau)=\sigma$.  Then we have:
+
+\begin{align}
+\colv{x^-(\tau)}{v^-(\tau)}&=\colv{x_p(\tau)}{v_p(\tau)}+\colv{x_h(\tau)}{v_h(\tau)}\\
+\colv{x^+(\tau)}{v^+(\tau)}&=\colv{x_p(\tau)}{v_p(\tau)}+\colv{x_h(\tau)}{-v_h(\tau)-2v_p(\tau)}\\
+\colv{x^-(\tau+nT)}{v^-(\tau+nT)}&=\colv{x_p(\tau+nT)}{v_p(\tau+nT)}+M(nT)\colv{x_h(\tau)}{-v_h(\tau)-2v_p(\tau)}\\
+&=\colv{x_p(\tau)}{v_p(\tau)}+M(nT)\colv{x_h(\tau)}{-v_h(\tau)-2v_p(\tau)}
+\end{align}
+
+Where $M(t)$ is given by \eqref{def-huge-M-matrix}.
+
+Provided a $PmC1$ orbit exists (stable or unstable),
+\[
+M(mT)\colv{x_h(\tau)}{-v_h(\tau)-2v_p(\tau)}=\colv{x_h(\tau)}{v_h(\tau)}
+\]
+
+and 
+\[
+x_p(\tau)+x_h(\tau)=\sigma
+\]
+
+We recall:
+\[
+x_p(t)=A\footnote{$A=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$}cos(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})
+\]
+
+\begin{align*}
+v_p(t)&=-A\omega sin(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})\\
+&=\mp A\omega \sqrt{1-\left(\frac{x_p}{A}\right)^2}\\
+&=\mp A\omega \sqrt{1-\left(\frac{\sigma-x_h}{A}\right)^2}
+\end{align*}
+
+The condition for existence of a $PnC1$ orbit:
+\begin{equation}
+\label{impactmap-final}
+M(mT)\colv{x}{-v\pm2\omega \sqrt{A^2-(\sigma-x_h})^2}=\colv{x}{v}
+\end{equation}
+
+The uncertainty about the $\pm$  sign is a 
+direct consequence of the fact that for the same position, the velocity of the 
+oscillator can have two values equal in magnitude but with opposite signs.  
+
+Suppose
+\[
+M(mT)=
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}
+\]
+
+\begin{align}
+\label{fp-separate}
+x&=ax-bv \pm 2b\omega\sqrt{A^2-(\sigma-x)^2}\\
+v&=cx-dv \pm 2d\omega\sqrt{A^2-(\sigma-x)^2}
+\end{align}
+
+$v$ can be easily eliminated:
+\begin{align*}
+\frac{x(1-a)+bv}{b}&=\frac{v(1+d)-cx}{d}\\
+bv&=x(d-ad+bc)
+\end{align*}
+
+Substituting in \eqref{fp-separate}:
+\begin{align*}
+x(a-d+ad-bc-1)\pm 2b\omega\sqrt{A^2-(\sigma-x)^2}&=x\\
+A^2-(\sigma-x)^2-\left\{\frac{(a-d+ad-bc-1)}{2b\omega}\right\}^2x^2&=0
+\end{align*}
+
+
+Let \[
+\alpha=\frac{(a-d+ad-bc-1)}{2b\omega}
+\]
+
+Then:
+\begin{align*}
+A^2-(\sigma-x)^2&=\alpha^2x^2\\
+x^2(\alpha^2+1)-2\sigma x+(\sigma^2-A^2)&=0
+\end{align*}
+
+Therefore we have the solution:
+\begin{align}
+\label{fp-solution}
+x^*&=\frac{\sigma\pm\sqrt{\sigma^2-(\alpha^2+1)(\sigma^2-A^2)}}{\alpha^2+1}\\
+v^*&=\frac{(d-ad+bc)x^*}{b}
+\end{align}
+
+
+One important property of  \eqref{fp-solution} is very evident:
+At grazing, $A=\sigma$.  Therefore there exists a trivial solution: 
+$(x^*,v^*)=(0,0)$.  This, of course, corresponds to a non-colliding orbit.  
+Now, after grazing, two solutions exist simultaneously.  The question is, 
+are they attactors, repellers or saddles? This is the question we will tackle 
+next.  
+
+\begin{figure}[!htp]
+\begin{center}
+\caption{Eigenvalues of fixed points Vs.  $F$ for $n=2.01,2.1,2.2$}
+\label{fig-eigs-F}
+\includegraphics[width=0.9\columnwidth]{fps_various_F}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htb]
+\begin{center}
+\caption{Eigenvalues of fixed points at grazing Vs. $n$}
+\label{fig-eigs-n}
+\includegraphics[width=0.9\columnwidth]{fps_various_n}
+\end{center}
+\end{figure}
+
+In Fig \ref{fig-eigs-F}, we plot the eigenvalues of the Jacobian at the fixed 
+points obtained via Formula \eqref{fp-solution} against the driving force 
+amplitude for various $n$ values.  We observe that for $n=2.01$, all the 
+eigenvalues at both the fixed points remain always $<1$ in magnitude, even right after grazing.  This 
+means that both the fixed points are attractors.  
+
+
+However, for $n=2.1$, one fixed point is an attractors throughout the whole 
+range of parameter values.  However, another one is a saddle and one of its 
+eigenvalues shoots up as the system approaches grazing, signifying high 
+stretching of the phase space.  
+
+
+In case of $n=2.2$, both of them are repellers.  Only near grazing, one of 
+them become a saddle.   
+
+
+
 \section{Long transients}
+
+
 % long transients
 % hypothesis
 % jacobians crossing 1
 % FP losing stability?
 
 
-
-
-
-
-
-
-
-
-
-
-\bibliography{citations}{}
+\bibliography{thesis}{}
 \bibliographystyle{plain}
 \end{document}
