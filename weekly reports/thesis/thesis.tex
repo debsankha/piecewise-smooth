@@ -1344,20 +1344,20 @@ y_{n+1}=y_n+J(y)^{-1}G(y)
 
 
 \begin{figure}[!htp]
-\caption{Modulus of  Eigenvalues of the fixed points vs. the amplitude of the driving 
+\caption{Modulus of  eigenvalues of the fixed points vs. the amplitude of the driving 
 force for $n=2.235$}
 \label{fig-eig-F-crude}
 \begin{center}
-\includegraphics[width=0.9\columnwidth]{eigvals}
+\includegraphics[width=0.7\columnwidth]{eigvals}
 \end{center}
 \end{figure}
 
 \begin{figure}[!htp]
-\caption{Modulus Eigenvalues of the fixed points vs. the amplitude of the driving 
+\caption{Modulus of eigenvalues of the fixed points vs. the amplitude of the driving 
 force for $n=2$}
 \label{fig-eig-F-n2-crude}
 \begin{center}
-\includegraphics[width=0.9\columnwidth]{eigvals_n2}
+\includegraphics[width=0.7\columnwidth]{eigvals_n2}
 \end{center}
 \end{figure}
 
@@ -1515,15 +1515,7 @@ next.
 \begin{center}
 \caption{Eigenvalues of fixed points Vs.  $F$ for $n=2.01,2.1,2.2$}
 \label{fig-eigs-F}
-\includegraphics[width=0.9\columnwidth]{fps_various_F}
-\end{center}
-\end{figure}
-
-\begin{figure}[!htb]
-\begin{center}
-\caption{Eigenvalues of fixed points at grazing Vs. $n$}
-\label{fig-eigs-n}
-\includegraphics[width=0.9\columnwidth]{fps_various_n}
+\includegraphics[width=0.7\columnwidth]{fps_various_F}
 \end{center}
 \end{figure}
 
@@ -1543,6 +1535,20 @@ stretching of the phase space.
 In case of $n=2.2$, both of them are repellers.  Only near grazing, one of 
 them become a saddle.   
 
+Now we are very close to determining the narrow window of disappearing chaos 
+as predicted in \cite{banerjee-kundu-soft}. In Fig. \ref{fig-eigs-n} we look 
+at the nature of the map around $n=2$ at grazing.  We see that in the region 
+$1.91251<n<2.08826$, (denoted by a cyan shade in the figure), the fixed point 
+is stable since both the eigenvalues of the Jacobian is less than $1$ in 
+magnitude.  
+
+\begin{figure}[!htp]
+\begin{center}
+\caption{Eigenvalues of fixed points at grazing Vs. $n$}
+\label{fig-eigs-n}
+\includegraphics[width=0.7\columnwidth]{region-fp-stable-around-2}
+\end{center}
+\end{figure}
 
 
 \section{Long transients}
@@ -1576,7 +1582,7 @@ far), goes as
 x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}
 \end{align}
 
-Therefore the transient lifetimes should be \emph{inversely} proportional to 
+Therefore the transient lifetimes, if the effect of impacts is disregarded, should be \emph{inversely} proportional to 
 $\gamma$ and should not depend on $F$ at all.  Therefore, in order to explain 
 these long lived transients, we would need to concentrate on the impacts.  
 
@@ -1894,8 +1900,33 @@ or not.
 \end{center}
 \end{figure}
 
+
+\section{Conclusion}
+In this thesis, we have explored two separate aspects of the impact oscillator 
+system.  The first one was that of vanishing chaos when the ratio of the 
+damped natural frequency of the oscillator and the frequency of the driving 
+force is in the neighbourhood of certain discrete values.  So far, no 
+analytical method 
+for determining what these neighbourhoods are has been published. Using the 
+	impact map formalism, we have done that.  This is extremely helpful
+to know these neighbourhoods in actual physical systems because it will enable 
+one to set system parameters in a way so that chaos is avoided.  \\
+
+The second problem we tackled is that of extra long transient times.  This is 
+a very important problem for experimenters because in every experiment one can 
+afford to spend a finite amount of time for each measurement.  Extra long 
+transient times can make experiments cumbersome at best and non-viable at 
+worst.  We have attempted to devise a way that can explain the way these lifetimes change with any 
+parameter of the system.  
+
+
+
 \appendix
 \chapter{Calculations for approximate Poincare map}
+In \eqref{map-poincare-hardcol}, there were a few unknown variables whose 
+analytical expressions in the regime of low velocity collisions 
+needed to be determined.  We proceed to do so now:
+
 \label{app-calc-poinc}
 Let the parameters be such that the stable orbit grazes slightly:
 $x_m(\left\{parameters\right\})=\sigma+\varepsilon$.  \\
