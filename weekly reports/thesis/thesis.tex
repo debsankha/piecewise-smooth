@@ -6,7 +6,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-\usepackage{graphicx,tikz,wrapfig,hyperref,fancybox,cite}
+\usepackage{graphicx,tikz,wrapfig,hyperref,fancybox,cite,caption,subcaption}
 \usepackage{amsmath,amssymb,amsthm}
 
 \hypersetup{colorlinks}
@@ -37,9 +37,9 @@
 \frontmatter
 \chapter{Preface}
 Piecewise smooth dynamical systems are of particular interest because of their 
-ubiquity and plethora of novel behaviours.  There are very elegant existing frameworks
-for analyzing different kinds of border collision bifurcations that occur in those systems.
-These include the classic work on border collision of equilibria by Feigin, analysis of grazing 
+ubiquity and the plethora of novel behaviours they exhibit.  There are very elegant existing frameworks
+for analyzing different kinds of border collision bifurcations occuring in those systems.
+These include the classic work on border collision of equilibria by Feigin\cite{feigin-1970}, analysis of grazing 
 bifurcations using the ZDM formalism developed by Nordmark et al \cite{dm-orig-nordmark} and the impact map 
 approach developed by Bernardo et al \cite[p.~10]{bernardo-book}.
 
@@ -56,9 +56,11 @@ experimental results.
 It has been reported previously that the lifetimes of transients in  systems 
 exhibiting grazing bifurcations follow a power law pattern as the parameter 
 value approaches the grazing value.  We have observed the same characteristics 
-in a simple harmonic oscillator with hard impacts.  We attempt to explain this 
-behaviour by treating the system before transients die down as an ergodic 
-system.  
+in a simple harmonic oscillator with hard impacts. We found that the transient 
+lifetimes were orders of magnitude larger than what should have been the case 
+if the impacts did not occur.   We have attempted to explain this 
+behaviour by deriving an analytical expression for the size of the set of initial 
+co-ordinates that give rise to impacts.  
 
 \tableofcontents
 
@@ -159,7 +161,8 @@ any pair of $S_i$'s are called the \bb{switching manifolds} of the system:\[
 \end{definition}
 \para{Example:}
 In case of the Tent map \eqref{eq-tent}, there is one switching manifold 
-$S={1/2}$.  
+consisting of a single point:
+$S=\left\{1/2\right\}$.  
 
 \begin{definition}
 \label{def-sing_order}
@@ -241,16 +244,16 @@ m\ddot{x}=
 \end{cases}
 \end{equation}
 
-Switching manifolds of piecewise smooth flows are defined identically to those 
-of piecewise smooth maps \eqref{def-switching_manifold}, while order of 
-singularities are defined slightly differently:\\
-
-\begin{definition}
-For a point $x_0\in\Sigma_{ij}$, the first non zero partial derivative of 
-$\varphi_i(x_0,t)-\varphi_j(x_0,t)$ with respect to $t$ at $t=0$ is called the \bb{order of 
-singularity} of the 
-flow at the point $x_0$.  
-\end{definition}
+%Switching manifolds of piecewise smooth flows are defined identically to those 
+%of piecewise smooth maps \eqref{def-switching_manifold}, while order of 
+%singularities are defined slightly differently:\\
+%
+%\begin{definition}
+%For a point $x_0\in\Sigma_{ij}$, the first non zero partial derivative of 
+%$\varphi_i(x_0,t)-\varphi_j(x_0,t)$ with respect to $t$ at $t=0$ is called the \bb{order of 
+%singularity} of the 
+%flow at the point $x_0$.  
+%\end{definition}
 
 \subsection{Piecewise smooth hybrid systems}
 \begin{definition}
@@ -258,7 +261,7 @@ A system described by a set of ODE's and a set of \bb{reset maps}:
 \begin{align}
 \label{def-hybrid}
 \dot{x}&=F_i(x,\mu),~~\forall x\in S_i\\
-s&\mapsto R_{ij}(x,\mu),~~\forall x\in\Sigma_{ij}=\bar{S_i}\cup\bar{S_j}
+x&\mapsto R_{ij}(x,\mu),~~\forall x\in\Sigma_{ij}=\bar{S_i}\cup\bar{S_j}
 \end{align}
 
 is called a piecewise smooth hybrid system if all the $R_i$'s, $F_i$'s as well 
@@ -335,8 +338,8 @@ F_1(x_1^*(\mu))=0
 \]
 
 
-Now, as the parameter $\mu$ is changed, this point will, in general, move in the phase 
-space.  Sometimes it may happen that for parameter values $\mu>\mu_0$ this point $s_1^*(\mu)$ crosses the 
+Now, as the parameter $\mu$ is changed, this equilibrium point will, in general, move in the phase 
+space.  Sometimes it may happen that for parameter values $\mu>\mu_0$ this point $x_1^*(\mu)$ crosses the 
 boundary and lands up in the region $S_2$.  But in that region $\dot{x}=F_1(x)$ 
 is \emph{not the correct ODE in the first place}! Therefore $x_1^*(\mu)$ is no longer 
 a fixed point.  We call it a \bb{virtual fixed point}  of the system and such a phenomenon is called 
@@ -443,14 +446,14 @@ x^*_{1_n}=\frac{C}{det(\bf{A_1})}\mu, x^*_{2_k}=\frac{C}{det(\bf{A_2})}\mu
 \para{Cases:\\}
 \begin{enumerate}
 \item $det({\bf A_1})det({\bf A_1})<0$:  $x^*_{1_n}$ and $x^*_{2_n}$ always have 
-opposite signs:  In that case, before border collision, there'd be 2 real 
+opposite signs:  In that case, before border collision, there'd be 2 real (or virtual)
 fixed points in opposite sides of the switching manifold. As the parameter is 
 changed, they'd \emph{simultaneously} suffer border collision and become 
-virtual fixed points.  
+virtual (or real) fixed points.
 \item $det({\bf A_1})det({\bf A_1})>0$:  $x^*_{1_n}$ and $x^*_{2_n}$ always have 
-same signs: In that case, initially $\mb{x}_1^*$ will be real and $\mb{x}_2^*$ 
-virtual (or vice versa), and after border collision $\mb{x}_1^*$ will become virtual and $\mb{x}_2^*$ 
-real.  
+same signs: In that case, initially $\mb{x}_1^*$ (say) will be real and $\mb{x}_2^*$ 
+virtual , and after border collision $\mb{x}_1^*$ will become virtual and $\mb{x}_2^*$ 
+real.   
 \end{enumerate}
 
 \begin{figure}
@@ -482,19 +485,25 @@ of the map must suffer a discontinuity at $0$, the point of border collision
 at the parameter value $\mu=0$
 \end{claim}
 
+
 \begin{figure}
+\caption{An example of period doubling bifurcation at grazing\\(note the 
+discontinuity of  the derivative at the switching manifold)}
+\begin{subfigure}{\textwidth}
 \caption{Before border collision: period 1}
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{pw-perdoub-bef}
 \end{center}
-\end{figure}
+\end{subfigure}
 
-\begin{figure}
+\begin{subfigure}{\textwidth}
 \caption{After border collision: period 2}
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{pw-perdoub-after}
 \end{center}
+\end{subfigure}
 \end{figure}
+
 
 \begin{proof}
 
@@ -543,7 +552,7 @@ the first composition must lose stability). Therefore condition
 discontinuity at border collision.  
 
 
-For a more rigorous proof applicable for systems of any dimensionality, please 
+For a more general proof applicable for systems of any dimensionality, please 
 refer to \cite{feigin-1999}.
 
 \end{proof}
@@ -665,7 +674,7 @@ The ZDM is defined as a map which maps $x_i$ to a point $x_3$ in zero time
 such the time taken to go from $x_i$ to $x_2$ equals the time \emph{it would 
 have taken to go} from 
 $x_3$ to $x_2$, if the motion were governed by the vector field $F_1$.   From Fig \ref{fig-ZDM}, it is evident that \[
-ZDM(x_i)=\varphi_2(-\delta_0-\delta-\delta',x_2)
+ZDM(x_i)=\varphi_1(-\delta_0-\delta-\delta',x_2)
 \] 
 
 The advantage of the ZDM formalism is that any orbit starting from the point 
@@ -676,6 +685,10 @@ into the `other' side side of the flow can be written as:
 x_f=\varphi_1(ZDM(x_i),t)
 \end{equation}
 
+without worrying about Flow 2. Of course, the information regarding the time  
+spent  by the system according to Flow 2 is still there: it is hidden in the ZDM.  As 
+we will see in the next subsection, provided the orbit is close to grazing, 
+ZDM can be derived analytically.  
 
 In particular, ZDM approach enables one to calculate the stroboscopic poincare 
 maps for orbits shown in Fig \ref{fig-grazing-orbit}:
@@ -686,6 +699,7 @@ maps for orbits shown in Fig \ref{fig-grazing-orbit}:
 
 after which stability analysis becomes possible using the usual method of 
 calculating the eigenvalues of the jacobian of $\Pi$ at the fixed point.  
+
 % Order of discontinuity: trace and Jacobian
 \subsection{Narrow band chaos}
 Impact oscillators as described in \eqref{eq-soft_impact} and 
@@ -708,15 +722,22 @@ place at those specific $n$-values.  Now we will describe their method.
 
 \subsubsection{ZDM for soft impacting oscillator}
 \label{subsec-ZDM}
-\begin{figure}[!hbp]
-\label{fig-soft-impact}
+
+\begin{figure}[!htb]
 \caption{Oscillator with soft impact}
+\label{fig-soft-impact}
 \begin{center}
 \includegraphics[width=0.5\columnwidth]{soft-prest}
 \end{center}
 \end{figure}
 
-The system is depicted in Fig \ref{fig-soft-impact}. The equations of motion are:
+The system is depicted in Fig \ref{fig-soft-impact}. It consists of a 
+mass $m$ attached to a spring with spring constant $k_1$ and a damper with 
+damping coefficient $\gamma$. The mass being externally driven by a force 
+$G(t)=F\cos{\omega t}$.  There is a massless strip of wood attached to a 
+spring of spring constant $k_2$ at a distance $\sigma$ from the equilibrium 
+position of the first spring.  The second spring is pre-stressed so that it
+ is already compressed by an amount $d$.  The equations of motion are:
 \begin{equation}
 m\ddot{x}=
 \begin{cases} 
@@ -856,7 +877,7 @@ k_2(-x+\sigma-d)/m\\
 \end{pmatrix}\end{align}
 
 Here $x^*=\sigma$.  
-Therefore $F_2(x^*)-F_1(x*)=Q\colvt{0}{1}{0}$, where $Q=-k_2d/m$.  
+Therefore $F_2(x^*)-F_1(x^*)=Q\colvt{0}{1}{0}$, where $Q=-k_2d/m$.  
 
 Thus we have from \eqref{ZDM-final}:
 \begin{align}
@@ -874,7 +895,6 @@ For orbits close to grazing, the total Poincaré map would be given by
 {J}&={J_{N_2}}\cdot{J_{ZDM}}\cdot{J_{N_1}}
 \end{align}
 
-\subpara{Jacobian of the ZDM}
 
 From \eqref{eq-ZDM-soft}, we get:
 \begin{align}
@@ -970,7 +990,7 @@ Tr(M) & 1\\
 
 From \eqref{eq-n1-jacob} and  \eqref{eq-n2-jacob}  it can be easily shown that 
 \[
-det(J_{N_1})=e^{-\gamma\tau/2}, det(J_{N_2})=e^{-\gamma(T-\tau)/2}
+det(J_{N_1})=e^{-\gamma\tau}, det(J_{N_2})=e^{-\gamma(T-\tau)}
 \]
 
 Also, from \eqref{eq-ZDM-soft}, \[
@@ -1078,11 +1098,12 @@ in \cite[Ch.~2;~p.~20]{bernardo-book}, where they obtained the necessary conditi
 for saddle-node and period-doubling grazing bifurcations to occur in impact 
 oscillators without damping.  
 % Impact map.  Budd et al: hole: no damping
+
 \subsection{Numerical computation of fixed points}
 \label{subsec-num-comp}
 The method of impact map works very well to solve for periodic orbits 
-involving only one collision per cycle (termed $PnC1$ orbits)\footnote{$n$ 
-signifies the periodicity of the orbit} with the hard wall.  But this method does not 
+involving only one collision per cycle (termed $PnC1$ orbits)\footnote{In 
+general, $PmCn$ orbit means period-m orbits with n collisions per cycle} with the hard wall.  But this method does not 
 work well for parameters values for which stable orbits collide multiple times 
 in a single cycle. Ma et al\cite{ma-nraphson} devised a way to 
 numerically compute any stable or unstable $PnCm$ orbit.  We explain the 
@@ -1209,18 +1230,20 @@ $\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}=\sigma$
 the boundary at $t=\tau$. Now we perturb the system slightly so that the system hits the boundary with 
 some non zero velocity at $t=\tau+\delta t$\\
 
-Before collision:
+Therefore we have:
 \begin{eqnarray*}
 \colv{x(0)}{v(0)}&=&\colv{x_p(0)}{v_p(0)}+\colv{x_h(0)}{v_h(0)}\\
 \colv{x(\tau+\delta t)}{v(\tau+\delta t)}&=&\colv{x_p(\tau+\delta t)}{v_p(\tau+\delta t)}+\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}
 \end{eqnarray*}
  
 
-After collision:\\
+The instant after collision:\\
 \begin{eqnarray*}
 \colv{x}{v}&=&\colv{x_p(\tau+\delta t)}{-v_p(\tau+\delta t)}+\colv{x_h(\tau+\delta t)}{-v_h(\tau+\delta t)}\\
 &=&\colv{x_p(\tau+\delta t)}{v_p(\tau+\delta t)}+\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}\\
-& &+\colv{0}{-2v_h(\tau+\delta t)-2v_p(\tau+\delta t)} \colv{x(T)}{v(T)}\\
+& &+\colv{0}{-2v_h(\tau+\delta t)-2v_p(\tau+\delta t)} \\
+\text{After a full time period T:}&&\\
+\colv{x(T)}{v(T)}
 &=&\vec{x_p}(T)+M(T-\tau-\delta t)\left\{\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}\right.\\
 & &\left.+\colv{0}{-2v_h(\tau+\delta t)-2v_p(\tau+\delta t)}\right\}\\
 &=&\vec{x_p}(T)+M(T)\vec{x_h}(0)\\&&+M(T-\tau-\delta t)\colv{0}{-2v_p(\tau+\delta t)-2v_h(\tau+\delta t)}
@@ -1237,7 +1260,7 @@ M(t)=\frac{e^{-\gamma t/2}}{\omega_g}
 \end{eqnarray}
 
 and
-$(\omega_g=\frac{\sqrt{4k-\gamma^2}}{2})$
+$\omega_g=\frac{\sqrt{4k-\gamma^2}}{2}$
  
 Therefore we have our Poincare map:
 \begin{equation}
@@ -1245,58 +1268,19 @@ Therefore we have our Poincare map:
 \vec{x'}(T)=M(T)\vec{x'}(0)+M(T-\tau-\delta t)\colv{0}{-2v_p(\tau+\delta t)-2v_h(\tau+\delta t)}
 \end{equation}
 
-$\left\{\vec{x'}(t)=\vec{x}(t)-\vec{x_p}(t)\right\}$
+With the definition
+\[
+\vec{x'}(t)=\vec{x}(t)-\vec{x_p}(t)
+\]
 
 Now we draw attention to the fact that in the Poincaré map 
 \eqref{map-poincare-hardcol} , the second term is the actual nonlinear term.  
 
 If we can find expressions for $\delta t, v_p, v_h$ in terms of $x(0),v(0)$, 
-the job will be done.  
+the job will be done.  This can easily be done provided that the trajectory 
+collides with the wall at very low velocity.  We provide the calculations in 
+Appendix \ref{app-calc-poinc}.
  
-Let the parameters be such that the stable orbit grazes slightly:
-$x_m(\left\{parameters\right\})=\sigma+\varepsilon$.  \\
-
-Now start from an initial condition such that $\left|x'(0)\right|=0$.  
-(Exactly on the stable orbit).\\
-
-Then we have:
-\begin{align*}
-x_mcos\left(\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)&=\sigma\\
-\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}&=cos^{-1}\left(1+\frac{\varepsilon}{\sigma}\right)^{-1}\\
-&\approx2n\pi+\sqrt{\frac{2\varepsilon}{\sigma}}\\
-\tau&\approx \frac{1}{\omega}\left(2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)
-\end{align*}
- 
-
- 
-Now suppose $0<|x'(0)|<<1$.   
-Let the time of collision $t_c=\tau+\delta t$
-\begin{align*}
-x_mcos\left(\omega (\tau+\delta t)+tan^{-1}\frac{\omega 
-\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
-x_mcos\left(\left(\omega \tau+tan^{-1}\frac{\omega 
-\gamma}{\omega^2-\omega_0^2}\right)+\omega \delta t\right)+x_h(\tau+\delta t)&=\sigma\\
-\sigma-\omega x_m\delta t sin\left(\omega \tau+tan^{-1}\frac{\omega 
-\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
--\omega \delta tx_m\sqrt{1-(\sigma/x_m)^2}+x_h(\tau+\delta t)&=0\\
-\frac{x_h(\tau)}{\omega\sqrt{x_m^2-\sigma^2}-v_h(\tau)}&=\delta t
-\end{align*}
- 
-
- 
-\begin{align*}
-v_p(\tau+\delta t)&=-\omega x_m sin\left( \omega (\tau+\delta t)+tan^{-1}\frac{\omega 
-\gamma}{\omega^2-\omega_0^2}\right)\\
-&=-\omega x_m sin\left( 
-2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega 
-\gamma}{\omega^2-\omega_0^2}+\omega \delta t + tan^{-1}\frac{\omega 
-\gamma}{\omega^2-\omega_0^2} \right)\\
-&=-\omega x_m sin\left(\omega\delta t+\sqrt{\frac{2\varepsilon}{\sigma}}\right) 
-\end{align*}
-% plot of numerical poincare map
-
-
-Using this Poincaré map, we can very easily plot the bifurcation diagrams.  
 
 
 \begin{figure}[!htp]
@@ -1315,16 +1299,18 @@ Using this Poincaré map, we can very easily plot the bifurcation diagrams.
 \end{center}
 \end{figure}
 
-Fig \ref{fig-bif-int} and Fig \ref{fig-bif-nonint} clearly demonstrates the 
-curious effect on grazing bifurcations of making $n=\frac{2\omega_g}{\omega}$ 
-an integer. In the non-integral case, as 
+Using this Poincaré map, we plotted the bifurcation diagrams  Fig 
+\ref{fig-bif-int} and Fig \ref{fig-bif-nonint}. They clearly demonstrates the 
+curious effect of making $n=\frac{2\omega_g}{\omega}$ 
+an integer on grazing bifurcations. In the non-integral case, as 
 \cite{banerjee-kundu-soft,banerjee-kundu-hard} predicts, there is a chaotic 
 region.  But for $n=2$, no such thing happens.  Instead we see two fixed 
 points immediately gaining stability. 
 
 \section{Numerical computation of the fixed points}
-We see that in case of both integral $n$ and non-integral $n$, a little bit 
-after grazing periodic orbits emerged.  We decided to take a look at the phase 
+We see that in case of both integral $n$ and non-integral $n$,  periodic 
+orbits became stable a little bit 
+after grazing.  We decided to take a look at the phase 
 space trajectories. One such trajectory in case of $n=2$ is plotted in Fig \ref{fig-traj-p2c1}
 \begin{figure}[!htp]
 \caption{$P2C1$ orbit after grazing}
@@ -1339,7 +1325,7 @@ The time period is $2T=2\frac{2\pi}{\omega}$.  Therefore the Newton-Raphson
 method described in Subsection \ref{subsec-num-comp} would work fine for 
 stability analysis of such orbits.  
 
-\subsection{Numerical computation of the fixed points}
+\subsection{The procedure}
 We start by defining a 5-dim vector $y=(x_0,v_0,x_c,v_c,\tau)$, where $\tau$ 
 is the time when a trajectory starting from $(x,v)=(x_0,v_0)$ collide with the 
 hard wall and $(x,v)=(x_c,v_c)$ at that time.  
@@ -1358,7 +1344,7 @@ y_{n+1}=y_n+J(y)^{-1}G(y)
 
 
 \begin{figure}[!htp]
-\caption{Modulus Eigenvalues of the fixed points vs. the amplitude of the driving 
+\caption{Modulus of  Eigenvalues of the fixed points vs. the amplitude of the driving 
 force for $n=2.235$}
 \label{fig-eig-F-crude}
 \begin{center}
@@ -1379,11 +1365,12 @@ The solution will provide us with a $P2C1$ orbit.  It should be noted that
 this method will give \emph{stable and unstable} orbits, unlike normal 
 simulations which will never give us unstable orbits.  However, in order to 
 get all existing orbits, one must run the program with many initial conditions 
-to ensure that the Newton-Raphson iteration scheme 'finds' all the solutions.  
+to ensure that the Newton-Raphson iteration scheme `finds' all the solutions.  
+
 
 In Fig \ref{fig-eig-F-crude}, we plot the results of such numerical 
 calculation in the case of $n=2.235$.  We can easily see that when $F$ is 
-quite larger than the grazing condition ($0.3903$, to be exact), all the 
+quite larger than the grazing condition (Which is $F=0.3903$, to be exact), all the 
 eigenvalues are $<1$ in magnitude.  But as the $F$ value 
 approaches grazing , the absolute value of one or more eigenvalues of the 
 fixed point exceeds $1$.  We know from basic dynamical systems theory that 
@@ -1410,12 +1397,13 @@ Therefore we decide to explore another approach for studying the same
 phenomena.  
 
 \section{Impact map and its Jacobian}
-We had talked about the concept of impact maps in subsection 
-{subsec-impact-map}. Now we will apply it in order to tackle the problem of 
+We had described the concept of impact maps in subsection 
+\ref{subsec-impact-map}. Now we will apply it in order to tackle the problem of 
 stability analysis of single collision orbits in hard impacting oscillators.  
 
 \begin{figure}[!hbp]
 \caption{Impact map in case of $PnC1$ orbit}
+\label{fig-impmap-dia}
 \begin{center}
 \includegraphics[width=0.5\columnwidth]{impactmap}
 \end{center}
@@ -1448,7 +1436,7 @@ and
 \[
 x_p(\tau)+x_h(\tau)=\sigma
 \]
-
+This requirement is schematically depicted in Fig \ref{fig-impmap-dia}.
 We recall:
 \[
 x_p(t)=A\footnote{$A=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$}cos(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})
@@ -1588,28 +1576,20 @@ far), goes as
 x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}
 \end{align}
 
-Consider an initial condition:\footnote{Taking a slice through the time dimension}
+Therefore the transient lifetimes should be \emph{inversely} proportional to 
+$\gamma$ and should not depend on $F$ at all.  Therefore, in order to explain 
+these long lived transients, we would need to concentrate on the impacts.  
+
+\subsection{The no-collision area}
+Consider an initial condition:
 \begin{align*}
 \vec{x_p}(0)&=(-A,0)\\
 \vec{x_h}(0)&=(x_0,v_0)
 \end{align*}
 
-Where $A=\frac{F}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$
+Where $A=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$
 
-Starting from this point, the solution is, as usual:
-\[
-x(t)=-A\cos{\omega t}+\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}
-\]
-
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.8\columnwidth]{beats-decaying}
-\end{center}
-\end{figure}
-
-
+Starting from this point, the solution till the next collision is, as per \eqref{eq-shm-sol}:
 
 \begin{align*}
 x(t)&=-A\cos{\omega t}+\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}\\
@@ -1618,28 +1598,34 @@ C&=-tan^{-1}\frac{\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}}{x_0}\\
 B&=\sqrt{x_0^2+\left(\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}\right)^2}
 \end{align*}
 
-
-In general, the sum of two different sine waves differing both in amplitude 
-and frequency cannot be further simplified.  However, an approximate envelope 
-can be calculated.  
-\begin{figure}
+\subsubsection{Case I: $\omega\approx\omega_g$}
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{guess_envelope}
+\caption{Plot of \eqref{eq-shm-sol} for $\omega_g\approx\omega$}
+\label{fig-shm-plot}
+\includegraphics[width=0.6\columnwidth]{beats-decaying}
 \end{center}
 \end{figure}
 
 
+In  this limit, the plot of $x$ vs.  $t$ looks almost like beats.  It is not surprising since 
+\eqref{eq-shm-sol} is a superposition of two frequencies after all.   But since the amplitude associated with the 
+frequency  is decaying exponentially with time, at $t\to\infty$ limit it will 
+reduce to $-A\cos{\omega t}$.  
 
-Now the job is simple:
-\begin{enumerate}
-\item Consider the $x_0\times v_0$ space.  
-\item For any point in the space, using the envelope, predict if there will be 
-any future collision or not.  
-\item Points for which there is no further collision should form a closed area 
-in the whole space.  
-\item The area must shrink as we approach grazing.  
-\item Correlate the area with transient lifetime. 
-\end{enumerate}
+In general, the sum of two different sine waves differing both in amplitude 
+and frequency cannot be further simplified.  However, an approximate envelope 
+can be calculated.  
+
+We demonstrate this in Fig \ref{fig-envelope-beats}. 
+
+\begin{figure}[!htb]
+\begin{center}
+\caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\approx \omega$}
+\label{fig-envelope-beats}
+\includegraphics[width=0.8\columnwidth]{guess_envelope}
+\end{center}
+\end{figure}
 
 
 
@@ -1653,7 +1639,6 @@ of the envelope}
 \label{eq-envelope}
 E(t)=\left\{A+Be^{-\gamma t/2}\right\}\sin{\left( \frac{C+(\omega_g-\omega)t}{2} \right)}
 \end{equation}
-If $\omega \approx \omega_g$
 
 
 The next peak of the envelope occurs at
@@ -1674,6 +1659,67 @@ E_{m}=A+Be^{-\gamma t_c/2}
 \end{equation}
 
 
+\subsubsection{Case II: $\omega\gg\omega_g$}
+\begin{eqnarray}
+x(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
+E(t)&=&A+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}
+\end{eqnarray}
+
+$E(t)$ being the upper envelope.  
+
+\begin{figure}[!htb]
+\begin{center}
+\caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\gg\omega$}
+\includegraphics[width=0.6\columnwidth]{envelope-m-small}
+\end{center}
+\end{figure}
+
+Therefore:
+\begin{align}
+t_c&=
+\begin{cases}
+\frac{2\pi-C}{\omega_g}&~~\text{for } C>0\\
+\frac{-C}{\omega_g}&~~\text{for } C<0
+\end{cases}\\
+E_m&=A+Be^{-\gamma t_c/2}
+\end{align}
+
+\subsubsection{Case III: $\omega\ll\omega_g$}
+\begin{eqnarray}
+x(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
+E(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B
+\end{eqnarray}
+
+\begin{figure}[!htb]
+\begin{center}
+\caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\ll\omega$}
+\includegraphics[width=0.6\columnwidth]{envelope-m-large}
+\end{center}
+\end{figure}
+
+Therefore:
+\begin{align}
+t_c&=\frac{\pi}{\omega}\\
+E_m&=A+Be^{-\gamma t_c/2}
+\end{align}
+
+
+
+\subsubsection{Calculation of collision-free area}
+Now we are in a position to make a quantitative measurement of how 
+``collision-prone'' the system is for a certain fixed parameter value.  What 
+we need to do is:
+
+\begin{enumerate}
+\item Consider a large number of initial conditions $(x_0,v_0)\in \mathbb{R}^2$.  
+\item Using the envelope, predict if there will be 
+any future collision or not if the system starts from that initial condition.  
+\item Points for which there is no further collision should form a closed area 
+in the whole space.  
+\item See how this area shrinks as we approach grazing.  
+\end{enumerate}
+
+Now we will define a few quantities to be used heavily in future.  
 
 \begin{definition}
 $E_m= $ height of the next peak of the envelope.  
@@ -1685,28 +1731,18 @@ some cases, $x_m=E_m$}
 \end{definition}
 
 \begin{definition}
+\label{def-mu}
 $\mu_{xv}=\left\{(x,v)\in\mathbb{X\times V}:x_m(x,v)<\sigma\right\}$
 \end{definition}
 
-
-
-\begin{align}
-t_c&\leq \frac{3\pi/2}{|\omega_g-\omega|}\\
-x_m&\geq E_m\\
-E_m&\geq A+Be^{-\gamma \frac{3\pi/4}{|\omega_g-\omega|}}\\
-B&\geq max\left\{|x_0|,\left|\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g} \right|  \right\}\\
-\mu_{xv}&\leq\left\{ (x,v): B\leq (\sigma-A)e^{\gamma \frac{3\pi/4}{|\omega_g-\omega|}}=\chi\right\}\\
-&\leq\left\{ (x,v): -\chi \leq x\leq \chi, -\chi\omega_g-\frac{\gamma x}{2} \leq v\leq \chi\omega_g-\frac{\gamma x}{2}    \right\}
-\end{align}
-
-
-
-
-
-\section{No-collision area}
+Directly from this definition, $\mu_{xv}$ can be calculated by the Monte Carlo 
+integration approach.  In Fig \ref{fig-scang} and Fig \ref{fig-scang} we 
+show how $\mu_{xv}$ varies with $F$ and $\gamma$ respectively.  
 
 \begin{figure}
 \begin{center}
+\caption{$\mu_{xv}$ vs.  $F$}
+\label{fig-scanf}
 \includegraphics[width=0.8\columnwidth]{scanf}
 \end{center}
 \end{figure}
@@ -1715,25 +1751,12 @@ B&\geq max\left\{|x_0|,\left|\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g} \r
 
 \begin{figure}
 \begin{center}
+\caption{$\mu_{xv}$ vs.  $\gamma$}
+\label{fig-scang}
 \includegraphics[width=0.8\columnwidth]{scang}
 \end{center}
 \end{figure}
 
-
-Celso Grebogi, Edward Ott, James A.   Yorke, Critical Exponent of 
-Chaotic Transients in Nonlinear Dynamical Systems, Phys.   Rev.   Lett.   57, 
-1284–1287 (1986):
-
-\begin{itemize}
-\item $\tau\sim(\alpha-\alpha_*)^{-\gamma}$, $\gamma$ the ``critical 
-exponent'' depends on the system.  
-\item Derives expression for $\gamma$ in terms of the eigenvalues of the fixed points at collision.  
-\end{itemize}
-
-Drawing parallels between the behaviour of $\mu_{xv}$ and the previous result, we can surmise:
-\[
-\mu_{xv}\sim \frac{1}{\tau}
-\]
 
 
 So far, we have calculated $\mu_{xv}$ by means of a Monte Carlo integration: 
@@ -1789,14 +1812,22 @@ However, we have disregarded one very important restriction: $x<\sigma$, due to
 the hard wall.  \\
 
 So, actually:
-\begin{align*}
-\mu_{xv}&=2\omega_g\int_{-\chi}^{max\{\chi,1\}} \sqrt{\chi^2-x^2}dx
-\end{align*}
+\begin{align}
+\label{mu-analytical}
+\mu_{xv}&\approx2\omega_g\int_{-\chi}^{max\{\chi,1\}} \sqrt{\chi^2-x^2}dx
+\end{align}
 
 
+Now it needs to be seen how good the approximations involved in deriving the 
+analytical expression \eqref{mu-analytical} were.  In Fig 
+\ref{fig-mu-actual-approx}, we plot values of $\mu_{xv}$ using the analytical formula and the values 
+obtained by Monte Carlo integration using $100000$ points against $F$.  As we 
+can see, the approximation overestimate $\mu_{xv}$ only slightly.  
 
-\begin{figure}
-\caption{$\mu_{vx}$ vs.  $F$}
+\begin{figure}[!htb]
+\caption{$\mu_{vx}$ vs.  $F$: comparison between the result of Monte Carlo integration
+and the approximate value}
+\label{fig-mu-actual-approx}
 \begin{center}
 \includegraphics[width=0.75\columnwidth]{vxarea-actual-approx}
 \end{center}
@@ -1804,50 +1835,49 @@ So, actually:
 
 
 
-Recall that our calculation, both analytical and numerical, has started off 
-with an assumption.   
-Now we'll try to justify. \\
-\begin{align*}
-&\left|f(t)cos(\omega_1t)+g(t)cos(\omega_2t+C)\right|\\
-\le&\left|(f(t)+g(t))(cos(\omega_1t)+cos(\omega_2t+C))\right|\\
-=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\left|sin\left(\frac{(\omega_1+\omega_2)t+C}{2}\right)\right|
-\end{align*}
+%Recall that our calculation, both analytical and numerical, has started off 
+%with an assumption.   
+%Now we'll try to justify. \\
+%\begin{align*}
+%&\left|f(t)cos(\omega_1t)+g(t)cos(\omega_2t+C)\right|\\
+%\le&\left|(f(t)+g(t))(cos(\omega_1t)+cos(\omega_2t+C))\right|\\
+%=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\left|sin\left(\frac{(\omega_1+\omega_2)t+C}{2}\right)\right|
+%\end{align*}
+%
+%Now since the last term is much more rapidly varying than the second term, we 
+%replace it with its average over a full cycle without incurring too much error:
+%\begin{align*}
+%=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\frac{2}{\pi}\int_0^{\pi/2}cos(t)dt\\
+%=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\frac{2}{\pi}
+%\end{align*}
+%
+%
+%
+%\em{$\omega >> \omega_g$}
+%
 
-Now since the last term is much more rapidly varying than the second term, we 
-replace it with its average over a full cycle without incurring too much error:
-\begin{align*}
-=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\frac{2}{\pi}\int_0^{\pi/2}cos(t)dt\\
-=&2\left|\left\{f(t)+g(t)\right\}sin\left(\frac{(\omega_1-\omega_2)t+C}{2}\right)\right|\frac{2}{\pi}
-\end{align*}
+\subsubsection{Relationship between $\mu_{xv}$ and transient lifetime}
+We see from Fig \ref{fig-scanf} and Fig \ref{fig-scang}  that $\mu_{xv}$ varies with parameters $F$ and $\gamma$ following a power law 
+pattern: far from grazing, the area is large; implying plenty of chance of the 
+system to go to a stable non-grazing orbit.  However, as the parameter is 
+tuned towards grazing, this area sharply drops to zero; which results in 
+frequent collisions with the boundary even though there exists a non-grazing 
+stable orbit.  So the system takes a long time to ``find'' that elusive stable 
+orbit, resulting in long transient lifetimes. 
 
+This immediately suggests that the transient lifetime $\tau$ may be related to 
+$\mu_{vx}$ according to:
 
-
-\em{$\omega >> \omega_g$}
-\begin{eqnarray}
-x(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
-E(t)&=&A+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}
-\end{eqnarray}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.8\columnwidth]{envelope-m-small}
-\end{center}
-\end{figure}
-
-
-\em{$\omega << \omega_g$}
-\begin{eqnarray}
-x(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
-E(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B
-\end{eqnarray}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.8\columnwidth]{envelope-m-large}
-\end{center}
-\end{figure}
+\begin{align}
+\label{eq-hypo-mu}
+\tau\propto\frac{1}{\mu}
+\end{align} 
 
 
+This hypothesis is further strengthened by the fact that both $\mu_{xv}$ and 
+$\tau$ have been seen to follow power law pattern.  Now it remains to check if 
+the exponent for $\tau$ turns out to be $-1$ times the exponent for $\mu_{vx}$ 
+or not.  
 
 \begin{figure}
 \caption{Transient lifetime vs.  $F$}
@@ -1864,24 +1894,52 @@ E(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B
 \end{center}
 \end{figure}
 
+\appendix
+\chapter{Calculations for approximate Poincare map}
+\label{app-calc-poinc}
+Let the parameters be such that the stable orbit grazes slightly:
+$x_m(\left\{parameters\right\})=\sigma+\varepsilon$.  \\
 
-\begin{enumerate}
-\item Try to squeeze the parallelogram shaped bounding box of $\mu_{xv}$.  
-\item Create a colourmap of $\mathbb{V\times X}$ space depicting the number of 
-cycles needed to reach stable period-1 orbit.  
-\item Instead of Monte Carlo integration, try a spreading-out approach.  
-\item As per Grebogi, Yorke et al, try to find out the ``critical exponent''
-\item The other extreme: $\omega_0>>\omega$ or $\omega_0<<\omega$ 
-\item Prove that the peak of $e^{-\gamma t/2}cos(\omega t)$ doesn't differ 
-markedly from that of $cos(\omega t)$
-\end{enumerate}
+Now start from an initial condition such that $\left|x'(0)\right|=0$.  
+(Exactly on the stable orbit).\\
+
+Then we have:
+\begin{align*}
+x_mcos\left(\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)&=\sigma\\
+\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}&=cos^{-1}\left(1+\frac{\varepsilon}{\sigma}\right)^{-1}\\
+&\approx2n\pi+\sqrt{\frac{2\varepsilon}{\sigma}}\\
+\tau&\approx \frac{1}{\omega}\left(2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)
+\end{align*}
+ 
+
+ 
+Now suppose $0<|x'(0)|<<1$.   
+Let the time of collision $t_c=\tau+\delta t$
+\begin{align*}
+x_mcos\left(\omega (\tau+\delta t)+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
+x_mcos\left(\left(\omega \tau+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+\omega \delta t\right)+x_h(\tau+\delta t)&=\sigma\\
+\sigma-\omega x_m\delta t sin\left(\omega \tau+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
+-\omega \delta tx_m\sqrt{1-(\sigma/x_m)^2}+x_h(\tau+\delta t)&=0\\
+\frac{x_h(\tau)}{\omega\sqrt{x_m^2-\sigma^2}-v_h(\tau)}&=\delta t
+\end{align*}
+ 
+
+ 
+\begin{align*}
+v_p(\tau+\delta t)&=-\omega x_m sin\left( \omega (\tau+\delta t)+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)\\
+&=-\omega x_m sin\left( 
+2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}+\omega \delta t + tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2} \right)\\
+&=-\omega x_m sin\left(\omega\delta t+\sqrt{\frac{2\varepsilon}{\sigma}}\right) 
+\end{align*}
+% plot of numerical poincare map
 
 
-
-% long transients
-% hypothesis
-% jacobians crossing 1
-% FP losing stability?
 
 
 \bibliography{thesis}{}
