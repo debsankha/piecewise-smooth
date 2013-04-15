@@ -6,10 +6,18 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-\usepackage{graphicx,tikz,wrapfig,hyperref,fancybox,cite,caption,subcaption}
+\usepackage{graphicx,tikz,wrapfig,hyperref,fancybox,cite,caption,subcaption,color}
 \usepackage{amsmath,amssymb,amsthm}
 
-\hypersetup{colorlinks}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+
+\hypersetup{colorlinks,
+linkcolor=darkblue,
+filecolor=darkgreen,
+urlcolor=darkred,
+citecolor=darkblue}
 
 \renewcommand{\(}{\begin{columns}}
 \renewcommand{\)}{\end{columns}}
@@ -57,10 +65,10 @@ It has been reported previously that the lifetimes of transients in  systems
 exhibiting grazing bifurcations follow a power law pattern as the parameter 
 value approaches the grazing value.  We have observed the same characteristics 
 in a simple harmonic oscillator with hard impacts. We found that the transient 
-lifetimes were orders of magnitude larger than what should have been the case 
+lifetimes were orders of magnitude larger than what they should have been
 if the impacts did not occur.   We have attempted to explain this 
-behaviour by deriving an analytical expression for the size of the set of initial 
-co-ordinates that give rise to impacts.  
+behaviour by defining a quantity which represents how likely is a system to 
+undergo impacts for a set of parameter values.  
 
 \tableofcontents
 
@@ -130,7 +138,7 @@ S_i&\in& \mathbf{X}\hspace{2em} \forall i\\
 \cup_i S_i&=&\mathbf{X}\\
 S_i\cap S_j&=&\emptyset, \hspace{2em} i\ne j
 \end{eqnarray*}
-
+($X$ being the phase space of the system)
 \item Each of the functions $F_i$ is smooth in both the state $x$ and the parameter 
 $\mu$ throughout $S_i$.  
 \end{enumerate}
@@ -162,7 +170,7 @@ any pair of $S_i$'s are called the \bb{switching manifolds} of the system:\[
 \para{Example:}
 In case of the Tent map \eqref{eq-tent}, there is one switching manifold 
 consisting of a single point:
-$S=\left\{1/2\right\}$.  
+$\Sigma_{12}=\left\{1/2\right\}$.  
 
 \begin{definition}
 \label{def-sing_order}
@@ -272,13 +280,14 @@ $\mu$ in the appropriate regimes.
 \para{Example: Oscillator with hard impacts\\}
 \begin{figure}[!hbp]
 \caption{Hard impacting oscillator}
+\label{fig-himp}
 \begin{center}
 \includegraphics[width=0.5\columnwidth]{hardcol}
 \end{center}
 \end{figure}
 
 Consider a driven simple harmonic oscillator with a hard wall at a distance 
-$\sigma$ from its equilibrium position.   The equation of motion is:
+$\sigma$ from its equilibrium position, as depicted in Fig \ref{fig-himp}.   The equation of motion is:
 \begin{align}
 \label{eq-hard_impact}
 m\ddot{x}&=-\gamma \dot{x}-k_1x+G(t)&\mathrm{for}~~x<\sigma\\

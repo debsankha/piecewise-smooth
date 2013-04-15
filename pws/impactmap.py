@@ -108,7 +108,6 @@ def fp_exact():
 
 
 def check_solution(x0,v0,pm):
-#	phasediff=atan(w*gamma/(w**2-w0**2))
 	xp=sigma-x0
 	vp=-pm*w*sqrt(Amp**2-xp**2)
 	
@@ -118,29 +117,26 @@ def check_solution(x0,v0,pm):
 	if pm<0:
 		ph=-1*ph
 	
+	phasediff=atan(w*gamma/(w**2-w0**2))
 	tmin=(ph-phasediff)/w
 	
-	nexty=M2T*np.matrix([x0,-v0-2*vp]).transpose()
-	nextx=float(nexty[0])
-	nextv=float(nexty[1])
 
-#	nexty=commands.getoutput("./hardcol.out traj %f %f %f %f %f %f %f 2>/dev/null | tail -n 1 | awk '{print $1\"\t\"$2\"\t\"$3}' "%(sigma,v0+vp,T,F,gamma,n,tmin))
-#	
-#	sys.stderr.write("yexact: %f, %f\n"%(x0,v0))
-#
-#
-#	tcol,nextx,nextv=(float(i) for i in nexty.split('\t'))
-#	
-#	nextx-=xp
-#	nextv-=vp
-#		
-#	sys.stderr.write("tcol: %f, nexty: %f, %f\n"%(tcol,nextx,nextv))
+	nexty=commands.getoutput("./hardcol.out traj %f %f %f %f %f %f %f 2>/dev/null 1>spm | tail -n 1 | awk '{print $1\"\t\"$2\"\t\"$3}' "%(sigma,-1*(v0+vp),tmin, T,F,gamma,n))
+	
+	sys.stderr.write("yexact: %f, %f\n"%(x0,v0))
 
-	if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.001:
+
+	tcol,nextx,nextv=(float(i) for i in nexty.split('\t'))
+	
+	nextx-=xp
+	nextv-=vp
+		
+	sys.stderr.write("tcol: %f, nexty: %f, %f\n"%(tcol,nextx,nextv))
+
+	if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.01:
 		return 0
 	else:
 		return 1	
-
 
 
 def plot_fp_eigvals(fmin,fmax,npts):
@@ -172,7 +168,7 @@ def plot_fp_eigvals(fmin,fmax,npts):
 			
 			istrue=check_solution(x0,v0,pm)
 			if not istrue:
-				print "false!"
+				log("false!")
 				
 			eigs=linalg.eigvals(Jackmap(yexact,pm))
 			abseigs=[abs(i) for i in eigs]
@@ -202,7 +198,7 @@ def probe_stability_vs_F(nval,pval):
 	print "#Fgraz: ",Fgraz
 	plot_fp_eigvals(Fgraz*1.001,Fgraz*1.9,100)
 
-def probe_stability_vs_n(nmin,nmax):
+def probe_stability_vs_n(nmin,nmax,npts):
 	global sigma,gamma,n,w,wg,k,w0,T,M2T,Amp,F
 	sigma=1
 	gamma=0.08
@@ -210,10 +206,10 @@ def probe_stability_vs_n(nmin,nmax):
 	w=1
 	n=nmin
 	
-	pval=4
+	pval=2
 	Amp=sigma
 	
-	dn=(nmax-nmin)/300
+	dn=(nmax-nmin)/float(npts)
 
 	while n<nmax:
 		wg=n*w/2.0
@@ -251,6 +247,6 @@ def probe_stability_vs_n(nmin,nmax):
 	
 
 if __name__=='__main__':
-	probe_stability_vs_F(float(sys.argv[1]),int(sys.argv[2]))
-#	probe_stability_vs_n(float(sys.argv[1]),float(sys.argv[2]))
+#	probe_stability_vs_F(float(sys.argv[1]),int(sys.argv[2]))
+	probe_stability_vs_n(float(sys.argv[1]),float(sys.argv[2]),int(sys.argv[3]))
 
