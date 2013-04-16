@@ -27,5 +27,8 @@ testrk4: ../numeric/librk4.o testrk4.cpp ../numeric/rk4.h
 shm-pw.o: shm-pw.cpp
 	g++ $(CCFLAGS) -c  shm-pw.cpp
 
+scanvxarea:  scanvxarea.cpp
+	g++ $(CCFLAGS) -o scanvxarea.out scanvxarea.cpp
+
 clean:
 	rm ../numeric/librk4.o shm-pw.o

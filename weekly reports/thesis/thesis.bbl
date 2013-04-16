@@ -1,0 +1,79 @@
+\begin{thebibliography}{10}
+
+\bibitem{bernardo-book}
+Mario Bernardo, Chris Budd, Alan~Richard Champneys, and Piotr Kowalczyk.
+\newblock {\em Piecewise-smooth dynamical systems: theory and applications},
+  volume 163.
+\newblock Springer, 2007.
+
+\bibitem{dankowicz-nordmark-zdm}
+Harry Dankowicz and Arne~B Nordmark.
+\newblock On the origin and bifurcations of stick-slip oscillations.
+\newblock {\em Physica D: Nonlinear Phenomena}, 136(3):280--302, 2000.
+
+\bibitem{bernardo-grazing-prl}
+M~Di~Bernardo, CJ~Budd, and AR~Champneys.
+\newblock Grazing and border-collision in piecewise-smooth systems: A unified
+  analytical framework.
+\newblock {\em Physical Review Letters}, 86(12):2553--2556, 2001.
+
+\bibitem{feigin-1999}
+M~Di~Bernardo, M\_I Feigin, SJ~Hogan, and ME~Homer.
+\newblock Local analysis of c-bifurcations in n-dimensional piecewise-smooth
+  dynamical systems.
+\newblock {\em Chaos, Solitons and Fractals}, 10(11):1881--1908, 1999.
+
+\bibitem{bernardo-c-cases}
+M~Di~Bernardo, F~Garofalo, L~Iannelli, and F~Vasca.
+\newblock Bifurcations in piecewise-smooth feedback systems.
+\newblock {\em International Journal of Control}, 75(16-17):1243--1259, 2002.
+
+\bibitem{feigin-1970}
+M.~{Feigin}.
+\newblock {Doubling of the oscillation period with C-bifurcations in
+  piecewise-continuous systems PMM vol. 34, 1970, pp. 861-869}.
+\newblock {\em Journal of Applied Mathematics and Mechanics}, 34:822--830,
+  1970.
+
+\bibitem{dm-orig-nordmark}
+Mats~H Fredriksson and Arne~B Nordmark.
+\newblock Bifurcations caused by grazing incidence in many degrees of freedom
+  impact oscillators.
+\newblock {\em Proceedings of the Royal Society of London. Series A:
+  Mathematical, Physical and Engineering Sciences}, 453(1961):1261--1276, 1997.
+
+\bibitem{grebogi-transient}
+Celso Grebogi, Edward Ott, and James~A Yorke.
+\newblock Critical exponent of chaotic transients in nonlinear dynamical
+  systems.
+\newblock {\em Physical review letters}, 57(11):1284--1287, 1986.
+
+\bibitem{hilborn-chaos}
+R.~Hilborn.
+\newblock {\em Chaos and nonlinear dynamics: an introduction for scientists and
+  engineers}.
+\newblock Oxford University Press, Incorporated, 2000.
+
+\bibitem{banerjee-kundu-hard}
+Soumya Kundu, Soumitro Banerjee, and Damian Giaouris.
+\newblock Vanishing singularity in hard impacting systems.
+\newblock {\em Discr. Contin. Dyn. Syst., Ser. B}, 16(1):319--332, 2011.
+
+\bibitem{banerjee-kundu-soft}
+Soumya Kundu, Soumitro Banerjee, Ekaterina Pavlovskaia, Marian Wiercigroch,
+  et~al.
+\newblock Singularities in soft-impacting systems.
+\newblock {\em Physica D: Nonlinear Phenomena}, 241(5):553--565, 2012.
+
+\bibitem{ma-nraphson}
+Yue Ma, Soumitro Banerjee, Marian Wiercigroch, Ekaterina Pavlovskaia, et~al.
+\newblock The nature of the normal form map for soft impacting systems.
+\newblock {\em International Journal of Non-Linear Mechanics}, 43(6):504--513,
+  2008.
+
+\bibitem{2010arXiv1002.2448O}
+A.~{Okninski} and B.~{Radziszewski}.
+\newblock {Chaotic dynamics in a simple bouncing ball model}.
+\newblock {\em ArXiv e-prints}, February 2010.
+
+\end{thebibliography}

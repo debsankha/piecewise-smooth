@@ -106,13 +106,14 @@ t)\left\{\colv{x_h(\tau+\delta t)}{v_h(\tau+\delta t)}\right.\\
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[label=poincare_slide]
 Therefore we have our Poincare map:
 \begin{equation}
 \label{poincare-hardcol}
 \vec{x'}(T)=M(T)\vec{x'}(0)+M(T-\tau-\delta t)\colv{0}{-2v_p(\tau+\delta t)-2v_h(\tau+\delta t)}
 \end{equation}
 
+\hyperlink{new_poincare_slide}{\beamergotobutton{back}}
 $\left\{\vec{x'}(t)=\vec{x}(t)-\vec{x_p}(t)\right\}$
 
 If we can find expressions for $\delta t, v_p, v_h$ in terms of $x(0),v(0)$, 
@@ -176,5 +177,48 @@ $(\omega_g=\frac{\sqrt{4k-\gamma^2}}{2})$
 \hyperlink{BackFromM}{\beamergotobutton{Back}}
 \end{frame}
 
+\begin{frame}[label=new_poincare_slide]
+We derived an exact expression for the poincare map sometime ago.  
+\hyperlink{poincare_slide}{\beamergotobutton{Exact formula}}
+Let the parameters be such that the stable orbit grazes slightly:
+$x_m(\left\{parameters\right\})=\sigma+\varepsilon$.  \\
 
+Now start from an initial condition such that $\left|x'(0)\right|=0$.  
+(Exactly on the stable orbit).\\
+
+Then we have:
+\begin{align*}
+x_mcos\left(\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)&=\sigma\\
+\omega \tau+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}&=cos^{-1}\left(1+\frac{\varepsilon}{\sigma}\right)^{-1}\\
+&\approx2n\pi+\sqrt{\frac{2\varepsilon}{\sigma}}\\
+\tau&\approx \frac{1}{\omega}\left(2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2}\right)
+\end{align*}
+\end{frame}
+
+\begin{frame}
+Now suppose $0<|x'(0)|<<1$.   
+Let the time of collision $t_c=\tau+\delta t$
+\begin{align*}
+x_mcos\left(\omega (\tau+\delta t)+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
+x_mcos\left(\left(\omega \tau+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+\omega \delta t\right)+x_h(\tau+\delta t)&=\sigma\\
+\sigma-\omega x_m\delta t sin\left(\omega \tau+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)+x_h(\tau+\delta t)&=\sigma\\
+-\omega \delta tx_m\sqrt{1-(\sigma/x_m)^2}+x_h(\tau+\delta t)&=0\\
+\frac{x_h(\tau)}{\omega\sqrt{x_m^2-\sigma^2}-v_h(\tau)}&=\delta t
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\begin{align*}
+v_p(\tau+\delta t)&=-\omega x_m sin\left( \omega (\tau+\delta t)+tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}\right)\\
+&=-\omega x_m sin\left( 
+2\pi+\sqrt{\frac{2\varepsilon}{\sigma}}-tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2}+\omega \delta t + tan^{-1}\frac{\omega 
+\gamma}{\omega^2-\omega_0^2} \right)\\
+&=-\omega x_m sin\left(\omega\delta t+\sqrt{\frac{2\varepsilon}{\sigma}}\right) 
+\end{align*}
+\end{frame}
 \end{document}

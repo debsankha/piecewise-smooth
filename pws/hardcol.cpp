@@ -15,7 +15,10 @@ int main(int argc , char *argv[])
 		tmax=atof(argv[1+i]);
 		F=atof(argv[2+i]);
 		G=atof(argv[3+i]);
-		cout<<"#period: "<<plottraj(x,tmax)<<endl;
+		m=atof(argv[4+i]);
+		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
+
+		plottraj(x,tmax);
 	}
 
 	if (strcmp(argv[1],"plotmap")==0)
@@ -39,7 +42,6 @@ int main(int argc , char *argv[])
 		F=atof(argv[4]);
 		G=atof(argv[5]);
 		
-		float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 		cerr<<"F_graz="<<Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)<<endl;
 		double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
 		plotpoincare(x,initphase,tmax);

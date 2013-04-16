@@ -13,14 +13,14 @@ float G=0.08;	//damping
 float F=0.393094; //1.4881;		//forcing amplitude
 float W=1;	//forcing freq: sin(W*t)	NOTE: w_0=1
 float m=2.3556;
+float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 
 
 void f(double t, vec x, vec *out) 
 {
 	//SHM hitting with a hard wall , x=(x,v)
-	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	out->arr[0]=x.arr[1];
-	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*sin(W*t);
+	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*cos(W*t);
 }
 
 int plottraj(vec x, float tmax)
@@ -153,7 +153,6 @@ int plotbifurc_F(float minF, float maxF, int npts)
 	double dF=(maxF-minF)/npts;
 	double  t=0;
 	vec x(N);
-	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	for (F=minF;F<maxF;F+=dF)
 	{
 		for (int cnt=0;cnt<NPTS;cnt++)
@@ -174,7 +173,6 @@ int plotbasin(int npts,double tmax, int rank)
 	sprintf(fname, "basindat%d.dat",rank);
 	vec x(2);
 
-	float K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 	double initphase=(-M_PI/2-atan(G*W/(W*W-K1)))/W;
 
 	FILE *outf;
