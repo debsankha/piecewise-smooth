@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage[english]{babel}
+%\usepackage{bookman}
+%\usepackage{kmath,kerkis}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx,color}
+\usepackage{amsmath,amssymb,amsthm,gnuplottex}
+
+\begin{document}
+\begin{gnuplot}[terminal=epslatex,terminaloptions=color solid linewidth 3]
+mu=0.4
+unset ytics
+set ytics add ('$\frac{\mu}{2}$' mu/2)
+unset xtics
+set xtics 0, 0.5, 1
+f(x)=x<0.5?mu*x:mu*(1-x)
+set samples 1000
+p [0:1][:mu/1.4]  f(x) 
+\end{gnuplot}
+
+\end{document}

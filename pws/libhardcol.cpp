@@ -22,10 +22,10 @@ void f(double t, vec x, vec *out)
 	out->arr[1]=-K1*x.arr[0]-G*x.arr[1]+F*cos(W*t);
 }
 
-int plottraj(vec x, float tmax)
+int plottraj(vec x, float tmin, float tmax)
 {
 	double initphase=(atan(G*W/(W*W-K1)))/W;
-	double t=0;
+	double t=tmin;
 	double time_to_stable=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
@@ -34,9 +34,20 @@ int plottraj(vec x, float tmax)
 	int period=0;
 	double fgraz=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
 	double xp,vp;
-		
+	
+	cerr<<"F "<<F<<endl;
+	cerr<<"G "<<G<<endl;
+	cerr<<"m "<<m<<endl;
+	cerr<<"Ast "<<F/pow(pow(W*W-K1,2)+W*W*G*G,0.5)<<endl;
 	cerr<<"F_graz:"<<fgraz<<endl;
-	while (t<tmax)
+	if (fgraz>F)
+	{
+		cerr<<"F: "<<F<<endl;
+		cerr<<"Fgraz: "<<fgraz<<endl;
+		cerr<<"bef grazing!\n";
+		return 1;
+	}
+	while (t<tmax+tmin)
 	{
 		oldvel=x.arr[1];
 		cout<<t<<'\t';x.show();						//responsible for the output to stdout
@@ -45,9 +56,6 @@ int plottraj(vec x, float tmax)
 		{
 			x.arr[0]=Sigma;
 			x.arr[1]*=-1;
-			xp=F/pow(pow(K1-W*W,2)+W*W*G*G,0.5)*cos(W*t+initphase);
-			vp=-F*W/pow(pow(K1-W*W,2)+W*W*G*G,0.5)*sin(W*t+initphase);
-			cerr<<"impact\t"<<x.arr[0]-xp<<'\t'<<x.arr[1]-vp<<endl;
 		}
 
 		if ((oldvel<0) && (x.arr[1]>0))

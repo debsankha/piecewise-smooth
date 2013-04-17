@@ -2,12 +2,12 @@
 \usepackage[english]{babel}
 %\usepackage{bookman}
 %\usepackage{kmath,kerkis}
-
+\usepackage{mathpazo}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
 \usepackage{graphicx,tikz,wrapfig,hyperref,fancybox,cite,caption,subcaption,color}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsmath,amssymb,amsthm,gnuplottex}
 
 \definecolor{darkred}{rgb}{0.5,0,0}
 \definecolor{darkgreen}{rgb}{0,0.5,0}
@@ -46,10 +46,10 @@ citecolor=darkblue}
 \chapter{Preface}
 Piecewise smooth dynamical systems are of particular interest because of their 
 ubiquity and the plethora of novel behaviours they exhibit.  There are very elegant existing frameworks
-for analyzing different kinds of border collision bifurcations occuring in those systems.
+for analyzing different kinds of border collision bifurcations occurring in those systems.
 These include the classic work on border collision of equilibria by Feigin\cite{feigin-1970}, analysis of grazing 
-bifurcations using the ZDM formalism developed by Nordmark et al \cite{dm-orig-nordmark} and the impact map 
-approach developed by Bernardo et al \cite[p.~10]{bernardo-book}.
+bifurcations using the ZDM (\bb{Z}ero-time \bb{D}iscontinuity \bb{M}apping) formalism developed by Nordmark et al. \cite{dm-orig-nordmark} and the impact map 
+approach developed by Bernardo et al. \cite[p.~10]{bernardo-book}.
 
 Using the ZDM formalism, Banerjee and Kundu analyzed the soft impacting oscillator system
 and predicted the onset of chaos immediately following the grazing of a limit 
@@ -90,13 +90,15 @@ stability analysis, the Jacobian plays a role of paramount importance.  But
 its existence cannot be guaranteed everywhere in the phase space for non 
 smooth systems.  
 
-\begin{figure}
+
+\begin{figure}[!htp]
+\centering
 \caption{Trajectory of a bouncing ball : a piecewise smooth system}
 \label{fig-bouncing_ball}
-\begin{center}
-\includegraphics[width=0.4\columnwidth]{bounce}
-\end{center}
+\def\svgwidth{0.4\columnwidth}
+\input{bounce.pdf_tex}
 \end{figure}
+
 
 Unfortunately, many systems we need to deal with regularly are non smooth: 
 electrical circuits involving switches, systems exhibiting sliding or 
@@ -149,13 +151,26 @@ $\mu$ throughout $S_i$.
 x_{n+1}=f_\mu(x_n)=\begin{cases} \mu x_n & \mathrm{for}~~ x_n < \frac{1}{2} \\ \\ \mu (1-x_n) & \mathrm{for}~~ \frac{1}{2} \le x_n \end{cases}
 \end{equation}
 
-
 \begin{figure}[!htp]
 \caption{Tent map}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{Tent_map}
+\begin{gnuplot}[terminal=epslatex,terminaloptions=color solid linewidth 3,scale=0.7]
+mu=0.4
+unset ytics
+set ytics add ('$\frac{\mu}{2}$' mu/2)
+unset xtics
+set arrow 1 
+set xtics 0, 0.5, 1
+f(x)=x<0.5?mu*x:mu*(1-x)
+set samples 1000
+set arrow from 0.5, graph 0 to 0.5, graph 1 nohead ls 3 lw 0.5
+p [0:1][:mu/1.4]  f(x) 
+\end{gnuplot}
 \end{center}
 \end{figure}
+
+
+
 
 Now we will define a few quantities to be used extensively in the next 
 sections.  
@@ -313,11 +328,13 @@ Then these types of behaviours were named \emph{C-bifurcations}.  Now they also 
 the name of \emph{border collision bifurcations}. We will briefly review a few 
 of these novel  behaviours now.   
 
+
+
 \begin{figure}[!htp]
+\centering
 \caption{A few cases of border collision bifurcations}
-\begin{center}
-\includegraphics[width=0.9\columnwidth]{c-bifs}
-\end{center}
+\def\svgwidth{0.9\columnwidth}
+\input{c-bifs.pdf_tex}
 \end{figure}
 
 
@@ -354,7 +371,7 @@ is \emph{not the correct ODE in the first place}! Therefore $x_1^*(\mu)$ is no l
 a fixed point.  We call it a \bb{virtual fixed point}  of the system and such a phenomenon is called 
 ``border collision of equilibrium''. This phenomenon was first studied by Marc 
 Feigin in case of discrete time systems \cite{feigin-1999}(later extended by 
-Bernardo \emph{et al} to continuous time systems \cite{bernardo-c-cases}) where he classified the dynamical 
+Bernardo et al. to continuous time systems \cite{bernardo-c-cases}) where he classified the dynamical 
 behaviours that can take place when equilibria crosses the switching manifold and 
  derived the necessary conditions for each of them in
 terms of the eigenvalues of the Jacobians at both sides of the switching 
@@ -394,25 +411,25 @@ place for the parameter value $\mu=0$ at the point $\mb{x}=0$:
 Then we can locally linearize the map:
 
 \begin{displaymath}
-   \dot{\bf{x}} = \left\{
+   \dot{\mb{x}} = \left\{
      \begin{array}{lr}
-       \bf{A_1x+\bf{B}\mu} & : x_n<0\\
-       \bf{A_2x+\bf{B}\mu} & : x_n<0\\
+       \mb{A_1x+B}\mu & : x_n<0\\
+       \mb{A_2x+B}\mu & : x_n<0\\
      \end{array}
    \right.
 \end{displaymath}
 
 Where:\\
 \[
-\bf{A_i}=\frac{\partial F_1}{\partial \bf{x}}_{x=0}
+\mb{A_i}=\left.  \frac{\partial F_1}{\partial \mb{x}}\right|_{x=0}
 \]
 and 
 \[
-\bf{B}=\frac{\partial F_1}{\partial \mu}_{\mu=0}=\frac{\partial F_2}{\partial \mu}_{\mu=0}
+\mb{B}=\left.  \frac{\partial F_1}{\partial \mu}\right|_{\mu=0}=\left.  \frac{\partial F_2}{\partial \mu}\right|_{\mu=0}
 \]
 (Assuming the flow to be continuous at $\mb{x}=0$).
 
-Also, $\bf{A_1}$ and $\bf{A_2}$ can differ only in the $n-$th column (Again 
+Also, $\mb{A_1}$ and $\mb{A_2}$ can differ only in the $n-$th column (Again 
 due to continuity, this time at $\mu=0$).
 
 
@@ -466,11 +483,13 @@ real.
 \end{enumerate}
 
 \begin{figure}
+\centering
 \caption{Border collision of equilibria}
-\begin{center}
-\includegraphics[width=0.9\columnwidth]{cases}
-\end{center}
+\def\svgwidth{0.9\columnwidth}
+\input{cases.pdf_tex}
 \end{figure}
+
+
 
 \subsubsection{Period doubling at border collision of equilibria}
 Sometimes it may happen that after a fixed point undergoes border collision, a 
@@ -568,7 +587,7 @@ refer to \cite{feigin-1999}.
 
 \subsection{Grazing bifurcation of limit cycles due to border collision}
 The phenomenon of a limit cycle grazing the switching manifold of a system is encountered 
-very frequently.  These systems have been studied extensively by Dankowicz and Nordmark\cite{dankowicz-nordmark-zdm}, Bernardo at al\cite{bernardo-grazing-prl}, Banerjee and Kundu\cite{banerjee-kundu-soft} etc.
+very frequently.  These systems have been studied extensively by Dankowicz and Nordmark\cite{dankowicz-nordmark-zdm}, Bernardo et al.\cite{bernardo-grazing-prl}, Banerjee and Kundu\cite{banerjee-kundu-soft} etc.
 
 
 Consider a piecewise smooth flow as defined in \eqref{eq-pwflow}:
@@ -663,13 +682,15 @@ $x$ at $t=0$.  }
 another property to be used later.)\label{crit-minH}
 \end{enumerate}
 
+
 \begin{figure}[!htp]
+\centering
 \caption{ZDM}
 \label{fig-ZDM}
-\begin{center}
-\includegraphics[width=0.4\columnwidth]{ZDM_eval}
-\end{center}
+\def\svgwidth{0.4\columnwidth}
+\input{ZDM_eval.pdf_tex}
 \end{figure}
+
 
 Consider an orbit starting from a point $x_i$ which is close to a grazing 
 orbit (See Fig \ref{fig-ZDM}). Suppose the orbit spends time $\delta_0$ to hit 
@@ -699,7 +720,7 @@ spent  by the system according to Flow 2 is still there: it is hidden in the ZDM
 we will see in the next subsection, provided the orbit is close to grazing, 
 ZDM can be derived analytically.  
 
-In particular, ZDM approach enables one to calculate the stroboscopic poincare 
+In particular, ZDM approach enables one to calculate the stroboscopic Poincaré 
 maps for orbits shown in Fig \ref{fig-grazing-orbit}:
 \begin{equation}
 \label{eq-pmap-ZDM}
@@ -707,7 +728,7 @@ maps for orbits shown in Fig \ref{fig-grazing-orbit}:
 \end{equation}
 
 after which stability analysis becomes possible using the usual method of 
-calculating the eigenvalues of the jacobian of $\Pi$ at the fixed point.  
+calculating the eigenvalues of the Jacobian of $\Pi$ at the fixed point.  
 
 % Order of discontinuity: trace and Jacobian
 \subsection{Narrow band chaos}
@@ -715,7 +736,7 @@ Impact oscillators as described in \eqref{eq-soft_impact} and
 \eqref{eq-hard_impact} have been studied extensively since the 1970's when 
 Feigin \cite{feigin-1970} described their bifurcation structure.  We now know 
 that they can exhibit extremely rich dynamical behaviour.  
-Using the ZDM approach, Banerjee et al \cite{banerjee-kundu-soft} investigated 
+Using the ZDM approach, Banerjee et al. \cite{banerjee-kundu-soft} investigated 
 the grazing bifurcations in such systems.  They found that the Jacobian 
 suffers a discontinuity at grazing (which, as we showed in 
 Claim \ref{claim-jacob-disc}, is a necessary condition for period doubling 
@@ -811,13 +832,15 @@ matrix that takes  the result of applying the ZDM back to the Poincaré plane.
 $N_1$ and $N_2$ can be obtained from the solution of the driven SHO, which can 
 be analytically solved.  So ZDM is the only tricky part. 
 
-\begin{figure}
-\begin{center}
+
+\begin{figure}[!htp]
+\centering
 \caption{Calculating the ZDM}
 \label{fig-ZDM-calc}
-\includegraphics[width=0.6\columnwidth]{ZDM_eval_2}
-\end{center}
-\end{figure} 
+\def\svgwidth{0.6\columnwidth}
+\input{ZDM_eval_2.pdf_tex}
+\end{figure}
+
 
 As we can see  from Fig \ref{fig-ZDM-calc}, the calculation \footnote{Notice that since we are calculating 
 the ZDM of a point \emph{on} the switching manifold, calculations are simpler than the general case depicted in Fig \ref{fig-ZDM}} 
@@ -1112,9 +1135,9 @@ oscillators without damping.
 \label{subsec-num-comp}
 The method of impact map works very well to solve for periodic orbits 
 involving only one collision per cycle (termed $PnC1$ orbits)\footnote{In 
-general, $PmCn$ orbit means period-m orbits with n collisions per cycle} with the hard wall.  But this method does not 
+general, $PmCn$ orbit means period-$m$ orbits with $n$ collisions per cycle} with the hard wall.  But this method does not 
 work well for parameters values for which stable orbits collide multiple times 
-in a single cycle. Ma et al\cite{ma-nraphson} devised a way to 
+in a single cycle. Ma et al.\cite{ma-nraphson} devised a way to 
 numerically compute any stable or unstable $PnCm$ orbit.  We explain the 
 method below. 
 
@@ -1271,7 +1294,7 @@ M(t)=\frac{e^{-\gamma t/2}}{\omega_g}
 and
 $\omega_g=\frac{\sqrt{4k-\gamma^2}}{2}$
  
-Therefore we have our Poincare map:
+Therefore we have our Poincaré map:
 \begin{equation}
 \label{map-poincare-hardcol}
 \vec{x'}(T)=M(T)\vec{x'}(0)+M(T-\tau-\delta t)\colv{0}{-2v_p(\tau+\delta t)-2v_h(\tau+\delta t)}
@@ -1410,14 +1433,16 @@ We had described the concept of impact maps in subsection
 \ref{subsec-impact-map}. Now we will apply it in order to tackle the problem of 
 stability analysis of single collision orbits in hard impacting oscillators.  
 
-\begin{figure}[!hbp]
+
+\begin{figure}[!htp]
+\centering
 \caption{Impact map in case of $PnC1$ orbit}
 \label{fig-impmap-dia}
-\begin{center}
-\includegraphics[width=0.5\columnwidth]{impactmap}
-\end{center}
+\def\svgwidth{0.5\columnwidth}
+\input{impactmap.pdf_tex}
 \end{figure}
 
+\subsection{Derivation of the map}
 Suppose the oscillator collides against the hard wall at time $\tau$ and the 
 state vector immediately before collision be $\colv{x^-(\tau)}{v^-(\tau)}$.  
 Just after the collision, the state vector becomes
@@ -1445,8 +1470,7 @@ and
 \[
 x_p(\tau)+x_h(\tau)=\sigma
 \]
-This requirement is schematically depicted in Fig \ref{fig-impmap-dia}.
-We recall:
+This requirement is schematically depicted in Fig \ref{fig-impmap-dia}. We recall:
 \[
 x_p(t)=A\footnote{$A=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$}cos(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})
 \]
@@ -1460,12 +1484,25 @@ v_p(t)&=-A\omega sin(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})
 The condition for existence of a $PnC1$ orbit:
 \begin{equation}
 \label{impactmap-final}
-M(mT)\colv{x}{-v\pm2\omega \sqrt{A^2-(\sigma-x_h})^2}=\colv{x}{v}
+M(mT)\colv{x}{-v\pm2\omega \sqrt{A^2-(\sigma-x})^2}=\colv{x}{v}
 \end{equation}
 
 The uncertainty about the $\pm$  sign is a 
 direct consequence of the fact that for the same position, the velocity of the 
 oscillator can have two values equal in magnitude but with opposite signs.  
+
+Therefore now we have an expression of the impact map $M_I$ as depicted in Fig \ref{fig-impmap-dia}
+
+\begin{align}
+\label{def-mi}
+M_I:\colv{x}{v}&\mapsto M(mT)\colv{x}{-v\pm2\omega \sqrt{A^2-(\sigma-x})^2}
+\end{align}
+
+
+\subsection{Fixed points of the map}
+Therefore the fixed points of $M_I$ and the eigenvalues of the Jacobian of 
+$M_I$ at those fixed points will determine whether a $PmC1$ orbit will be 
+stable or not.  
 
 Suppose
 \[
@@ -1517,16 +1554,30 @@ One important property of  \eqref{fp-solution} is very evident:
 At grazing, $A=\sigma$.  Therefore there exists a trivial solution: 
 $(x^*,v^*)=(0,0)$.  This, of course, corresponds to a non-colliding orbit.  
 Now, after grazing, two solutions exist simultaneously.  The question is, 
-are they attactors, repellers or saddles? This is the question we will tackle 
+are they attractors, repellers or saddles? This is the question we will tackle 
 next.  
+
+
+\subsubsection{Jacobian of the map}
+From \eqref{def-mi}, the Jacobian of $M_I$ can be easily calculated:
+\begin{align}
+\label{eq-jac-mi}
+J(x,v)&=M(mT)
+\begin{pmatrix}
+1 & 0\\
+-v\pm2\omega \frac{\sigma-x}{\sqrt{A^2-(\sigma-x})^2} & -1
+\end{pmatrix}
+\end{align}
 
 \begin{figure}[!htp]
 \begin{center}
 \caption{Eigenvalues of fixed points Vs.  $F$ for $n=2.01,2.1,2.2$}
 \label{fig-eigs-F}
-\includegraphics[width=0.7\columnwidth]{fps_various_F}
+\def\svgwidth{\columnwidth}
+\input{fps_various_n.tex}
 \end{center}
 \end{figure}
+
 
 In Fig \ref{fig-eigs-F}, we plot the eigenvalues of the Jacobian at the fixed 
 points obtained via Formula \eqref{fp-solution} against the driving force 
@@ -1544,20 +1595,64 @@ stretching of the phase space.
 In case of $n=2.2$, both of them are repellers.  Only near grazing, one of 
 them become a saddle.   
 
+\subsection{Stability analysis at grazing}
 Now we are very close to determining the narrow window of disappearing chaos 
-as predicted in \cite{banerjee-kundu-soft}. In Fig. \ref{fig-eigs-n} we look 
-at the nature of the map around $n=2$ at grazing.  We see that in the region 
-$1.91251<n<2.08826$, (denoted by a cyan shade in the figure), the fixed point 
-is stable since both the eigenvalues of the Jacobian is less than $1$ in 
-magnitude.  
-
+as predicted in \cite{banerjee-kundu-soft}. As we have seen in Fig 
+\ref{fig-bif-nonint}, when the value of $n$ is close to a positive integer, a 
+stable orbit emerges right after grazing.  Looking at the trajectories, we 
+have seen that it is indeed a $P1C1$ orbit.  Therefore the window of vanishing 
+chaos will be equal to the range of $n$ values where there exists an 
+\emph{attracting} fixed point of the impact map $M_I$ \emph{right after grazing}.
 \begin{figure}[!htp]
-\begin{center}
+\centering
 \caption{Eigenvalues of fixed points at grazing Vs. $n$}
 \label{fig-eigs-n}
-\includegraphics[width=0.7\columnwidth]{region-fp-stable-around-2}
-\end{center}
+\def\svgwidth{\columnwidth}
+\input{probing_n_2pi.pdf_tex}
 \end{figure}
+
+From \eqref{fp-solution}, we can easily get the fixed points for any parameter 
+values . At grazing, the expressions simplify a lot because $A=\sigma$.   
+Therefore the fixed points are:
+
+\begin{align}
+\label{eq-fp-grazing}
+&\begin{cases}
+x_1^*&=0\\
+v_1^*&=0\\
+\end{cases}\\
+&\begin{cases}
+x_2^*&=\frac{2\sigma}{\alpha^2+1}\\
+v_2^*&=\frac{(d-ad+bc)x_2^*}{b} 
+\end{cases}
+\end{align}
+
+A glance at \eqref{eq-jac-mi} tells us that the Jacobian has a singular term 
+at the fixed point $p_1:=(x_1^*,v_1^*)$.  This signifies infinite stretching of the 
+phase space in at least one direction at that fixed point and therefore it 
+cannot be an attractor.  The other one, $p_2:=(x_2^*,v_2^*)$, is therefore the one 
+determining whether a $P1C1$ orbit will be stable for a certain set of 
+parameter values or not.  
+
+
+In Fig. \ref{fig-eigs-n} we look 
+at the nature of the fixed point $p_2$ of impact map for various $n$ values. We clearly see that 
+around each $n\in\mathbb{N}$, $\exists$ a neighbourhood (shaded in dark green 
+in the figure), where both the eigenvalues of the Jacobian are $<1$ in 
+magnitude.  The neighbourhoods are much narrower about odd $n$ values than 
+they are about even $n$ values.   We also note that the neighbourhood expands 
+in width as $n$ increases.  
+
+
+%\begin{figure}[!htp]
+%\begin{center}
+%\caption{Eigenvalues of fixed points at grazing Vs. $n$}
+%\label{fig-eigs-n}
+%\includegraphics[width=0.7\columnwidth]{region-fp-stable-around-2}
+%\end{center}
+%\end{figure}
+
+
 
 
 \section{Long transients}
@@ -1931,7 +2026,7 @@ parameter of the system.
 
 
 \appendix
-\chapter{Calculations for approximate Poincare map}
+\chapter{Calculations for approximate Poincaré map}
 In \eqref{map-poincare-hardcol}, there were a few unknown variables whose 
 analytical expressions in the regime of low velocity collisions 
 needed to be determined.  We proceed to do so now:

@@ -12,13 +12,14 @@ int main(int argc , char *argv[])
 	
 		for (i=1;i<N+1;i++) { tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
 		vec x(N,tmp);	
-		tmax=atof(argv[1+i]);
-		F=atof(argv[2+i]);
-		G=atof(argv[3+i]);
-		m=atof(argv[4+i]);
+		float tmin=atof(argv[1+i]);
+		tmax=atof(argv[2+i]);
+		F=atof(argv[3+i]);
+		G=atof(argv[4+i]);
+		m=atof(argv[5+i]);
 		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 
-		plottraj(x,tmax);
+		plottraj(x,tmin,tmax);
 	}
 
 	if (strcmp(argv[1],"plotmap")==0)
