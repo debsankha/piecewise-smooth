@@ -23,7 +23,7 @@ int main(int argc , char *argv[])
 		int i;	
 		double tmax,tmp[N];
 	
-		for (i=1;i<N+1;i++) { tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
+		for (i=1;i<N+1;i++) {tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
 		vec x(N,tmp);	
 		tmax=atof(argv[1+i]);
 		F=atof(argv[2+i]);
@@ -34,7 +34,7 @@ int main(int argc , char *argv[])
 		int i;	
 		double tmax,tmp[N];
 	
-		for (i=1;i<N+1;i++) { tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
+		for (i=1;i<N+1;i++) {tmp[i-1]=atof(argv[1+i]);}	//take x from stdin
 		vec x(N,tmp);
 	
 		tmax=atof(argv[1+i]);
@@ -50,4 +50,10 @@ int main(int argc , char *argv[])
 		plotbifurc_F(F_graz-atof(argv[2]),F_graz+atof(argv[3]),atoi(argv[4]));
 	}
 
+	if (strcmp(argv[1],"ischaos_n")==0)
+	{
+		double n0=atof(argv[2]);
+		double n1=atof(argv[3]);
+		ischaos(n0+rank*(n1-n0)/size, n0+(rank+1)*(n1-n0)/size);
+	}
 }

@@ -19,5 +19,6 @@ int plotpoincare(vec, double, double, double);
 int plotbifurc_F(float minF, float maxF, int npts);
 int detect_period(double *, double *, double *);
 int plotbasin(int npts,double tmax, int rank);
+void ischaos_n(float nmin,float nmax);
 
 #endif
