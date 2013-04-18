@@ -14,7 +14,7 @@
 
 extern float Sigma,G,F,W,m,K1;
 
-int plottraj(vec, float);	//returns period :P
+int plottraj(vec, float, float);	//returns period :P
 int plotpoincare(vec, double, double);
 int detect_period(double *, double *, double *);
 double time_to_stabilize(vec x, double tmax);
