@@ -117,23 +117,13 @@ def check_solution(x0,v0,pm):
 	if pm<0:
 		ph=-1*ph
 	
-	phasediff=atan(w*gamma/(w**2-w0**2))
-	tmin=(ph-phasediff)/w
-	
 
-	nexty=commands.getoutput("./hardcol.out traj %f %f %f %f %f %f %f 2>/dev/null 1>spm | tail -n 1 | awk '{print $1\"\t\"$2\"\t\"$3}' "%(sigma,-1*(v0+vp),tmin, T,F,gamma,n))
-	
-	sys.stderr.write("yexact: %f, %f\n"%(x0,v0))
+	nexty=M2T*np.matrix([x0,-v0-2*vp]).transpose()
+	nextx=float(nexty[0])
+	nextv=float(nexty[1])
 
 
-	tcol,nextx,nextv=(float(i) for i in nexty.split('\t'))
-	
-	nextx-=xp
-	nextv-=vp
-		
-	sys.stderr.write("tcol: %f, nexty: %f, %f\n"%(tcol,nextx,nextv))
-
-	if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.01:
+	if sqrt((x0-nextx)**2+(v0-nextv)**2)>0.001:
 		return 0
 	else:
 		return 1	
@@ -247,6 +237,6 @@ def probe_stability_vs_n(nmin,nmax,npts):
 	
 
 if __name__=='__main__':
-#	probe_stability_vs_F(float(sys.argv[1]),int(sys.argv[2]))
-	probe_stability_vs_n(float(sys.argv[1]),float(sys.argv[2]),int(sys.argv[3]))
+	probe_stability_vs_F(float(sys.argv[1]),int(sys.argv[2]))
+#	probe_stability_vs_n(float(sys.argv[1]),float(sys.argv[2]),int(sys.argv[3]))
 
