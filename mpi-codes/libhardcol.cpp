@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.001
+#define EPSILON 0.0001
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -38,7 +38,7 @@ int plottraj(vec x, float tmax)
 	while (t<tmax)
 	{
 		oldvel=x.arr[1];
-		cout<<t<<'\t';x.show();						//responsible for the output to stdout
+//		cout<<t<<'\t';x.show();						//responsible for the output to stdout
 		rk4(t,&x);
 		if (x.arr[0]>Sigma)						//The reset map on hard collision
 		{
@@ -231,3 +231,27 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 	*time_to_stable=-1;	//Just some absurd value: should never be accepted by the calling function
 	return 0;
 }
+
+void ischaos_n(float mmin,float mmax)
+{
+	Sigma=1;
+	G=0.08;
+	
+	int res;
+	double tmax=10000;
+	
+	double tmp[]={0,0};
+	vec x(N,tmp);	
+
+	for (m=mmin;m<mmax;n+=0.02)
+	{
+		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
+		F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
+		
+		x.arr[0]=-4;
+		x.arr[1]=2;
+		if (plottraj(x,tmax)==1) cout <<m<<'\t'<<1<<endl;
+		else cout <<m<<'\t'<<0<<endl;
+	}
+}
+
