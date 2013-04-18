@@ -54,6 +54,6 @@ int main(int argc , char *argv[])
 	{
 		double n0=atof(argv[2]);
 		double n1=atof(argv[3]);
-		ischaos(n0+rank*(n1-n0)/size, n0+(rank+1)*(n1-n0)/size);
+		ischaos_n(n0+rank*(n1-n0)/((float)size), n0+(rank+1)*(n1-n0)/((float)size));
 	}
 }

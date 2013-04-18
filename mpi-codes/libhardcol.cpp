@@ -29,12 +29,11 @@ int plottraj(vec x, float tmax)
 	double time_to_stable=0;
 	double oldvel=0;
 	double poinc_x[ORB];							//array to store poincare x vals in to detect period
-	double poinc_t[ORB];
 	int i=0;
-	int period=0;
+	bool period=0;
 			
 	t=0;
-	cerr<<"F="<<F<<endl;	
+//	cerr<<"F="<<F<<endl;	
 	while (t<tmax)
 	{
 		oldvel=x.arr[1];
@@ -48,20 +47,20 @@ int plottraj(vec x, float tmax)
 
 		if ((oldvel<0) && (x.arr[1]>0))
 		{
-			cerr<<t<<'\t'<<x.arr[0]<<endl;				//outputs the poincare mappings to stderr
+		//	cerr<<t<<'\t'<<x.arr[0]<<endl;				//outputs the poincare mappings to stderr
 			poinc_x[i]=x.arr[0];
-			poinc_t[i]=t;
 			i++;
 		 
 			if (i==ORB)
 			{
 				i=0;
-				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+
+				period=pow((pow(poinc_x[0],2)+pow(poinc_x[1],2)+pow(poinc_x[2],2)+pow(poinc_x[3],2))/4.0-pow((poinc_x[0]+poinc_x[1]+poinc_x[2]+poinc_x[3])/4.0,2),0.5)<EPSILON;
 				
-				if (period>0)
+				if (period)
 				{
-					cerr<<"# Period: "<<period<<endl;
-					cerr<<"time to stabilize: "<<time_to_stable<<endl;
+				//	cerr<<"# Period: "<<period<<endl;
+				//	cerr<<"time to stabilize: "<<time_to_stable<<endl;
 					return period;
 				}
 			}
@@ -234,6 +233,7 @@ int detect_period(double *arr, double *t_arr, double *time_to_stable)
 
 void ischaos_n(float mmin,float mmax)
 {
+	cerr<<"from: "<<mmin<<"\tto: "<<mmax<<endl;
 	Sigma=1;
 	G=0.08;
 	
@@ -243,15 +243,24 @@ void ischaos_n(float mmin,float mmax)
 	double tmp[]={0,0};
 	vec x(N,tmp);	
 
-	for (m=mmin;m<mmax;n+=0.02)
+	for (m=mmin;m<mmax;m+=0.01)
 	{
+		cerr<<m<<endl;
 		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
 		F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
 		
 		x.arr[0]=-4;
 		x.arr[1]=2;
-		if (plottraj(x,tmax)==1) cout <<m<<'\t'<<1<<endl;
-		else cout <<m<<'\t'<<0<<endl;
+		res=plottraj(x,tmax);
+
+		if (res==1)
+		{
+			cout <<m<<'\t'<<1<<endl;
+		}
+		else 
+		{
+			cout <<m<<'\t'<<0<<endl;
+		}
 	}
 }
 
