@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#define ORB 4
 using namespace std;
 
 float Sigma=1;		//the boundary: x=Sigma
@@ -59,9 +59,7 @@ int plottraj(vec x, float tmax)
 				
 				if (period)
 				{
-				//	cerr<<"# Period: "<<period<<endl;
-				//	cerr<<"time to stabilize: "<<time_to_stable<<endl;
-					return period;
+					return 1;
 				}
 			}
 		}	
@@ -237,30 +235,34 @@ void ischaos_n(float mmin,float mmax)
 	Sigma=1;
 	G=0.08;
 	
-	int res;
+	int res;bool chaos;
+	int npts=20;
+
 	double tmax=10000;
 	
 	double tmp[]={0,0};
 	vec x(N,tmp);	
+	
+	float dm=(mmax-mmin)/20.0;
 
-	for (m=mmin;m<mmax;m+=0.01)
+	for (m=mmin;m<mmax;m+=dm)
 	{
-		cerr<<m<<endl;
-		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
-		F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
-		
-		x.arr[0]=-4;
-		x.arr[1]=2;
-		res=plottraj(x,tmax);
-
-		if (res==1)
+		chaos=1;
+		for (int hj=0;hj<npts;hj++)
 		{
-			cout <<m<<'\t'<<1<<endl;
+			K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
+			F=(Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5))*1.01;
+			
+			x.arr[0]=randdouble(-8,1);
+			x.arr[1]=randdouble(-8,8);
+			res=plottraj(x,tmax);
+	
+			if (res==1)
+			{
+				chaos=0;
+				break;
+			}
 		}
-		else 
-		{
-			cout <<m<<'\t'<<0<<endl;
-		}
+		cout<<m<<"\t"<<chaos<<endl;
 	}
 }
-

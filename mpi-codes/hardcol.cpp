@@ -17,7 +17,6 @@ int main(int argc , char *argv[])
 		plotbasin(npts,tmax,rank);
 	}
 
-
 	if (strcmp(argv[1],"traj")==0)
 	{
 		int i;	
@@ -29,6 +28,7 @@ int main(int argc , char *argv[])
 		F=atof(argv[2+i]);
 		plottraj(x,tmax);
 	}
+
 	if (strcmp(argv[1],"poincare")==0)
 	{
 		int i;	
@@ -54,6 +54,7 @@ int main(int argc , char *argv[])
 	{
 		double n0=atof(argv[2]);
 		double n1=atof(argv[3]);
-		ischaos_n(n0+rank*(n1-n0)/((float)size), n0+(rank+1)*(n1-n0)/((float)size));
+		double dn=(n1-n0)/size;
+		ischaos_n(n0+rank*dn,n0+(rank+1)*dn);
 	}
 }
