@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0001
+#define EPSILON 0.001
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -133,7 +133,7 @@ int plotpoincare(vec x, double tmin, double tmax, double t_startprint)
 			if (i==ORB)
 			{
 				i=0;
-				period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
+			period=detect_period(&poinc_x[0],&poinc_t[0],&time_to_stable);
 				
 				if (period>0)
 				{
@@ -243,15 +243,18 @@ void ischaos_n(float mmin,float mmax)
 	double tmp[]={0,0};
 	vec x(N,tmp);	
 
-	for (m=mmin;m<mmax;n+=0.02)
+	float dm=(mmax-mmin)/40.0;
+	for (m=mmin;m<mmax;m+=dm)
 	{
 		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
-		F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5);
+		F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)+0.001;
 		
 		x.arr[0]=-4;
 		x.arr[1]=2;
-		if (plottraj(x,tmax)==1) cout <<m<<'\t'<<1<<endl;
-		else cout <<m<<'\t'<<0<<endl;
+//		if (plottraj(x,tmax)==1) cout <<m<<'\t'<<1<<endl;
+//		else cout <<m<<'\t'<<0<<endl;
+//
+		plotpoincare(x,0,tmax,tmax*0.9);
 	}
 }
 
