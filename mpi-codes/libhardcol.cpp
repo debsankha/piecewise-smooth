@@ -1,6 +1,6 @@
 #include <hardcol.h>
 #define NPTS 10		//# of pts to take for each param velue in bifurc diagram
-#define EPSILON 0.0001
+#define EPSILON 0.00001
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -238,7 +238,7 @@ void ischaos_n(float mmin,float mmax)
 	int res;bool chaos;
 	int npts=20;
 
-	double tmax=10000;
+	double tmax=100000;
 	
 	double tmp[]={0,0};
 	vec x(N,tmp);	
@@ -251,7 +251,7 @@ void ischaos_n(float mmin,float mmax)
 		for (int hj=0;hj<npts;hj++)
 		{
 			K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
-			F=(Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5))*1.01;
+			F=(Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5))+0.01;
 			
 			x.arr[0]=randdouble(-8,1);
 			x.arr[1]=randdouble(-8,8);
