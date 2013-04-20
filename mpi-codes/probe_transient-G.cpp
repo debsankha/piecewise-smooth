@@ -1,6 +1,6 @@
 #include <hardcol.h>
-#define NPTSEACHX 300	//Number of points for each F value
-#define NPTS 50	//Number of x values
+#define NPTSEACHX 1000	//Number of points for each F value
+#define NPTS 100	//Number of x values
 #include <mpi.h>
 #include <ctime>
 #define ORB 4
