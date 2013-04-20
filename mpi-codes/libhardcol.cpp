@@ -243,18 +243,23 @@ void ischaos_n(float mmin,float mmax)
 	double tmp[]={0,0};
 	vec x(N,tmp);	
 
+	nrepeat=10;
+
 	float dm=(mmax-mmin)/40.0;
 	for (m=mmin;m<mmax;m+=dm)
 	{
-		K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
-		F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)+0.001;
-		
-		x.arr[0]=-4;
-		x.arr[1]=2;
-//		if (plottraj(x,tmax)==1) cout <<m<<'\t'<<1<<endl;
-//		else cout <<m<<'\t'<<0<<endl;
-//
-		plotpoincare(x,0,tmax,tmax*0.9);
+		for (int hj=0;hj<nrepeat;hj++)
+		{
+			K1=(W*m/2)*(W*m/2.0)+G*G/4.0;
+			F=Sigma*pow(pow(W*W-K1,2)+W*G*W*G,0.5)+0.001;
+			
+			x.arr[0]=randdouble(-8,1);
+			x.arr[1]=randdouble(-8,8);
+	//		if (plottraj(x,tmax)==1) cout <<m<<'\t'<<1<<endl;
+	//		else cout <<m<<'\t'<<0<<endl;
+	//
+			plotpoincare(x,0,tmax,tmax*0.9);
+		}
 	}
 }
 
