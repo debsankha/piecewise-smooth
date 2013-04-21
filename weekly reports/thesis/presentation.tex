@@ -113,8 +113,8 @@ maps: a \emph{hybrid} of continuous time and discrete time systems.  \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Hybrid Systems: Mathematical Definition}
-\begin{problock}{definition}
+\begin{frame}{Mathematical Definition}
+\begin{problock}{Piecewise smooth hybrid system}
 A system described by a set of ODE's and a set of \bb{reset maps}:
 \begin{align}
 \label{def-hybrid}
@@ -213,6 +213,19 @@ t}&\mathrm{for}~~x<\sigma\\
 
 \end{frame}
 
+\begin{frame}
+If we forget the boundary for a moment, the equation of motion is a non-homogeneous 
+ODE.  As usual, its solution is a sum total of a \emph{homogeneous solution} 
+and a \emph{particular solution}:
+\begin{align}
+\label{eq-shm-sol}
+x(t)&=x_p(t)+x_h(t)\\
+x_p(t)&=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}cos(\omega t+tan^{-1}\frac{\omega \gamma}{\omega^2-\omega_0^2})\\
+x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x(0) + (\sin{\omega_gt})v(0) \right\}\\
+\omega_g&=\sqrt{\omega_0^2-\frac{\gamma^2}{4}}
+\end{align}
+
+\end{frame}
 
 \begin{frame}{A few possible trajectories}
 
@@ -236,15 +249,14 @@ t}&\mathrm{for}~~x<\sigma\\
 \section{Vanishing Chaos}
 
 \begin{frame}
-Kundu and Banerjee \cite{banerjee-kundu-soft} investigated 
+Kundu and Banerjee \cite{banerjee-kundu-soft,banerjee-kundu-hard} investigated 
 the grazing bifurcations in this system by deriving an approximate analytical expression 
 for the stroboscopic  Poincaré map near grazing. \\
 
 
 \hlb{Their results:}
 \begin{itemize}
-\item Unless $n=\frac{2\omega_g}{\omega_{forcing}}\in \mathbb{N}$, chaos \footnote{$\omega_g=\sqrt{\omega_0^2-\frac{\gamma^2}{4}}$}
-
+\item Unless $n=\frac{2\omega_g}{\omega_{forcing}}\in \mathbb{N}$, chaos 
 immediately follows grazing of the steady state orbit.  
 \item If $n\in\mathbb{N}$, no chaos after grazing.  
 \end{itemize}
@@ -255,6 +267,149 @@ neighbourhoods around each $n\in\mathbb{N}$
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+
+\begin{tiny}
+\begin{figure}
+\begin{subfigure}{0.5\linewidth}
+\begin{center}
+\caption*{Bifurcation digram for $n=2.2$}
+\label{fig-bif-int}
+\def\svgwidth{\columnwidth}
+\includesvg{bifurcation-ni}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{0.5\linewidth}
+\begin{center}
+\caption*{Bifurcation diagram for $n=2$}
+\def\svgwidth{\columnwidth}
+\label{fig-bif-nonint}
+\includesvg{bifurcation-n-2}
+\end{center}
+\end{subfigure}
+\end{figure}
+\end{tiny}
+\end{frame}
+
+\begin{frame}{Numerical computation of orbits}
+The bifurcation diagrams suggest that for $n\in\mathbb{N}$, a stable period-1 
+orbit emerges right after grazing, unlike non-integer $n$ values.  
+
+We used a method devised by Ma et al.\cite{ma-nraphson} for checking if that 
+indeed is the case.  
+
+\begin{tiny}
+\begin{figure}[!hbp]
+\begin{center}
+\def\svgwidth{0.6\columnwidth}
+\includesvg{num-sol}
+\end{center}
+\end{figure}
+\end{tiny}
+\end{frame}
+
+\begin{frame}
+Define $y=(x_0,v_0,x_c,v_c,\tau)$
+
+Then we get a system of equations $\mb{G}(y)=\mb{0}$ where:
+\begin{align*}
+G_{1,2}(y)=\vec{x_c}-\varphi(\tau,0,\vec{x_0})&=0\\
+G_{3,4}(y)=\vec{x_0}-\varphi(2T,\tau,\vec{x_c})&=0\\
+G_5(y)=x_1-\sigma&=0
+\end{align*}
+
+Since this is a set of 5 equations in 5 unknowns, we can solve the equation $G(y)=0$ using Newton-Raphson method:
+\[
+y_{n+1}=y_n+J(y)^{-1}G(y)
+\]
+\end{frame}
+
+\begin{frame}
+\begin{tiny}
+\begin{figure}
+\begin{center}
+\def\svgwidth{\columnwidth}
+\includesvg{num-eigs}
+\end{center}
+\end{figure}
+\end{tiny}
+\end{frame}
+
+\section{Impact map}
+\begin{frame}{Analytical approach}
+\begin{figure}[!htp]
+\centering
+\caption{Impact map in case of $PnC1$ orbit}
+\label{fig-impmap-dia}
+\def\svgwidth{0.4\columnwidth}
+\includesvg{impactmap}
+\end{figure}
+
+\begin{align}
+\label{def-mi}
+M_I:\colv{x}{v}&\mapsto M(mT)\colv{x}{-v\pm2\omega \sqrt{A^2-(\sigma-x})^2}
+\end{align}
+
+\begin{eqnarray}
+\label{def-huge-M-matrix}
+M(t)=\frac{e^{-\gamma t/2}}{\omega_g}
+\begin{pmatrix}
+\omega_g\cos{\omega_g t}+\frac{\gamma}{2}\sin{\omega_g t} & \sin{\omega_g t}\\
+-k\sin{\omega_g t} & \omega_g\cos{\omega_g t}-\frac{\gamma}{2}\sin{\omega_g t}
+\end{pmatrix}
+\end{eqnarray}
+\end{frame}
+
+\begin{frame}{The fixed points and the Jacobian}
+\hlb{Fixed points}
+\begin{align}
+\label{fp-solution}
+x^*&=\frac{\sigma\pm\sqrt{\sigma^2-(\alpha^2+1)(\sigma^2-A^2)}}{\alpha^2+1}\\
+v^*&=\frac{(d-ad+bc)x^*}{b}\\
+M(mT)&=
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}\\
+\alpha&=\frac{(a-d+ad-bc-1)}{2b\omega}
+\end{align}
+
+\hlb{The Jacobian}
+\begin{align}
+\label{eq-jac-mi}
+J(x,v)&=M(mT)
+\begin{pmatrix}
+1 & 0\\
+-v\pm2\omega \frac{\sigma-x}{\sqrt{A^2-(\sigma-x})^2} & -1
+\end{pmatrix}
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\begin{tiny}
+\begin{figure}[!htp]
+\begin{center}
+\caption{Eigenvalues of J at fixed points Vs.  $F$ for $n=2.01,2.1,2.2$}
+\def\svgwidth{0.8\textwidth}
+\includesvg{many-n}
+\end{center}
+\end{figure}
+\end{tiny}
+\end{frame}
+
+\begin{frame}
+\begin{tiny}
+\begin{figure}[!htp]
+\begin{center}
+\caption{Eigenvalues of J at fixed points at grazing Vs. $n$}
+\label{fig-eigs-n}
+\def\svgwidth{0.8\textwidth}
+\includesvg{probing_n_2pi}
+\end{center}
+\end{figure}
+\end{tiny}
+\end{frame}
 
 
 
@@ -264,14 +419,8 @@ neighbourhoods around each $n\in\mathbb{N}$
 
 
 
-
-
-
-
-
-
-
-
-
+\nocite{*}
+\bibliography{thesis}{}
+\bibliographystyle{plain}
 
 \end{document}
