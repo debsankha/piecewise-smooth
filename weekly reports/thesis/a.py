@@ -1,10 +1,10 @@
 from math import *
 
-a=-0.3
+a=1
 
 f=lambda x:(a-x)**(1.5) if (x<a) else 0.7*(x-a)
 
-x=3
+x=-1
 
 dx=1
 n=0

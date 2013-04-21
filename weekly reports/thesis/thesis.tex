@@ -19,6 +19,21 @@ filecolor=darkgreen,
 urlcolor=darkred,
 citecolor=darkblue}
 
+%%%%%%%%%%%%%%%%% stuff for including svg images %%%%%%%%%%%%%
+\newcommand{\executeiffilenewer}[3]{%
+ \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+ {\pdffilemoddate{#2}}>0%
+ {\immediate\write18{#3}}\fi%
+}
+
+\newcommand{\includesvg}[1]{%
+ \executeiffilenewer{#1.svg}{#1.pdf}%
+ {inkscape -z -D --file=#1.svg %
+ --export-pdf=#1.pdf --export-latex}%
+ \input{#1.pdf_tex}%
+}
+
+
 \renewcommand{\(}{\begin{columns}}
 \renewcommand{\)}{\end{columns}}
 \newcommand{\<}[1]{\begin{column}{#1}}
@@ -38,7 +53,7 @@ citecolor=darkblue}
 \newtheorem{claim}{Claim}[section]
 \newtheorem{theorem}{Theorem}[section]
 \begin{document}
-\title{Investigating piecewise smooth dynamical systems}
+\title{Investigating Impacting Dynamical Systems}
 \author{Debsankha Manik}
 \maketitle
 
@@ -91,12 +106,13 @@ its existence cannot be guaranteed everywhere in the phase space for non
 smooth systems.  
 
 
+
 \begin{figure}[!htp]
 \centering
 \caption{Trajectory of a bouncing ball : a piecewise smooth system}
 \label{fig-bouncing_ball}
 \def\svgwidth{0.4\columnwidth}
-\input{bounce.pdf_tex}
+\includesvg{bounce}
 \end{figure}
 
 
@@ -249,7 +265,8 @@ $\mu$ throughout $S_i$.
 \begin{figure}[!hbp]
 \caption{Impact oscillator}
 \begin{center}
-\includegraphics[width=0.5\columnwidth]{osc-pw}
+\def\svgwidth{0.5\columnwidth}
+\includesvg{osc-pw}
 \end{center}
 \end{figure}
 
@@ -293,11 +310,13 @@ $\mu$ in the appropriate regimes.
 \end{definition}
 
 \para{Example: Oscillator with hard impacts\\}
+
 \begin{figure}[!hbp]
 \caption{Hard impacting oscillator}
 \label{fig-himp}
 \begin{center}
-\includegraphics[width=0.5\columnwidth]{hardcol}
+\def\svgwidth{0.5\columnwidth}
+\includesvg{hardcol}
 \end{center}
 \end{figure}
 
@@ -334,7 +353,7 @@ of these novel  behaviours now.
 \centering
 \caption{A few cases of border collision bifurcations}
 \def\svgwidth{0.9\columnwidth}
-\input{c-bifs.pdf_tex}
+\includesvg{c-bifs}
 \end{figure}
 
 
@@ -486,7 +505,7 @@ real.
 \centering
 \caption{Border collision of equilibria}
 \def\svgwidth{0.9\columnwidth}
-\input{cases.pdf_tex}
+\includesvg{cases}
 \end{figure}
 
 
@@ -520,14 +539,16 @@ discontinuity of  the derivative at the switching manifold)}
 \begin{subfigure}{\textwidth}
 \caption{Before border collision: period 1}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{pw-perdoub-bef}
+\def\svgwidth{0.7\columnwidth}
+\includesvg{pw-perdoub-bef}
 \end{center}
 \end{subfigure}
 
 \begin{subfigure}{\textwidth}
 \caption{After border collision: period 2}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{pw-perdoub-after}
+\def\svgwidth{0.7\columnwidth}
+\includesvg{pw-perdoub-aft}
 \end{center}
 \end{subfigure}
 \end{figure}
@@ -636,7 +657,8 @@ otherwise not.
 \caption{Grazing orbit}
 \label{fig-grazing-orbit}
 \begin{center}
-\includegraphics[width=0.6\columnwidth]{graz}
+\def\svgwidth{0.8\columnwidth}
+\includesvg{graz}
 \end{center}
 \end{figure}
 
@@ -688,7 +710,7 @@ another property to be used later.)\label{crit-minH}
 \caption{ZDM}
 \label{fig-ZDM}
 \def\svgwidth{0.4\columnwidth}
-\input{ZDM_eval.pdf_tex}
+\includesvg{ZDM_eval}
 \end{figure}
 
 
@@ -757,7 +779,8 @@ place at those specific $n$-values.  Now we will describe their method.
 \caption{Oscillator with soft impact}
 \label{fig-soft-impact}
 \begin{center}
-\includegraphics[width=0.5\columnwidth]{soft-prest}
+\def\svgwidth{0.5\columnwidth}
+\includesvg{soft-prest}
 \end{center}
 \end{figure}
 
@@ -838,7 +861,7 @@ be analytically solved.  So ZDM is the only tricky part.
 \caption{Calculating the ZDM}
 \label{fig-ZDM-calc}
 \def\svgwidth{0.6\columnwidth}
-\input{ZDM_eval_2.pdf_tex}
+\includesvg{ZDM_eval_2}
 \end{figure}
 
 
@@ -1111,7 +1134,8 @@ Where $r$ is the coefficient of restitution.
 \begin{figure}
 \caption{Oscillator with hard impacts}
 \begin{center}
-\includegraphics[width=0.5\columnwidth]{hardcol}
+\def\svgwidth{0.5\columnwidth}
+\includesvg{hardcol}
 \end{center}
 \end{figure}
 
@@ -1219,12 +1243,16 @@ vanishing of chaos in hard impacting oscillator and the problem of long
 transients in the same system.  
 \section{Description}
 We briefly describe our system again.  
-\begin{figure}[!hbp]
+
+\begin{figure}[!hbb]
 \caption{Hard impacting oscillator}
 \begin{center}
-\includegraphics[width=0.5\columnwidth]{hardcol}
+\def\svgwidth{0.5\columnwidth}
+\includesvg{hardcol}
 \end{center}
 \end{figure}
+
+
 
 It consists of a driven simple harmonic oscillator with a hard wall at a distance 
 $\sigma$ from its equilibrium position.   The equation of motion is:
@@ -1439,7 +1467,7 @@ stability analysis of single collision orbits in hard impacting oscillators.
 \caption{Impact map in case of $PnC1$ orbit}
 \label{fig-impmap-dia}
 \def\svgwidth{0.5\columnwidth}
-\input{impactmap.pdf_tex}
+\includesvg{impactmap}
 \end{figure}
 
 \subsection{Derivation of the map}
@@ -1603,12 +1631,14 @@ stable orbit emerges right after grazing.  Looking at the trajectories, we
 have seen that it is indeed a $P1C1$ orbit.  Therefore the window of vanishing 
 chaos will be equal to the range of $n$ values where there exists an 
 \emph{attracting} fixed point of the impact map $M_I$ \emph{right after grazing}.
+
 \begin{figure}[!htp]
-\centering
+\begin{center}
 \caption{Eigenvalues of fixed points at grazing Vs. $n$}
 \label{fig-eigs-n}
 \def\svgwidth{\columnwidth}
-\input{probing_n_2pi.pdf_tex}
+\includesvg{probing_n_2pi}
+\end{center}
 \end{figure}
 
 From \eqref{fp-solution}, we can easily get the fixed points for any parameter 
@@ -1713,7 +1743,21 @@ B&=\sqrt{x_0^2+\left(\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}\right)^2}
 \begin{center}
 \caption{Plot of \eqref{eq-shm-sol} for $\omega_g\approx\omega$}
 \label{fig-shm-plot}
-\includegraphics[width=0.6\columnwidth]{beats-decaying}
+\begin{gnuplot}[terminal=epslatex,terminaloptions=color solid linewidth 3,scale=0.7]
+r=1.3
+phi=1.5
+m=2.2
+w=3
+set samples 2000
+g=-0.1
+
+set grid
+se xlabel '$t$'
+se ylabel '$x$'
+
+f(x)=-cos(w*x)+r*exp(g*x/2)*cos(m*w*x/2+phi)
+p [0:90] f(x) title '$-\cos{\omega x}+re^{-\gamma x/2}\cos{(m\omega x/2+\varphi)}$'
+\end{gnuplot}
 \end{center}
 \end{figure}
 
@@ -1733,7 +1777,24 @@ We demonstrate this in Fig \ref{fig-envelope-beats}.
 \begin{center}
 \caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\approx \omega$}
 \label{fig-envelope-beats}
-\includegraphics[width=0.8\columnwidth]{guess_envelope}
+\begin{gnuplot}[terminal=epslatex,terminaloptions=color solid linewidth 3,scale=0.7]
+r=1.3
+phi=1.5
+m=2.2
+w=3
+set samples 2000
+g=-0.1
+
+set grid
+se xlabel '$t$'
+se ylabel '$x$'
+
+f(x)=-cos(w*x)+r*exp(g*x/2)*cos(m*w*x/2+phi)
+g(x)=(1+r*exp(g*x/2))*sin(phi/2+(m/2-1)*w*x/2)
+h(x)=-(1+r*exp(g*x/2))*sin(phi/2+(m/2-1)*w*x/2)
+
+p [0:90] f(x) title '$-\cos{\omega x}+re^{-\gamma x/2}\cos{(m\omega x/2+\varphi)}$', g(x) lt 3 title "envelope", h(x) lt 3 title ""
+\end{gnuplot}
 \end{center}
 \end{figure}
 
@@ -1780,7 +1841,26 @@ $E(t)$ being the upper envelope.
 \begin{figure}[!htb]
 \begin{center}
 \caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\gg\omega$}
-\includegraphics[width=0.6\columnwidth]{envelope-m-small}
+\begin{gnuplot}[terminal=epslatex,terminaloptions=color solid linewidth 3,scale=0.7]
+r=3
+phi=1.5
+m=0.1
+w=5
+set samples 2000
+g=-0.1
+
+set grid
+se xlabel '$t$'
+se ylabel '$x$'
+
+f(x)=-cos(w*x)+r*exp(g*x/2)*cos(m*w*x/2+phi)
+g(x)=1+r*exp(g*x/2)*cos(m*w*x/2+phi)
+h(x)=-1+r*exp(g*x/2)*cos(m*w*x/2+phi)
+
+p [0:50] f(x) title '$-\cos{\omega x}+re^{-\gamma x/2}\cos{(m\omega x/2+\varphi)}$', g(x) lt 3 title "envelope", h(x) lt 3 title ""
+\end{gnuplot}
+
+
 \end{center}
 \end{figure}
 
@@ -1803,7 +1883,24 @@ E(t)&=&-A\cos{\omega t}+e^{-\gamma t/2}B
 \begin{figure}[!htb]
 \begin{center}
 \caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\ll\omega$}
-\includegraphics[width=0.6\columnwidth]{envelope-m-large}
+\begin{gnuplot}[terminal=epslatex,terminaloptions=color solid linewidth 3,scale=0.7]
+r=3
+phi=1.5
+m=10
+w=3
+set samples 2000
+g=-0.1
+
+set grid
+se xlabel '$t$'
+se ylabel '$x$'
+
+f(x)=-cos(w*x)+r*exp(g*x/2)*cos(m*w*x/2+phi)
+g(x)=-cos(w*x)+r*exp(g*x/2)
+h(x)=-cos(w*x)-r*exp(g*x/2)
+
+p [0:8] f(x) title '$-\cos{\omega x}+re^{-\gamma x/2}\cos{(m\omega x/2+\varphi)}$', g(x) lt 3 title "envelope", h(x) lt 3 title ""
+\end{gnuplot}
 \end{center}
 \end{figure}
 
@@ -2073,9 +2170,6 @@ v_p(\tau+\delta t)&=-\omega x_m sin\left( \omega (\tau+\delta t)+tan^{-1}\frac{\
 &=-\omega x_m sin\left(\omega\delta t+\sqrt{\frac{2\varepsilon}{\sigma}}\right) 
 \end{align*}
 % plot of numerical poincare map
-
-
-
 
 \bibliography{thesis}{}
 \bibliographystyle{plain}

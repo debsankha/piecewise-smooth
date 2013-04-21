@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{575.20112293bp}%
+    \setlength{\unitlength}{587.9886595bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,7 +48,16 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.89928069)%
+  \begin{picture}(1,0.83938121)%
     \put(0,0){\includegraphics[width=\unitlength]{ZDM_eval_2.pdf}}%
+    \put(0.31735854,0.72348234){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$ZDM:x_1\mapsto x_3$}}}%
+    \put(0.11772068,0.40187659){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_1$}}}%
+    \put(0.44998999,0.29742341){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_5$}}}%
+    \put(0.25504854,0.1900282){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\delta$}}}%
+    \put(0.60683548,0.19552562){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\delta'$}}}%
+    \put(0.78407038,0.10453106){\color[rgb]{0,0,0}\rotatebox{63.44602687}{\makebox(0,0)[lb]{\smash{$\delta+\delta'$}}}}%
+    \put(0.70045936,0.40462534){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_2$}}}%
+    \put(0.47467367,0.396379){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0$}}}%
+    \put(0.54927718,0.01155156){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_3$}}}%
   \end{picture}%
 \endgroup%

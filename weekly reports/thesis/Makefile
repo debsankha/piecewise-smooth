@@ -7,3 +7,5 @@ thesis.bib: thesis.aux
 thesis.aux:
 	pdflatex --shell-escape thesis.tex	
 
+presentation: presentation.tex
+	pdflatex --shell-escape presentation.tex
