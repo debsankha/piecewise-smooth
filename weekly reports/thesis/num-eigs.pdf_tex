@@ -1,0 +1,102 @@
+%% Creator: Inkscape inkscape 0.48.3.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'num-eigs.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{480bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.8)%
+    \put(0,0){\includegraphics[width=\unitlength]{num-eigs.pdf}}%
+    \put(0.106,0.4885){\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0.106,0.52416667){\makebox(0,0)[rb]{\smash{0.2}}}%
+    \put(0.106,0.55983333){\makebox(0,0)[rb]{\smash{0.4}}}%
+    \put(0.106,0.5955){\makebox(0,0)[rb]{\smash{0.6}}}%
+    \put(0.106,0.631){\makebox(0,0)[rb]{\smash{0.8}}}%
+    \put(0.106,0.66666667){\makebox(0,0)[rb]{\smash{1}}}%
+    \put(0.106,0.70233333){\makebox(0,0)[rb]{\smash{1.2}}}%
+    \put(0.11983333,0.4585){\makebox(0,0)[b]{\smash{0.07}}}%
+    \put(0.213,0.4585){\makebox(0,0)[b]{\smash{0.08}}}%
+    \put(0.30616667,0.4585){\makebox(0,0)[b]{\smash{0.09}}}%
+    \put(0.39933333,0.4585){\makebox(0,0)[b]{\smash{0.1}}}%
+    \put(0.4925,0.4585){\makebox(0,0)[b]{\smash{0.11}}}%
+    \put(0.58566667,0.4585){\makebox(0,0)[b]{\smash{0.12}}}%
+    \put(0.67883333,0.4585){\makebox(0,0)[b]{\smash{0.13}}}%
+    \put(0.772,0.4585){\makebox(0,0)[b]{\smash{0.14}}}%
+    \put(0.86516667,0.4585){\makebox(0,0)[b]{\smash{0.15}}}%
+    \put(0.95833333,0.4585){\makebox(0,0)[b]{\smash{0.16}}}%
+    \put(0.02933333,0.60283333){\rotatebox{90}{\makebox(0,0)[b]{\smash{Eigenvalues}}}}%
+    \put(0.539,0.4135){\makebox(0,0)[b]{\smash{F}}}%
+    \put(0.539,0.74733333){\makebox(0,0)[b]{\smash{Modulus of eigenvalues of the Jacobian at fixed points vs. F at n=2}}}%
+    \put(0.18316667,0.56733333){\rotatebox{90}{\makebox(0,0)[lb]{\smash{Grazing}}}}%
+    \put(0.854,0.67233333){\makebox(0,0)[rb]{\smash{eig1}}}%
+    \put(0.854,0.64233333){\makebox(0,0)[rb]{\smash{eig2}}}%
+    \put(0.854,0.61233333){\makebox(0,0)[rb]{\smash{1}}}%
+    \put(0.09216667,0.0885){\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0.09216667,0.117){\makebox(0,0)[rb]{\smash{2}}}%
+    \put(0.09216667,0.1455){\makebox(0,0)[rb]{\smash{4}}}%
+    \put(0.09216667,0.17416667){\makebox(0,0)[rb]{\smash{6}}}%
+    \put(0.09216667,0.20266667){\makebox(0,0)[rb]{\smash{8}}}%
+    \put(0.09216667,0.23116667){\makebox(0,0)[rb]{\smash{10}}}%
+    \put(0.09216667,0.25966667){\makebox(0,0)[rb]{\smash{12}}}%
+    \put(0.09216667,0.28816667){\makebox(0,0)[rb]{\smash{14}}}%
+    \put(0.106,0.0585){\makebox(0,0)[b]{\smash{0.38}}}%
+    \put(0.2125,0.0585){\makebox(0,0)[b]{\smash{0.4}}}%
+    \put(0.31916667,0.0585){\makebox(0,0)[b]{\smash{0.42}}}%
+    \put(0.42566667,0.0585){\makebox(0,0)[b]{\smash{0.44}}}%
+    \put(0.53216667,0.0585){\makebox(0,0)[b]{\smash{0.46}}}%
+    \put(0.63866667,0.0585){\makebox(0,0)[b]{\smash{0.48}}}%
+    \put(0.74533333,0.0585){\makebox(0,0)[b]{\smash{0.5}}}%
+    \put(0.85183333,0.0585){\makebox(0,0)[b]{\smash{0.52}}}%
+    \put(0.95833333,0.0585){\makebox(0,0)[b]{\smash{0.54}}}%
+    \put(0.02933333,0.203){\rotatebox{90}{\makebox(0,0)[b]{\smash{Eigenvalues}}}}%
+    \put(0.53216667,0.0135){\makebox(0,0)[b]{\smash{F}}}%
+    \put(0.53216667,0.3475){\makebox(0,0)[b]{\smash{Modulus of eigenvalues of the Jacobian at fixed points vs. F at n=2.235}}}%
+    \put(0.1775,0.16733333){\rotatebox{90}{\makebox(0,0)[lb]{\smash{Grazing}}}}%
+    \put(0.854,0.2725){\makebox(0,0)[rb]{\smash{eig1}}}%
+    \put(0.854,0.2425){\makebox(0,0)[rb]{\smash{eig2}}}%
+    \put(0.854,0.2125){\makebox(0,0)[rb]{\smash{1}}}%
+  \end{picture}%
+\endgroup%

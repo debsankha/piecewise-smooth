@@ -246,7 +246,7 @@ x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\g
 \end{figure}
 \end{frame}
 
-\section{Vanishing Chaos}
+\section{Vanishing chaos}
 
 \begin{frame}
 Kundu and Banerjee \cite{banerjee-kundu-soft,banerjee-kundu-hard} investigated 
@@ -411,6 +411,157 @@ J(x,v)&=M(mT)
 \end{tiny}
 \end{frame}
 
+\section{Long transients}
+\begin{frame}
+\begin{figure}[!htb]
+\caption{Average transient lifetime Vs.  $F$ in the hard impacting oscillator}
+\label{fig-tvsf}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{avgtauvsf-wofit}
+\end{center}
+\end{figure}
+\end{frame}
+\begin{frame}
+\begin{figure}[!htp]
+\caption{Average transient lifetime Vs.  $\gamma$ in the hard impacting oscillator}
+\label{fig-tvsg}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{avgtauvsg-wofit}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+Grebogi et al.\cite{grebogi-transient} predicted:
+
+\begin{align}
+\label{form-transient-life}
+\tau\propto |\rho-\rho_c|^{-n}
+\end{align}
+
+\pause{}
+These long lived transients are \emph{artefacts 
+of the nonlinearity} due to the impacts. \\
+Without impacts,
+transient  decays as
+\begin{align}
+x_h(t)&=\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}
+\end{align}
+\pause{}
+
+In that case, $\tau$ would vary inversely with 
+$\gamma$ and would not depend on $F$ at all.\\
+
+\pause{}
+Therefore, we need to concentrate on the impacts.  
+\end{frame}
+
+\begin{frame}
+Consider an initial condition:
+\begin{align*}
+\vec{x_p}(0)&=(-A,0)\\
+\vec{x_h}(0)&=(x_0,v_0)
+\end{align*}
+
+Where $A=\frac{F/m}{\sqrt{(\omega_0^2-\omega^2)^2+\omega^2\gamma^2}}$
+
+\pause{}
+Starting from this point, the solution till the next collision is, as per \eqref{eq-shm-sol}:
+
+\begin{align*}
+x(t)&=-A\cos{\omega t}+\frac{e^{-\gamma t/2}}{\omega_g}\left\{(\omega_g\cos{\omega_gt}+\frac{\gamma}{2}\sin{\omega_gt})x_0 + (\sin{\omega_gt})v_0 \right\}\\
+&=-A\cos{\omega t}+e^{-\gamma t/2}B\cos{\left(\omega_g t+C\right)}\\
+C&=-tan^{-1}\frac{\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}}{x_0}\\
+B&=\sqrt{x_0^2+\left(\frac{\gamma}{2\omega_g}x_0+\frac{v_0}{\omega_g}\right)^2}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[!htb]
+\begin{center}
+\caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\approx \omega$}
+\label{fig-envelope-beats}
+\def\svgwidth{0.9\columnwidth}
+\includesvg{envc1}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[!htb]
+\begin{center}
+\caption{An envelope of \eqref{eq-shm-sol} for $\omega_g\gg\omega$}
+\def\svgwidth{0.9\columnwidth}
+\includesvg{envc2}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+Measuring how ``collision-prone'' the system is for a certain fixed parameter value:
+\begin{enumerate}
+\item Consider a large number of initial conditions $(x_0,v_0)\in \mathbb{R}^2$.  
+\pause{}
+\item Using the envelope, predict if there will be 
+any future collision or not if the system starts from that initial condition.  
+\pause{}
+\item Points for which there is no further collision should form a closed area 
+in the whole space $\mu_{xv}$  
+\pause{}
+\item See how this area shrinks as we approach grazing.  
+\end{enumerate}
+
+\pause{}
+\begin{align}
+\label{mu-analytical}
+\mu_{xv}&\approx2\omega_g\int_{-\chi}^{max\{\chi,\sigma\}} \sqrt{\chi^2-x^2}dx\\
+\chi&=(\sigma-A)e^{\gamma t_c/2}
+\end{align}
+
+We hope $\tau\propto\frac{1}{\mu_{xv}}$
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\begin{subfigure}{0.5\linewidth}
+\begin{center}
+\caption*{$\mu_{xv}$ vs.  $F$}
+\label{fig-scanf}
+\includegraphics[width=\columnwidth]{scanf}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{0.5\linewidth}
+\begin{center}
+\caption*{$\mu_{xv}$ vs.  $\gamma$}
+\label{fig-scang}
+\includegraphics[width=\columnwidth]{scang}
+\end{center}
+\end{subfigure}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{tiny}
+\begin{figure}
+\begin{subfigure}{0.5\linewidth}
+\begin{center}
+\caption*{$\mu_{xv}$ vs.  $F$}
+\def\svgwidth{\columnwidth}
+\includesvg{tauvsf}
+\label{fig-scanf}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{0.5\linewidth}
+\begin{center}
+\caption*{$\mu_{xv}$ vs.  $\gamma$}
+\def\svgwidth{\columnwidth}
+\includesvg{tauvsg}
+\label{fig-scang}
+\end{center}
+\end{subfigure}
+\end{figure}
+\end{tiny}
+\end{frame}
 
 
 

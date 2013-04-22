@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="600"
+   height="480"
+   viewBox="0 0 600 480"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="tauvsg.svg">
+  <metadata
+     id="metadata325">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs323" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="747"
+     id="namedview321"
+     showgrid="false"
+     inkscape:zoom="1.3906433"
+     inkscape:cx="284.78052"
+     inkscape:cy="107.66535"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g29" />
+  <title
+     id="title4">Gnuplot</title>
+  <desc
+     id="desc6">Produced by GNUPLOT 4.6 patchlevel 0 </desc>
+  <g
+     id="gnuplot_canvas">
+    <rect
+       x="0"
+       y="0"
+       width="600"
+       height="480"
+       fill="none"
+       id="rect9" />
+    <defs
+       id="defs11">
+      <circle
+         id="gpDot"
+         r="0.5"
+         stroke-width="0.5" />
+      <path
+         id="gpPt0"
+         stroke-width="0.222"
+         stroke="currentColor"
+         d="M-1,0 h2 M0,-1 v2" />
+      <path
+         id="gpPt1"
+         stroke-width="0.222"
+         stroke="currentColor"
+         d="M-1,-1 L1,1 M1,-1 L-1,1" />
+      <path
+         id="gpPt2"
+         stroke-width="0.222"
+         stroke="currentColor"
+         d="M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1" />
+      <rect
+         id="gpPt3"
+         stroke-width="0.222"
+         stroke="currentColor"
+         x="-1"
+         y="-1"
+         width="2"
+         height="2" />
+      <rect
+         id="gpPt4"
+         stroke-width="0.222"
+         stroke="currentColor"
+         fill="currentColor"
+         x="-1"
+         y="-1"
+         width="2"
+         height="2" />
+      <circle
+         id="gpPt5"
+         stroke-width="0.222"
+         stroke="currentColor"
+         cx="0"
+         cy="0"
+         r="1" />
+      <use
+         xlink:href="#gpPt5"
+         id="gpPt6"
+         fill="currentColor"
+         stroke="none" />
+      <path
+         id="gpPt7"
+         stroke-width="0.222"
+         stroke="currentColor"
+         d="M0,-1.33 L-1.33,0.67 L1.33,0.67 z" />
+      <use
+         xlink:href="#gpPt7"
+         id="gpPt8"
+         fill="currentColor"
+         stroke="none" />
+      <use
+         xlink:href="#gpPt7"
+         id="gpPt9"
+         stroke="currentColor"
+         transform="rotate(180)" />
+      <use
+         xlink:href="#gpPt9"
+         id="gpPt10"
+         fill="currentColor"
+         stroke="none" />
+      <use
+         xlink:href="#gpPt3"
+         id="gpPt11"
+         stroke="currentColor"
+         transform="rotate(45)" />
+      <use
+         xlink:href="#gpPt11"
+         id="gpPt12"
+         fill="currentColor"
+         stroke="none" />
+    </defs>
+    <g
+       style="fill:none; color:white; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter"
+       id="g27" />
+    <g
+       style="fill:none; color:black; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter"
+       id="g29">
+      <path
+         d="M80.2,422.4 L89.2,422.4 M575.0,422.4 L566.0,422.4  h0.01"
+         id="path31" />
+      <g
+         transform="translate(71.9,426.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g33">
+        <text
+           id="text35"> 0</text>
+      </g>
+      <path
+         d="M80.2,377.3 L89.2,377.3 M575.0,377.3 L566.0,377.3  h0.01"
+         id="path37" />
+      <g
+         transform="translate(71.9,381.8)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g39">
+        <text
+           id="text41"> 500</text>
+      </g>
+      <path
+         d="M80.2,332.2 L89.2,332.2 M575.0,332.2 L566.0,332.2  h0.01"
+         id="path43" />
+      <g
+         transform="translate(71.9,336.7)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g45">
+        <text
+           id="text47"> 1000</text>
+      </g>
+      <path
+         d="M80.2,287.2 L89.2,287.2 M575.0,287.2 L566.0,287.2  h0.01"
+         id="path49" />
+      <g
+         transform="translate(71.9,291.7)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g51">
+        <text
+           id="text53"> 1500</text>
+      </g>
+      <path
+         d="M80.2,242.1 L89.2,242.1 M575.0,242.1 L566.0,242.1  h0.01"
+         id="path55" />
+      <g
+         transform="translate(71.9,246.6)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g57">
+        <text
+           id="text59"> 2000</text>
+      </g>
+      <path
+         d="M80.2,197.0 L89.2,197.0 M575.0,197.0 L566.0,197.0  h0.01"
+         id="path61" />
+      <g
+         transform="translate(71.9,201.5)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g63">
+        <text
+           id="text65"> 2500</text>
+      </g>
+      <path
+         d="M80.2,151.9 L89.2,151.9 M575.0,151.9 L566.0,151.9  h0.01"
+         id="path67" />
+      <g
+         transform="translate(71.9,156.4)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g69">
+        <text
+           id="text71"> 3000</text>
+      </g>
+      <path
+         d="M80.2,106.9 L89.2,106.9 M575.0,106.9 L566.0,106.9  h0.01"
+         id="path73" />
+      <g
+         transform="translate(71.9,111.4)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g75">
+        <text
+           id="text77"> 3500</text>
+      </g>
+      <path
+         d="M80.2,61.8 L89.2,61.8 M575.0,61.8 L566.0,61.8  h0.01"
+         id="path79" />
+      <g
+         transform="translate(71.9,66.3)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g81">
+        <text
+           id="text83"> 4000</text>
+      </g>
+      <path
+         d="M80.2,16.7 L89.2,16.7 M575.0,16.7 L566.0,16.7  h0.01"
+         id="path85" />
+      <g
+         transform="translate(71.9,21.2)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+         id="g87">
+        <text
+           id="text89"> 4500</text>
+      </g>
+      <path
+         d="M80.2,422.4 L80.2,413.4 M80.2,16.7 L80.2,25.7  h0.01"
+         id="path91" />
+      <g
+         transform="translate(80.2,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g93">
+        <text
+           id="text95"> 0.08</text>
+      </g>
+      <path
+         d="M129.7,422.4 L129.7,413.4 M129.7,16.7 L129.7,25.7  h0.01"
+         id="path97" />
+      <g
+         transform="translate(129.7,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g99">
+        <text
+           id="text101"> 0.09</text>
+      </g>
+      <path
+         d="M179.2,422.4 L179.2,413.4 M179.2,16.7 L179.2,25.7  h0.01"
+         id="path103" />
+      <g
+         transform="translate(179.2,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g105">
+        <text
+           id="text107"> 0.1</text>
+      </g>
+      <path
+         d="M228.6,422.4 L228.6,413.4 M228.6,16.7 L228.6,25.7  h0.01"
+         id="path109" />
+      <g
+         transform="translate(228.6,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g111">
+        <text
+           id="text113"> 0.11</text>
+      </g>
+      <path
+         d="M278.1,422.4 L278.1,413.4 M278.1,16.7 L278.1,25.7  h0.01"
+         id="path115" />
+      <g
+         transform="translate(278.1,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g117">
+        <text
+           id="text119"> 0.12</text>
+      </g>
+      <path
+         d="M327.6,422.4 L327.6,413.4 M327.6,16.7 L327.6,25.7  h0.01"
+         id="path121" />
+      <g
+         transform="translate(327.6,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g123">
+        <text
+           id="text125"> 0.13</text>
+      </g>
+      <path
+         d="M377.1,422.4 L377.1,413.4 M377.1,16.7 L377.1,25.7  h0.01"
+         id="path127" />
+      <g
+         transform="translate(377.1,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g129">
+        <text
+           id="text131"> 0.14</text>
+      </g>
+      <path
+         d="M426.6,422.4 L426.6,413.4 M426.6,16.7 L426.6,25.7  h0.01"
+         id="path133" />
+      <g
+         transform="translate(426.6,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g135">
+        <text
+           id="text137"> 0.15</text>
+      </g>
+      <path
+         d="M476.0,422.4 L476.0,413.4 M476.0,16.7 L476.0,25.7  h0.01"
+         id="path139" />
+      <g
+         transform="translate(476.0,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g141">
+        <text
+           id="text143"> 0.16</text>
+      </g>
+      <path
+         d="M525.5,422.4 L525.5,413.4 M525.5,16.7 L525.5,25.7  h0.01"
+         id="path145" />
+      <g
+         transform="translate(525.5,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g147">
+        <text
+           id="text149"> 0.17</text>
+      </g>
+      <path
+         d="M575.0,422.4 L575.0,413.4 M575.0,16.7 L575.0,25.7  h0.01"
+         id="path151" />
+      <g
+         transform="translate(575.0,444.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g153">
+        <text
+           id="text155"> 0.18</text>
+      </g>
+      <path
+         d="M80.2,16.7 L80.2,422.4 L575.0,422.4 L575.0,16.7 L80.2,16.7 Z  h0.01"
+         id="path157" />
+      <g
+         transform="translate(17.6,219.6) rotate(270)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g159">
+        <text
+           id="text161">$\tau$</text>
+      </g>
+      <g
+         transform="translate(327.6,471.9)"
+         style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:middle"
+         id="g163">
+        <text
+           id="text165">$\gamma$</text>
+      </g>
+    </g>
+    <g
+       id="gnuplot_plot_1">
+      <title
+         id="title168">gnuplot_plot_1</title>
+      <g
+         style="fill:none; color:red; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter"
+         id="g170">
+        <g
+           transform="translate(507.9,39.2)"
+           style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+           id="g172">
+          <text
+             id="text174">&quot;./avgtvsg.dat&quot;</text>
+        </g>
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(575.0,408.9) scale(4.50)"
+           id="use176" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(565.1,408.9) scale(4.50)"
+           id="use178" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(555.2,408.9) scale(4.50)"
+           id="use180" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(545.3,408.6) scale(4.50)"
+           id="use182" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(265.7,397.7) scale(4.50)"
+           id="use184" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(255.9,396.5) scale(4.50)"
+           id="use186" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(246.0,392.9) scale(4.50)"
+           id="use188" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(236.1,392.6) scale(4.50)"
+           id="use190" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(234.8,393.1) scale(4.50)"
+           id="use192" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(224.9,393.1) scale(4.50)"
+           id="use194" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(215.0,390.9) scale(4.50)"
+           id="use196" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(205.1,388.3) scale(4.50)"
+           id="use198" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(203.9,387.9) scale(4.50)"
+           id="use200" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(194.0,378.6) scale(4.50)"
+           id="use202" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(184.1,379.7) scale(4.50)"
+           id="use204" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(174.2,368.0) scale(4.50)"
+           id="use206" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(173.0,366.2) scale(4.50)"
+           id="use208" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(163.1,362.5) scale(4.50)"
+           id="use210" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(153.2,340.3) scale(4.50)"
+           id="use212" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(143.3,353.2) scale(4.50)"
+           id="use214" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(142.0,283.7) scale(4.50)"
+           id="use216" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(132.2,194.6) scale(4.50)"
+           id="use218" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(122.3,397.2) scale(4.50)"
+           id="use220" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(112.4,393.3) scale(4.50)"
+           id="use222" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(111.1,400.8) scale(4.50)"
+           id="use224" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(101.2,398.9) scale(4.50)"
+           id="use226" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(91.3,401.3) scale(4.50)"
+           id="use228" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(81.4,401.0) scale(4.50)"
+           id="use230" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(544.1,408.5) scale(4.50)"
+           id="use232" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(534.2,408.0) scale(4.50)"
+           id="use234" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(524.3,407.9) scale(4.50)"
+           id="use236" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(514.4,407.8) scale(4.50)"
+           id="use238" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(513.2,407.7) scale(4.50)"
+           id="use240" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(503.3,407.5) scale(4.50)"
+           id="use242" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(493.4,407.3) scale(4.50)"
+           id="use244" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(483.5,407.1) scale(4.50)"
+           id="use246" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(482.2,406.8) scale(4.50)"
+           id="use248" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(472.3,406.5) scale(4.50)"
+           id="use250" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(462.4,406.6) scale(4.50)"
+           id="use252" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(452.5,406.8) scale(4.50)"
+           id="use254" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(451.3,406.7) scale(4.50)"
+           id="use256" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(441.4,406.7) scale(4.50)"
+           id="use258" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(431.5,406.3) scale(4.50)"
+           id="use260" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(421.6,405.8) scale(4.50)"
+           id="use262" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(420.4,406.0) scale(4.50)"
+           id="use264" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(410.5,405.3) scale(4.50)"
+           id="use266" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(400.6,404.8) scale(4.50)"
+           id="use268" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(390.7,404.0) scale(4.50)"
+           id="use270" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(389.4,404.1) scale(4.50)"
+           id="use272" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(379.6,403.1) scale(4.50)"
+           id="use274" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(369.7,402.2) scale(4.50)"
+           id="use276" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(359.8,402.6) scale(4.50)"
+           id="use278" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(358.5,402.4) scale(4.50)"
+           id="use280" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(348.6,403.2) scale(4.50)"
+           id="use282" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(338.7,403.5) scale(4.50)"
+           id="use284" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(328.8,402.7) scale(4.50)"
+           id="use286" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(327.6,402.8) scale(4.50)"
+           id="use288" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(317.7,403.2) scale(4.50)"
+           id="use290" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(307.8,401.8) scale(4.50)"
+           id="use292" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(297.9,400.8) scale(4.50)"
+           id="use294" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(296.7,401.2) scale(4.50)"
+           id="use296" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(286.8,399.6) scale(4.50)"
+           id="use298" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(276.9,398.8) scale(4.50)"
+           id="use300" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(267.0,398.1) scale(4.50)"
+           id="use302" />
+        <use
+           xlink:href="#gpPt0"
+           transform="translate(537.3,34.7) scale(4.50)"
+           id="use304" />
+      </g>
+    </g>
+    <g
+       id="gnuplot_plot_2">
+      <title
+         id="title307">gnuplot_plot_2</title>
+      <g
+         style="fill:none; color:green; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter"
+         id="g309">
+        <g
+           transform="translate(507.9,57.2)"
+           style="stroke:none; fill:black; font-family:Arial; font-size:12.00pt; text-anchor:end"
+           id="g311">
+          <text
+             id="text313">a*(x-b)**-6+c</text>
+        </g>
+        <path
+           d="M516.2,52.7 L558.4,52.7 M81.4,29.9 L86.4,81.2 L91.4,124.5 L96.4,161.3 L101.4,192.6 L106.4,219.3    L111.3,242.2 L116.3,262.0 L121.3,279.0 L126.3,293.7 L131.3,306.5 L136.3,317.6 L141.3,327.4 L146.2,335.9    L151.2,343.3 L156.2,349.9 L161.2,355.7 L166.2,360.8 L171.2,365.3 L176.2,369.3 L181.1,372.9 L186.1,376.1    L191.1,378.9 L196.1,381.4 L201.1,383.7 L206.1,385.8 L211.1,387.6 L216.0,389.2 L221.0,390.7 L226.0,392.1    L231.0,393.3 L236.0,394.4 L241.0,395.4 L246.0,396.3 L250.9,397.1 L255.9,397.9 L260.9,398.5 L265.9,399.2    L270.9,399.7 L275.9,400.2 L280.9,400.7 L285.8,401.2 L290.8,401.6 L295.8,401.9 L300.8,402.3 L305.8,402.6    L310.8,402.9 L315.8,403.1 L320.7,403.4 L325.7,403.6 L330.7,403.8 L335.7,404.0 L340.7,404.2 L345.7,404.4    L350.7,404.5 L355.6,404.7 L360.6,404.8 L365.6,404.9 L370.6,405.0 L375.6,405.1 L380.6,405.2 L385.6,405.3    L390.5,405.4 L395.5,405.5 L400.5,405.6 L405.5,405.6 L410.5,405.7 L415.5,405.8 L420.4,405.8 L425.4,405.9    L430.4,405.9 L435.4,406.0 L440.4,406.0 L445.4,406.1 L450.4,406.1 L455.3,406.1 L460.3,406.2 L465.3,406.2    L470.3,406.2 L475.3,406.3 L480.3,406.3 L485.3,406.3 L490.2,406.4 L495.2,406.4 L500.2,406.4 L505.2,406.4    L510.2,406.4 L515.2,406.5 L520.2,406.5 L525.1,406.5 L530.1,406.5 L535.1,406.5 L540.1,406.5 L545.1,406.6    L550.1,406.6 L555.1,406.6 L560.0,406.6 L565.0,406.6 L570.0,406.6 L575.0,406.6  h0.01"
+           id="path315" />
+      </g>
+    </g>
+    <g
+       style="fill:none; color:black; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter"
+       id="g317">
+      <path
+         d="M80.2,16.7 L80.2,422.4 L575.0,422.4 L575.0,16.7 L80.2,16.7 Z  h0.01"
+         id="path319" />
+    </g>
+  </g>
+</svg>

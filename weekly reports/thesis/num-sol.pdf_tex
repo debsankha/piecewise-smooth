@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.48.3.1, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'strobo.pdf' (pdf, eps, ps)
+%% Accompanies image file 'num-sol.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{504.11635742bp}%
+    \setlength{\unitlength}{480bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,25 +48,12 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.7617289)%
-    \put(0,0){\includegraphics[width=\unitlength]{strobo.pdf}}%
-    \put(0.10092908,0.08426626){\makebox(0,0)[rb]{\smash{-1.5}}}%
-    \put(0.10092908,0.21296671){\makebox(0,0)[rb]{\smash{-1}}}%
-    \put(0.10092908,0.34182585){\makebox(0,0)[rb]{\smash{-0.5}}}%
-    \put(0.10092908,0.47052629){\makebox(0,0)[rb]{\smash{0}}}%
-    \put(0.10092908,0.59938543){\makebox(0,0)[rb]{\smash{0.5}}}%
-    \put(0.10092908,0.72808588){\makebox(0,0)[rb]{\smash{1}}}%
-    \put(0.30691327,0.05570143){\makebox(0,0)[b]{\smash{T}}}%
-    \put(0.49988459,0.05570143){\makebox(0,0)[b]{\smash{2T}}}%
-    \put(0.69285591,0.05570143){\makebox(0,0)[b]{\smash{3T}}}%
-    \put(0.88582724,0.05570143){\makebox(0,0)[b]{\smash{4T}}}%
-    \put(0.02793006,0.41323793){\rotatebox{90}{\makebox(0,0)[b]{\smash{x}}}}%
-    \put(0.51321485,0.01285418){\makebox(0,0)[b]{\smash{t}}}%
-    \put(0.11437855,0.05570143){\makebox(0,0)[b]{\smash{0}}}%
-    \put(0.11662629,0.42745041){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_1$}}}%
-    \put(0.26139694,0.64014252){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_2$}}}%
-    \put(0.50788295,0.15916668){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_3$}}}%
-    \put(0.7093968,0.2331878){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_4$}}}%
-    \put(0.83145632,0.53874005){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x_5$}}}%
+  \begin{picture}(1,0.8)%
+    \put(0,0){\includegraphics[width=\unitlength]{num-sol.pdf}}%
+    \put(0.02933333,0.4115){\rotatebox{90}{\makebox(0,0)[b]{\smash{v}}}}%
+    \put(0.505,0.0135){\makebox(0,0)[b]{\smash{x}}}%
+    \put(0.09116667,0.41666667){\makebox(0,0)[lb]{\smash{$(0,x_0,v_0)$}}}%
+    \put(0.7885,0.63133333){\makebox(0,0)[lb]{\smash{$(\tau,x_c,v_c)$}}}%
+    \put(0.2805,0.41666667){\makebox(0,0)[lb]{\smash{$(T,x_0,v_0)$}}}%
   \end{picture}%
 \endgroup%
