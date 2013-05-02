@@ -1,4 +1,4 @@
-\documentclass{book}
+\documentclass[oneside]{book}
 \usepackage[english]{babel}
 %\usepackage{bookman}
 %\usepackage{kmath,kerkis}
@@ -52,10 +52,74 @@ citecolor=darkblue}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{claim}{Claim}[section]
 \newtheorem{theorem}{Theorem}[section]
+
+\newcommand*{\titleGP}{\begingroup % Create the command for including the title page in the document
+\centering % Center all text
+\vspace*{\baselineskip} % White space at the top of the page
+
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[\baselineskip] % Thin horizontal line
+
+{\LARGE Investigating Piecewise Smooth Hybrid Systems}\\[0.2\baselineskip] % Title
+
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+
+\scshape % Small caps
+5th Year Integrated MS Dissertation
+\\[\baselineskip] % Tagline(s) or further description
+%New Zealand,  2011--2012\par % Location and year
+
+\vspace*{2\baselineskip} % Whitespace between location/year and editors
+
+By \\[\baselineskip]
+{\Large Debsankha Manik\par} % Editor list
+\vspace*{\baselineskip} 
+{\itshape Under the Supervision of\par} % Editor affiliation
+\vspace*{\baselineskip} 
+{\Large Prof. Soumitro Banerjee}
+
+\vfill % Whitespace between editor names and publisher logo
+
+
+\def\svgwidth{0.4\columnwidth}
+\includesvg{iiser-logo}\\
+\vspace*{\baselineskip} % Whitespace between location/year and editors
+{\large Department of Physical Sciences\par}
+{\large Indian Institute of Science Education and Research, Kolkata\par}
+{\large Mohanpur, Nadia}
+
+{\scshape May 2013} \\[0.3\baselineskip] % Year published
+\endgroup}
+
+
 \begin{document}
-\title{Investigating Impacting Dynamical Systems}
-\author{Debsankha Manik}
-\maketitle
+\pagestyle{empty} 
+\titleGP\newpage
+
+\begin{center}
+{\LARGE {\bf Certificate}}
+\end{center}
+
+This is to certify that the thesis entitled ``Investigating Piecewise Smooth 
+Hybrid Systems" being submitted to the Indian Institute of Science Education 
+and Research $-$ Kolkata in partial fulfillment of the requirements for the 
+award of the Integrated BS $-$ MS degree, embodies the research work done by 
+\emph{Debsankha Manik} under my supervision at IISER $-$ Kolkata. The work 
+presented here is original and has not been submitted so far, in part or full, 
+for any degree or diploma of any other university/institute. \\
+\vspace{0.3in} \\
+
+
+\begin{center}
+\makebox[4in]{\hrulefill} \\
+Prof. Soumitro Banerjee\\
+Professor, \\
+Department of Physical Sciences, \\
+Indian Institute of Science Education and Research, Kolkata\\
+\end{center}
+\thispagestyle{plain}
+
 
 \frontmatter
 \chapter{Preface}
@@ -84,6 +148,39 @@ lifetimes were orders of magnitude larger than what they should have been
 if the impacts did not occur.   We have attempted to explain this 
 behaviour by defining a quantity which represents how likely is a system to 
 undergo impacts for a set of parameter values.  
+
+\vspace{4em}
+\hfill Debsankha manik
+
+\hfill IISER Kolkata, India
+
+\hfill May 2013
+
+\newpage
+
+\begin{center}
+{\LARGE {\bf Acknowledgement}}
+\end{center}
+\vspace{0.3in}
+I would like to thank my mentor, Prof. Soumitro Banerjee for the support and direction that I have received from him. I would also like to thank my colleagues Abhranil Das and Dibyajyoti Maity, with whom I could share my ideas during our weekly meetings and who never hesitated to raise important questions and give various suggestions. \\
+
+
+I would like to thank the computer section of IISER Kolkata for maintaining the excellent Meghnad cluster, where most of the simulations vital for the success of this project were run. \\
+
+
+I also thank Prof. Prasanta Panigrahi and Prof. Bhavtosh Bansal for agreeing to be examiners for my thesis presentation.\\
+\vspace{4em}
+
+\hfill Debsankha manik
+
+\hfill IISER Kolkata, India
+
+\hfill May 2013
+
+
+\thispagestyle{plain}
+
+
 
 \tableofcontents
 
@@ -1403,23 +1500,16 @@ y_{n+1}=y_n+J(y)^{-1}G(y)
 \]
 
 
-\begin{figure}[!htp]
-\caption{Modulus of  eigenvalues of the fixed points vs. the amplitude of the driving 
-force for $n=2.235$}
-\label{fig-eig-F-crude}
+\begin{tiny}
+\begin{figure}
+\caption{Stability of $P1C1$ orbits near grazing}
+\label{fig-int-nonint}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{eigvals}
+\def\svgwidth{\columnwidth}
+\includesvg{num-eigs}
 \end{center}
 \end{figure}
-
-\begin{figure}[!htp]
-\caption{Modulus of eigenvalues of the fixed points vs. the amplitude of the driving 
-force for $n=2$}
-\label{fig-eig-F-n2-crude}
-\begin{center}
-\includegraphics[width=0.7\columnwidth]{eigvals_n2}
-\end{center}
-\end{figure}
+\end{tiny}
 
 The solution will provide us with a $P2C1$ orbit.  It should be noted that 
 this method will give \emph{stable and unstable} orbits, unlike normal 
@@ -1428,8 +1518,9 @@ get all existing orbits, one must run the program with many initial conditions
 to ensure that the Newton-Raphson iteration scheme `finds' all the solutions.  
 
 
-In Fig \ref{fig-eig-F-crude}, we plot the results of such numerical 
-calculation in the case of $n=2.235$.  We can easily see that when $F$ is 
+In Fig \ref{fig-int-nonint} , we plot the results of such numerical 
+calculation in the case of $n=2.235$ and $n=2$.  We can easily see that in the 
+first case ($n\notin\mathbb{N}$), when $F$ is 
 quite larger than the grazing condition (Which is $F=0.3903$, to be exact), all the 
 eigenvalues are $<1$ in magnitude.  But as the $F$ value 
 approaches grazing , the absolute value of one or more eigenvalues of the 
@@ -1439,8 +1530,7 @@ this signifies the transition of the fixed point from attractor to repeller
 of only one  eigenvalue turn $>1$). 
 
 
-However, in Fig \ref{fig-eig-F-n2-crude}, we plot the results of such numerical 
-calculation in the case of $n=2$. As opposed to the previous case, no 
+However, in the case of $n=2$, as opposed to the previous case, no 
 transition of the fixed point from an attractor to saddle/repeller takes place 
 here: the eigenvalue stays put $<1$ throughout the range of parameter values. 
 This again, provides a justification for the vanishing of chaos as predicted 
